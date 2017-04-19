@@ -1,7 +1,7 @@
 {
   "name": "room-booker",
   "version": "1.0.0",
-  "description": "[![Stories in Ready](https://badge.waffle.io/gazaskygeeks/room-booker.png?label=ready&title=Ready)](https://waffle.io/gazaskygeeks/room-booker) # room-booker GSG Project",
+  "description": "room-booker GSG Project",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/backEnd/index.js",
@@ -18,7 +18,7 @@
     "booker",
     "checkout"
   ],
-  "author": "4member",
+  "author": "4members",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gazaskygeeks/room-booker/issues"
