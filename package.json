@@ -43,9 +43,8 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "express": "^4.15.2",
-    "google-auth-library": "^0.10.0",
-    "googleapis": "^19.0.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "redux": "^3.6.0"
   }
 }
