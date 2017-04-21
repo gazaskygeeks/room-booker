@@ -1,4 +1,5 @@
 import React from 'react';
+import {validEmail} from './actions.js';
 
 class LoginButton extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class LoginButton extends React.Component {
     this.renderGoogleLoginButton = this.renderGoogleLoginButton.bind(this);
   }
   onSignIn(googleUser) {
-    console.log(googleUser);
+    validEmail(googleUser.getBasicProfile());
   }
   renderGoogleLoginButton() {
     gapi.signin2.render('my-signin2', {
