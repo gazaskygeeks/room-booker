@@ -1,6 +1,5 @@
 import React from 'react';
 import reactDOM from 'react-dom';
+import GoogleLogin from './googlelogin.jsx';
 
-const App = () => <div>Hi</div>;
-
-reactDOM.render(<App/>, document.getElementById('myApp'));
+reactDOM.render(<GoogleLogin />, document.getElementById('myApp'));
