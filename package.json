@@ -8,6 +8,7 @@
     "test": "jest",
     "watch:client": "webpack --watch",
     "watch:server": "nodemon -x 'npm start'",
+    "build": "webpack",
     "lint": "eslint --ext .jsx --ext .js ."
   },
   "repository": {
@@ -27,8 +28,6 @@
   "homepage": "https://github.com/gazaskygeeks/room-booker#readme",
   "devDependencies": {
     "babel-jest": "^19.0.0",
-    "babel-loader": "^6.4.1",
-    "babel-preset-react": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
@@ -37,7 +36,6 @@
     "jest": "^19.0.2",
     "nodemon": "^1.11.0",
     "pre-commit": "^1.2.2",
-    "prop-types": "^15.5.8",
     "supertest": "^3.0.0"
   },
   "dependencies": {
@@ -48,6 +46,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "pg": "^6.1.5",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "redux": "^3.6.0"
