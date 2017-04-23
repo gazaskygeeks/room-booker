@@ -3,13 +3,14 @@
   padding: 0;
 }
 body{
-  background-color: #ECF0F1;
+  background-color: #92E1C0;
 }
 #main{
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+
 }
 
 #my-signin2{
