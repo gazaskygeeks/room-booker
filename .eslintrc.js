@@ -1,4 +1,4 @@
-{
+module.exports = {
 
     "env": {
 
@@ -38,5 +38,6 @@
         ]
     },
     "globals": {
+      gapi: true
     }
 }
