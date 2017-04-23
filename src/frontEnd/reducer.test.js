@@ -14,7 +14,7 @@ test('AUTHORIZED_USER should authorize new user if he has @gazaskygeeks or @merc
   expect(currentUserReducer([], expectedAction)).toEqual(GoogleData);
 });
 
-test('AUTHORIZED_USER should not authorize new user if he has not @gazaskygeeks or @mercycorps domain  ',()=>{
+test('UNAUTHORIZED_USER should not authorize new user if he has not @gazaskygeeks or @mercycorps domain  ',()=>{
   const expectedAction = {
     type: 'UNAUTHORIZED_USER',
     payload: GoogleData
@@ -52,7 +52,7 @@ test('booking should book by week ',()=>{
     }
   ];
   const expectedAction = {
-    type: 'FETCH_DAY_BOOKING',
+    type: 'FETCH_WEEK_BOOKING',
     payload: weekBooking
   };
   expect(booking([], expectedAction)).toEqual(weekBooking);
