@@ -1,5 +1,6 @@
 import React from 'react';
-import {validEmail} from '../actions.js';
+import {setToRightKeys} from '../utils/utils.js';
+import {insertUser} from '../actions.js';
 
 class LoginButton extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class LoginButton extends React.Component {
     this.renderGoogleLoginButton = this.renderGoogleLoginButton.bind(this);
   }
   onSignIn(googleUser) {
-    validEmail(googleUser.getBasicProfile());
+    const data = setToRightKeys(googleUser.getBasicProfile(),googleUser.Zi.access_token);
+    insertUser(data);
   }
   renderGoogleLoginButton() {
     gapi.signin2.render('my-signin2', {
@@ -23,14 +25,11 @@ class LoginButton extends React.Component {
   componentDidMount() {
     window.addEventListener('google-loaded', this.renderGoogleLoginButton);
   }
-
   render() {
-    let displayText = "Sign in with Google";
     return (
       <div id = "my-signin2" ></div>
     );
   }
-
 }
 
 module.exports = LoginButton;

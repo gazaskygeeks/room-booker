@@ -1,5 +1,5 @@
 import {createStore,combineReducers} from 'redux';
-import {currentUserReducer,bookings,currentUserReservations} from './reducers.js';
+import {currentUserReducer,booking,currentUserReservations} from './reducers.js';
 
 
 const allReducers = combineReducers({
