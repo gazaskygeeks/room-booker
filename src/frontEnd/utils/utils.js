@@ -1,12 +1,11 @@
 
-const setToRightKeys = (data)=>{
-  const rightKeys = {
-    id: data.Eea,
-    icon:data.Paa,
-    email:data.U3,
-    firstName:data.ofa,
-    lastName:data.wea
-  };
-  return rightKeys;
-}
-export {setToRightKeys}
+const setToRightKeys = ({Eea, Paa,U3,ofa,wea},access_token)=>
+  ({
+    'id': Eea,
+    'icon': Paa,
+    'email': U3,
+    'firstName': ofa,
+    'lastName': wea,
+    'accessToken':access_token
+  });
+export {setToRightKeys};
