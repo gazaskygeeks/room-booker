@@ -4,7 +4,7 @@ module.exports = (client,cb) => {
     function(callback) {
       client.query(`CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        email UNIQUE varchar(255),
+        email varchar(255),
         privileges Integer,
         first_name varchar(50),
         last_name varchar(50)
