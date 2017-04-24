@@ -15,7 +15,7 @@ class LoginButton extends React.Component {
   renderGoogleLoginButton() {
     gapi.signin2.render('my-signin2', {
       'scope': 'https://www.googleapis.com/auth/plus.login',
-      'width': 200,
+      'width': 240,
       'height': 50,
       'longtitle': true,
       'theme': 'light',
@@ -32,4 +32,4 @@ class LoginButton extends React.Component {
   }
 }
 
-module.exports = LoginButton;
+export default LoginButton;

@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-
 const port = process.env.PORT || 8080;
 const config = require('../database/config.js');
 const cl = require('../database/client.js');
