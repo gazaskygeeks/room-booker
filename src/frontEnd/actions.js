@@ -8,9 +8,10 @@ const validEmail=(data)=>{
   store.dispatch({type: 'UNAUTHORIZED_USER', payload: null});
 };
 const insertUser = (data) => {
-  fetch('/insertuser', {
+  fetch('/user', {
     method: 'POST',
     body: JSON.stringify(data),
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
       'content-type': 'application/json'
