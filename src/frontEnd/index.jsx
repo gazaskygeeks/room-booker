@@ -1,17 +1,19 @@
 import React from 'react';
 import reactDOM from 'react-dom';
-import GoogleLogin from './components/GoogleLogin.jsx';
-import Home from './components/Home.jsx';
 import {container} from 'react-bootstrap';
+import store from './store.js';
+import {Provider} from 'react-redux';
+import App from './components/containers/App.js';
 
-const App = () => {
+const Main = () => {
   return (
-    <container id="main">
-      <Home/>
-      <GoogleLogin/>
-    </container>
+        <Provider store={store} >
+            <container id="main">
+                <App/>
+            </container>
+        </Provider>
   );
 };
 
 reactDOM.render(
-  <App/>, document.getElementById('myApp'));
+    <Main/>, document.getElementById('myApp'));
