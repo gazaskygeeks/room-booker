@@ -1,4 +1,4 @@
-const currentUserReducer = (state=[], action) => {
+const currentUserReducer = (state={}, action) => {
   switch (action.type) {
   case 'AUTHORIZED_USER':
     return action.payload;
@@ -30,4 +30,12 @@ const currentUserReservations =(state = [] , action)=> {
   }
 };
 
-export {currentUserReducer,booking,currentUserReservations};
+const currentView = (state='HOME',action)=>{
+  switch(action.type){
+  case 'CHANGE_CURRENT_VIEW':
+    return action.payload;
+  default:return state;
+  }
+};
+
+export {currentUserReducer,booking,currentUserReservations,currentView};
