@@ -29,4 +29,13 @@ const insertUser = (data) => {
       });
     });
 };
-export {validEmail,insertUser};
+
+const ChangeCurrentView = (currentView)=>(
+  {
+    type:'CHANGE_CURRENT_VIEW',
+    payload:currentView
+  }
+  );
+
+
+export {validEmail,insertUser,ChangeCurrentView};
