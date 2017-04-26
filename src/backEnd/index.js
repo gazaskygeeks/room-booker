@@ -7,10 +7,12 @@ const client = cl(config);
 const routes = require('./routes.js');
 const runMigrations = require('../database/createTable.js');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
+app.use(cookieParser('secret'));
 app.use(routes);
 runMigrations(client,(err)=>{
   if(err)throw err;

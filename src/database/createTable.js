@@ -4,7 +4,7 @@ module.exports = (client,cb) => {
     function(callback) {
       client.query(`CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        email varchar(255),
+        email varchar(255) UNIQUE,
         privileges Integer,
         first_name varchar(50),
         last_name varchar(50)
@@ -14,7 +14,11 @@ module.exports = (client,cb) => {
       client.query(`CREATE TABLE IF NOT EXISTS bookings (
         id SERIAL PRIMARY KEY,
         event_id varchar(255),
-        users_id integer REFERENCES users(id)
+        users_id integer REFERENCES users(id),
+        summary varchar(255),
+        location varchar(255),
+        start_date timeStamp,
+        end_date timeStamp
       )`,callback);
     }
   ],cb);

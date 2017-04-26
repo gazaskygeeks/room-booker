@@ -10,6 +10,7 @@ class LoginButton extends React.Component {
   }
   onSignIn(googleUser) {
     const data = setToRightKeys(googleUser.getBasicProfile(),googleUser.Zi.access_token);
+    //console.log(data);
     insertUser(data);
   }
   renderGoogleLoginButton() {
