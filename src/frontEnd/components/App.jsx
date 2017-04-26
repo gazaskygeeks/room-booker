@@ -5,8 +5,8 @@ import {PropTypes} from 'prop-types';
 
 const App = ({currentView}) => {
   switch (currentView) {
-  case 'ROOM_AVAILABITLITY':
-    return <RoomAvailbility/>;
+  case 'ROOM_1':
+    return <RoomAvailbility room={currentView}/>;
   default:
     return <ChangeView/>;
   }
