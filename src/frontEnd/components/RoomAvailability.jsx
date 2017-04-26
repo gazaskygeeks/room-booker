@@ -1,20 +1,18 @@
 import React from 'react';
-// import {PropTypes} from 'prop-types';
+import DayView from './DayView.jsx';
+import {PropTypes} from 'prop-types';
 
 
-
-
-const RoomAvailbility = () => {
+const RoomAvailbility = ({room}) => {
   return(
     <div>
       <h1>Room 1</h1>
-      <div>
-      </div>
+      <DayView room={room}/>
     </div>
   );
 };
-// RoomAvailbility.propTypes = {
-//   room : PropTypes.string
-// };
+RoomAvailbility.propTypes = {
+  room : PropTypes.string
+};
 
 export default RoomAvailbility;
