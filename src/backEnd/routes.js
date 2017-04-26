@@ -1,3 +1,11 @@
-const routes = require('express').Router();
+const router = require('express').Router();
+const userControllers = require('./controllers/usersControllers.js');
 
-module.exports = routes;
+router
+.get('/test', (req, res) => {
+  console.log(req.signedCookies['remember']);//eslint-disable-line no-console
+  res.send('ok');
+})
+.post('/user', userControllers.checkAuthThenInsert);
+
+module.exports = router;

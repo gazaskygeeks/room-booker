@@ -1,0 +1,50 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-color: #92E1C0;
+}
+#main{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+
+}
+
+#my-signin2{
+  margin-top: 30px;
+}
+
+a.list-group-item:hover{
+  background-color: #4183D7;
+  color: white;
+}
+
+h1{
+  font-size: 72px;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.react-bs-table .table-bordered>thead>tr>th:first-child{
+  width: 10%;
+}
+.react-bs-table .table-bordered>tbody>tr>td:first-child{
+  width: 10%;
+}
+
+#align-center{
+  text-align: center;
+}
+.tr-odd{
+  background-color: #4183D7;
+}
+.tr-even{
+  background-color: none;
+}
