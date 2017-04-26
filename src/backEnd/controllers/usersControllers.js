@@ -11,14 +11,14 @@ module.exports = {
               usersdb.insertUser(req.body,()=>{
                 usersdb.selectUser(req.body.email,(err,result)=>{
                   res.cookie('remember',result.rows[0].id, { expires: new Date(Date.now() + 900000000000),signed: true });
-                  res.end(res.rows);
+                  res.end(JSON.stringify(result.rows));
                   if(err) res.status(404).end();
                   res.status(200).end();
                 });
               });
             }
             else {
-              res.end(result.rows);
+              res.end(JSON.stringify(result.rows));
             }
           });
         } else {
@@ -27,5 +27,6 @@ module.exports = {
           });
         }
       });
+
   }
 };
