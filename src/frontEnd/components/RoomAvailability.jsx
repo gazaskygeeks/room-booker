@@ -7,7 +7,7 @@ import React from 'react';
 const RoomAvailbility = () => {
   return(
     <div>
-      <h1>ggg</h1>
+      <h1>Room 1</h1>
       <div>
       </div>
     </div>
