@@ -44,7 +44,38 @@ afterAll(done => {
 });
 
 
+test('create tables', done => {
+  createTables(err => {
+    if (err) throw err;
+    done();
+  });
+});
+
+const userLoginFixture = {
+  accessToken: 'ya29.Glw1BFPcruLIrQlbGQxBECmlvUP3WtrcBa4SeF3EfiUGa9FC4hAnBLFxDym-9A4_1fp1To79Qz79CGAzTWQBQ2uY1hryzZLDhIajo_6aIvfIlR0WoM8CcSzOkbYSHA',
+  firstName: 'Mhmd',
+  lastName: 'Shorafa'
 };
 
-
+nock('https://www.googleapis.com')
+.get('/oauth2/v3/tokeninfo')
+.query({access_token: userLoginFixture.accessToken})
+.reply(400, {
+  'error_description': 'Invalid Value'
 });
+
+test('bad token', () => {
+  return request(app)
+    .post('/user')
+    .send(userLoginFixture)
+    .set('Accept', 'application/json')
+    .set('content-type', 'application/json')
+    .then( res => {
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('bad email');
+    })
+    .catch(console.log);
+});
+
+// test('good token, bad email', () => {
+// test('good token, good email', () => {
