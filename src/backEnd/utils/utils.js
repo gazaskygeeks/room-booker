@@ -12,7 +12,6 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  console.log('email',email);
   return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
 };
 
