@@ -3,13 +3,6 @@ const express = require('express');
 const utils= require('./utils/utils.js');
 const bodyParser = require('body-parser');
 const app = express();
-jest.mock('../database/client.js');
-const client = require('../database/client.js');
-client.mockImplementation(() => ({}));
-
-
-
-
 const routes = require('./routes.js');
 const data = {
   accessToken: 'ya29.Glw1BFPcruLIrQlbGQxBECmlvUP3WtrcBa4SeF3EfiUGa9FC4hAnBLFxDym-9A4_1fp1To79Qz79CGAzTWQBQ2uY1hryzZLDhIajo_6aIvfIlR0WoM8CcSzOkbYSHA',

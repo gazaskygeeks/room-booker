@@ -18,12 +18,12 @@ module.exports = {
               });
             }
             else {
-              res.end(JSON.stringify(result.rows));
+              res.json(result.rows);
             }
           });
         } else {
-          res.json({
-            'status': 'bad email'
+          res.status(400).json({
+            'error': 'bad email'
           });
         }
       });

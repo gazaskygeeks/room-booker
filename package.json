@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./src/backEnd/index.js",
     "test": "jest",
+    "test:integration": "jest src/database/database.test.js",
     "test:watch": "jest --watch",
     "watch:client": "webpack --watch",
     "watch:server": "nodemon -x 'npm start'",
@@ -46,6 +47,7 @@
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "nock": "^9.0.13",
     "node-fetch": "^1.6.3",
     "pg": "^6.1.5",
     "prop-types": "^15.5.8",
