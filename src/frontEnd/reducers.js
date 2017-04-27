@@ -10,10 +10,12 @@ const currentUserReducer = (state={}, action) => {
 };
 
 
-const booking = (state = [] , action)=> {
+const bookings = (state = [] , action)=> {
   switch (action.type) {
   case 'FETCH_DAY_BOOKING':
-    return action.payload;
+    return action.payload.filter((event) => {
+      if(event.created == '2017-04-26T10:29:10.000Z') return action.payload;
+    });
   case 'FETCH_WEEK_BOOKING':
     return action.payload;
   default:return state;
@@ -38,4 +40,4 @@ const currentView = (state='HOME',action)=>{
   }
 };
 
-export {currentUserReducer,booking,currentUserReservations,currentView};
+export {currentUserReducer,bookings,currentUserReservations,currentView};
