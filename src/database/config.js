@@ -5,7 +5,7 @@ const dbConfig = {
     password: '123456'
   },
   test: {
-    database: 'roombooking',
+    database: 'test_room_booking',
     user: 'postgres',
     password: '123456'
   },
