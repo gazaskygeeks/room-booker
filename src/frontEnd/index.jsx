@@ -7,12 +7,29 @@ import App from './components/containers/App.js';
 const Main = () => {
   return (
     <Provider store={store}>
-      <div className="container" id="main">
-        <div className="header">
-          <h1>Room Booking</h1>
-          <h3>Gaza Sky Geeks</h3>
+      <div>
+        <div>
+          <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <a className="navbar-brand" href="#">
+                  Gaza Sky Geeks
+                </a>
+              </div>
+              <div className="collapse navbar-collapse">
+                <p className="navbar-text">
+                  <a href="/" className="navbar-link">Room Booking</a>
+                </p>
+                <p className="navbar-text navbar-right">Signed in as
+                  <a href="#" className="navbar-link">Mark Otto</a>
+                </p>
+              </div>
+            </div>
+          </nav>
         </div>
-        <App/>
+        <div className="container">
+          <App/>
+        </div>
       </div>
     </Provider>
   );
