@@ -8,9 +8,9 @@ router
   res.send('ok');
 })
 .post('/user', userControllers.checkAuthThenInsert)
-.get('/events',bookingsControllers.getAllEvents)
-.get('/addevent',bookingsControllers.createEvent)
-.post('/deleteevent',bookingsControllers.deleteEvent)
+.get('/event',bookingsControllers.getAllEvents)
+.post('/event',bookingsControllers.createEvent)
+.delete('/event',bookingsControllers.deleteEvent)
 ;
 
 module.exports = router;
