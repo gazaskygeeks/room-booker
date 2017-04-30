@@ -1,23 +1,18 @@
-import React from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
-
-function trClassFormat(row, rowIndex) {
-  // row is the current row data
-  return rowIndex % 2 === 0
-    ? 'tr-odd'
-    : 'tr-even'; // return class name.
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import events from '../events.js';
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+class DayView extends Component {
+  render() {
+    return (
+      <div>
+        <BigCalendar selectable events={events} views={['week','day']}  defaultView='day' scrollToTime={new Date(1970, 1, 1, 6)} defaultDate={new Date(2015, 3, 12)} onSelectEvent={event => alert(event.title)} onSelectSlot={(slotInfo) => alert(`selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` + `\nend: ${slotInfo.end.toLocaleString()}`)}/>
+      </div>
+    );
+  }
 }
-
-const DayView = ({events}) => {
-
-  return (
-    <BootstrapTable data={events} trClassName={trClassFormat}>
-      <TableHeaderColumn dataField='created' dataAlign="center" isKey>Hours</TableHeaderColumn>
-      <TableHeaderColumn dataField='description' dataAlign="center">30/2/2017</TableHeaderColumn>
-    </BootstrapTable>
-  );
-};
 
 DayView.propTypes = {
   events: PropTypes.arr
