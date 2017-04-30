@@ -20,7 +20,6 @@ const dbConfigAll = {
   }
 };
 const dbConfig = dbConfigAll[process.env.NODE_ENV] || dbConfigAll.development;
-console.log(dbConfig);
 module.exports = {
   DB_CONFIG: dbConfig,
   API_GOOGLE: {
