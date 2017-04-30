@@ -1,11 +1,10 @@
 const pg = require('pg');
 const nock = require('nock');
 const async = require('async');
-const dbConfig = require('./config.js');
+const dbConfig = require('../../config.js').DB_CONFIG;
 const setupClient = new pg.Client(Object.assign({}, dbConfig, {
   database: 'postgres'
 }));
-
 const createTables = require('./createTable.js');
 
 const request = require('supertest');
@@ -20,6 +19,7 @@ app.use(cookieParser('secret'));
 app.use(routes);
 
 beforeAll(done => {
+
   async.series([
     cb =>
       setupClient.connect(cb),
@@ -68,8 +68,8 @@ test('bad token', () => {
     .set('Accept', 'application/json')
     .set('content-type', 'application/json')
     .then(res => {
-      expect(res.status).toBe(400);
-      expect(res.body.error).toBe('bad email');
+      expect(res.status).toBe(401);
+      expect(res.body.error).toBe('unauthorized');
     })
     .catch();
 });
@@ -80,7 +80,7 @@ nock('https://www.googleapis.com')
     access_token: userLoginFixture.accessToken
   })
   .reply(200, {
-    'email': 'mhmdrshorafa@gmail.com'
+    'email': 'mhmdrshorafa@hotmail.com'
   });
 test('good token, bad email', () => {
   return request(app)
@@ -89,7 +89,8 @@ test('good token, bad email', () => {
     .set('Accept', 'application/json')
     .set('content-type', 'application/json')
     .then(res => {
-      expect(res.status).toBe(407);
+      expect(res.status).toBe(401);
+      expect(res.body.error).toBe('unauthorized');
     }).catch();
 });
 

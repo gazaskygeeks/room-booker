@@ -19,6 +19,7 @@ module.exports = (cb) => {
       (callback) => {
         client.query(`CREATE TABLE IF NOT EXISTS bookings (
           id SERIAL PRIMARY KEY,
+          calendar_id varchar(255),
           event_id varchar(255),
           users_id integer REFERENCES users(id),
           summary varchar(255),
