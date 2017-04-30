@@ -12,7 +12,7 @@ class MonthView extends Component {
   }
   render() {
     return (
-      <div {...this.props}>
+      <div className="calendar-container">
         <h1>
           Room 1
         </h1>
