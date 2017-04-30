@@ -6,41 +6,23 @@ class MyReservation extends Component {
   }
   render() {
     return (
-      <div className="row justify-content-md-center">
-        <div className="card col-sm-4">
-          <div className="card-block">
-            <h4 className="card-title">Meeting title</h4>
-            <p className="card-text">Location: Meeting Room 1</p>
-            <p className="card-text">Date: 22/2/2222</p>
-            <p className="card-text">Time: From: 12:00 PM To 3:00 PM</p>
-            <a href="#" className="btn btn-danger">Cancel</a>
+      <div className="row">
+        <div className="col-md-4">
+          <div className="card">
+            <div className="card-block">
+              <h3 className="card-title">Special title treatment</h3>
+              <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" className="btn btn-danger">Cancel</a>
+            </div>
           </div>
         </div>
-        <div className="card col-sm-4">
-          <div className="card-block">
-            <h4 className="card-title">Meeting title</h4>
-            <p className="card-text">Location: Meeting Room 1</p>
-            <p className="card-text">Date: 22/2/2222</p>
-            <p className="card-text">Time: From: 12:00 PM To 3:00 PM</p>
-            <a href="#" className="btn btn-danger">Cancel</a>
-          </div>
-        </div>
-        <div className="card col-sm-4">
-          <div className="card-block">
-            <h4 className="card-title">Meeting title</h4>
-            <p className="card-text">Location: Meeting Room 1</p>
-            <p className="card-text">Date: 22/2/2222</p>
-            <p className="card-text">Time: From: 12:00 PM To 3:00 PM</p>
-            <a href="#" className="btn btn-danger">Cancel</a>
-          </div>
-        </div>
-        <div className="card col-sm-4">
-          <div className="card-block">
-            <h4 className="card-title">Meeting title</h4>
-            <p className="card-text">Location: Meeting Room 1</p>
-            <p className="card-text">Date: 22/2/2222</p>
-            <p className="card-text">Time: From: 12:00 PM To 3:00 PM</p>
-            <a href="#" className="btn btn-danger">Cancel</a>
+        <div className="col-md-4">
+          <div className="card">
+            <div className="card-block">
+              <h3 className="card-title">Special title treatment</h3>
+              <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" className="btn btn-danger">Cancel</a>
+            </div>
           </div>
         </div>
       </div>
