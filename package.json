@@ -9,7 +9,7 @@
     "test:integration": "jest src/database/database.test.js",
     "test:watch": "jest --watch",
     "watch:client": "webpack --watch",
-    "watch:server": "nodemon -x 'npm start'",
+    "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
     "build": "webpack",
     "lint": "eslint --ext .jsx --ext .js ."
   },
@@ -31,6 +31,7 @@
   "devDependencies": {
     "babel-loader": "^6.4.1",
     "babel-jest": "^19.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
