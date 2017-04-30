@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8080;
+const  {PORT}= require('../../config.js');
 const routes = require('./routes.js');
 const createTables = require('../database/createTable.js');
 const bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ app.use(cookieParser('secret'));
 app.use(routes);
 createTables( err => {
   if (err) throw err;
-  app.listen(port, () => {
-    console.log('Our app is running on http://localhost:' + port); // eslint-disable-line no-console
+  app.listen(PORT, () => {
+    console.log('Our app is running on http://localhost:' + PORT); // eslint-disable-line no-console
   });
 });
