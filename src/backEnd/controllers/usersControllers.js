@@ -2,7 +2,7 @@ const utils = require('../utils/utils.js');
 const usersdb = require('../../database/user.js');
 
 const respondWithUser = (res, user) => {
-  res.cookie('remember', user.id, {
+  res.cookie('isLogged', user.id, {
     expires: new Date(Date.now() + 900000000000),
     signed: true
   });
@@ -32,5 +32,14 @@ module.exports = {
           });
         }
       });
+  },
+  getProfile: (req,res)=>{
+    if(req.signedCookies['isLogged']){
+      const userId = req.signedCookies['isLogged'];
+      res.status(200).end();
+    }
+    else {
+      res.status(401).end();
+    }
   }
 };

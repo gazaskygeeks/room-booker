@@ -1,15 +1,14 @@
 const router = require('express').Router();
 const userControllers = require('./controllers/usersControllers.js');
 const bookingsControllers = require('./controllers/bookingsController.js');
+const roomControllers = require('./controllers/roomsControllers.js');
 
 router
-.get('/test', (req, res) => {
-  console.log(req.signedCookies['remember']);//eslint-disable-line no-console
-  res.send('ok');
-})
+.get('/getprofile', userControllers.getProfile )
+.get('/rooms',roomControllers)
 .post('/user', userControllers.checkAuthThenInsert)
 .get('/event',bookingsControllers.getAllEvents)
-.post('/event',bookingsControllers.createEvent)
+.get('/events',bookingsControllers.createEvent)
 .delete('/event',bookingsControllers.deleteEvent)
 ;
 
