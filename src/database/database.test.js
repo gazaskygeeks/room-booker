@@ -1,11 +1,10 @@
 const pg = require('pg');
 const nock = require('nock');
 const async = require('async');
-const dbConfig = require('./config.js');
+const dbConfig = require('../../config.js').DB_CONFIG;
 const setupClient = new pg.Client(Object.assign({}, dbConfig, {
   database: 'postgres'
 }));
-
 const createTables = require('./createTable.js');
 
 const request = require('supertest');
@@ -20,6 +19,7 @@ app.use(cookieParser('secret'));
 app.use(routes);
 
 beforeAll(done => {
+
   async.series([
     cb =>
       setupClient.connect(cb),

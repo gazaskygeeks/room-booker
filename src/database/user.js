@@ -29,7 +29,6 @@ const selectUser = (email,cb)=>{
       return err
         ? cb(err)
         : cb(null, response);
-
     });
   });
 };
