@@ -15,7 +15,7 @@ module.exports = {
     utils.checkAuth(accessToken)
       .then(email => {
         if (email && utils.validEmail(email)) {
-          usersdb.selectUser(email, (err, user) => {
+          usersdb.selectUserByEmail(email, (err, user) => {
             if (err) throw err;
             if (user) {
               respondWithUser(res, user);
@@ -36,7 +36,13 @@ module.exports = {
   getProfile: (req,res)=>{
     if(req.signedCookies['isLogged']){
       const userId = req.signedCookies['isLogged'];
-      res.status(200).end();
+      usersdb.selectUserById(userId, (err, user) => {
+        if (err) throw err;
+        else {
+          res.status(200).json(user);
+        }
+      });
+
     }
     else {
       res.status(401).end();

@@ -15,7 +15,7 @@ const insertUser = (email, firstName, lastName, cb)=>{
   });
 };
 
-const selectUser = (email,cb)=>{
+const selectUserByEmail = (email,cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
@@ -32,7 +32,27 @@ const selectUser = (email,cb)=>{
     });
   });
 };
+
+const selectUserById = (id,cb)=>{
+  pool.connect((poolError,client, done) => {
+    if(poolError){
+      return cb(poolError);
+    }
+    const sqlQuery = 'SELECT id,email,first_name,last_name from users WHERE id=$1';
+    pool.query(sqlQuery,[id],(err,result)=>{
+      const response = result.rowCount > 0
+        ? result.rows[0]
+        : null;
+      done(err);
+      return err
+        ? cb(err)
+        : cb(null, response);
+    });
+  });
+};
+
 module.exports = {
   insertUser:insertUser,
-  selectUser:selectUser
+  selectUserByEmail:selectUserByEmail,
+  selectUserById:selectUserById
 };
