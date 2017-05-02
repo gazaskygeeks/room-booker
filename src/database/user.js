@@ -20,7 +20,7 @@ const selectUserByEmail = (email,cb)=>{
     if(poolError){
       return cb(poolError);
     }
-    const sqlQuery = 'SELECT id,email,first_name,last_name from users WHERE email=$1';
+    const sqlQuery = 'SELECT * from users WHERE email=$1';
     pool.query(sqlQuery,[email],(err,result)=>{
       const response = result.rowCount > 0
         ? result.rows[0]
