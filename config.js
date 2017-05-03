@@ -13,11 +13,7 @@ const dbConfigAll = {
     user: process.env.TEST_USER,
     password: process.env.TEST_PASSWORD
   },
-  production: {
-    database: process.env.PROD_DATABASE,
-    user: process.env.PROD_USER,
-    password: process.env.PROD_PASSWORD
-  }
+  production: process.env.DATABASE_URL
 };
 const dbConfig = dbConfigAll[process.env.NODE_ENV] || dbConfigAll.development;
 module.exports = {
