@@ -1,6 +1,7 @@
 if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'){
   require('dotenv').config();
 }
+const url = require('url');
 
 const dbConfig = (env) => {
   if(env ==='development'){
@@ -17,14 +18,20 @@ const dbConfig = (env) => {
       password: process.env.TEST_PASSWORD
     };
   } else if(env === 'production'){
-    return{
-      database: process.env.PROD_DATABASE,
-      user: process.env.PROD_USER,
-      password: process.env.PROD_PASSWORD,
-      host: process.env.PROD_HOST,
-      port: 5432,
+    const {auth,hostname,port,pathname} = url.parse(process.env.DATABASE_URL);
+    const authe = auth.split(':');
+    const config = {
+      user: authe[0],
+      password: authe[1],
+      host: hostname,
+      port: port,
+      database: pathname.split('/')[1],
       ssl: true
     };
+    return config;
+  }
+  else{
+    throw 'err connecting database';
   }
 };
 
