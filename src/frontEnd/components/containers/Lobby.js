@@ -5,7 +5,7 @@ import {ChangeCurrentView,getDayEvents}from '../../actions.js';
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView) );},
-    getEvent: ()=>{dispatch(getDayEvents());}
+    getEvent: ()=>{getDayEvents();}
   };
 };
 
