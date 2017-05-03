@@ -47,5 +47,10 @@ module.exports = {
     else {
       res.status(401).end();
     }
+  },
+  logout: (req,res)=>{
+    res.clearCookie('userID');
+    res.end();
   }
+
 };
