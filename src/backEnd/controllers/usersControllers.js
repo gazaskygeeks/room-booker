@@ -50,7 +50,6 @@ module.exports = {
   },
   logout: (req,res)=>{
     res.clearCookie('userID');
-    console.log("logged out");
     res.end();
   }
 
