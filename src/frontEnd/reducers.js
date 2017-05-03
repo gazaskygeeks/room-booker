@@ -1,9 +1,7 @@
 const currentUserReducer = (state={}, action) => {
   switch (action.type) {
-  case 'AUTHORIZED_USER':
+  case 'UPDATE_PROFILE':
     return action.payload;
-  case 'UNAUTHORIZED_USER':
-    return null;
   default:
     return state;
   }
@@ -32,12 +30,14 @@ const currentUserReservations =(state = [] , action)=> {
   }
 };
 
-const currentView = (state='HOME',action)=>{
+const currentView = (state='SPINNER',action)=>{
   switch(action.type){
   case 'CHANGE_CURRENT_VIEW':
     return action.payload;
-  default:return state;
+  default:
+    return state;
   }
 };
+
 
 export {currentUserReducer,bookings,currentUserReservations,currentView};

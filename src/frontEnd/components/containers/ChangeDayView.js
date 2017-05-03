@@ -8,12 +8,6 @@ const mapStateToProps = (state)=>{
   });
 };
 
-// const mapDispatchToProps=(dispatch)=>{
-//   return{
-//     onload:(room)=>{dispatch(getDayEvents(room));}
-//   };
-// };
-
 const ChangeDayView= connect(mapStateToProps,null)(RoomAvailbility);
 
 export default ChangeDayView;
