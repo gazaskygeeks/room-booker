@@ -4,7 +4,6 @@ import RoomAvailbility from '../RoomAvailability.jsx';
 const mapStateToProps = (state)=>{
   return({
     bookings: state.bookings,
-    room:state.currentView
   });
 };
 
