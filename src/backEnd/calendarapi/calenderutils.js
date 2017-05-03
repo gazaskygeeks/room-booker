@@ -1,21 +1,22 @@
 const google = require('googleapis');
 const calendar = google.calendar('v3');
-const deleteEvent =(auth,data,cb)=> {
+const {getEvent} = require('../calendarapi/event.js');
 
+const deleteEvent =(auth,calendarId,eventId,cb)=> {
   calendar.events.delete({
     auth: auth,
-    calendarId: data.calendarId,
-    eventId: data.eventId,
+    calendarId: calendarId,
+    eventId: eventId,
     sendNotifications: true
   }, (err, response)=> {
     cb(err,response);
   });
 };
 
-const listEvents = (auth,data,cb)=> {
+const listEvents = (auth,calenderId,cb)=> {
   calendar.events.list({
     auth: auth,
-    calendarId: data.calendarId,
+    calendarId: calenderId,
     timeMin: (new Date()).toISOString(),
     maxResults: 10,
     singleEvents: true,
@@ -37,14 +38,13 @@ const listEvents = (auth,data,cb)=> {
   });
 };
 
-const createEvent = (auth,calendarID,event,cb)=> {
-
+const createEvent = (auth,calendarID,cb)=> {
   calendar.events.insert({
     auth: auth,
     calendarId: calendarID,
-    resource: event,
-  }, (err, event)=> {
-    cb(err,event);
+    resource: getEvent,
+  }, (err, res)=> {
+    cb(err,res);
   });
 };
 

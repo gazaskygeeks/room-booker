@@ -23,12 +23,8 @@ const dbConfig = dbConfigAll[process.env.NODE_ENV] || dbConfigAll.development;
 module.exports = {
   DB_CONFIG: dbConfig,
   API_GOOGLE: {
-    CLIENT_SECRET: process.env.CLIENT_SECRET,
-    CLIENT_ID: process.env.CLIENT_ID,
-    REDIRECT_URIS: process.env.REDIRECT_URIS,
-    HOME: process.env.HOME,
-    HOME_PATH: process.env.HOMEPATH,
-    USER_PROFILE: process.env.USERPROFILE
+    PRIVATE_KEY:process.env.PRIVATE_KEY,
+    CLIENT_EMAIL:process.env.CLIENT_EMAIL
   },
   PORT: process.env.PORT || 8080
 };

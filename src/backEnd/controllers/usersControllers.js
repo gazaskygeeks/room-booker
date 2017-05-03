@@ -2,7 +2,7 @@ const utils = require('../utils/utils.js');
 const usersdb = require('../../database/user.js');
 
 const respondWithUser = (res, user) => {
-  res.cookie('remember', user.id, {
+  res.cookie('userID', user.id, {
     expires: new Date(Date.now() + 900000000000),
     signed: true
   });
@@ -15,7 +15,7 @@ module.exports = {
     utils.checkAuth(accessToken)
       .then(email => {
         if (email && utils.validEmail(email)) {
-          usersdb.selectUser(email, (err, user) => {
+          usersdb.selectUserByEmail(email, (err, user) => {
             if (err) throw err;
             if (user) {
               respondWithUser(res, user);
@@ -32,5 +32,20 @@ module.exports = {
           });
         }
       });
+  },
+  getProfile: (req,res)=>{
+    if(req.signedCookies['userID']){
+      const userId = req.signedCookies['userID'];
+      usersdb.selectUserById(userId, (err, user) => {
+        if (err) throw err;
+        else {
+          res.status(200).json(user);
+        }
+      });
+
+    }
+    else {
+      res.status(401).end();
+    }
   }
 };
