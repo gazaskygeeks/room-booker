@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const userControllers = require('./controllers/usersControllers.js');
 const bookingsControllers = require('./controllers/bookingsController.js');
-const roomsControllers = require('./controllers/roomsControllers.js')
+const roomsControllers = require('./controllers/roomsControllers.js');
 
 router
 .get('/profile', userControllers.getProfile )
