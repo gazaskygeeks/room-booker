@@ -1,5 +1,5 @@
 const calenderOperations = require('../calendarapi/calenderutils.js');
-const {insertEvent} = require('../../database/reservation.js');
+const {insertEvent,selectUserEvents} = require('../../database/reservation.js');
 const {setEvent} = require('../calendarapi/event.js');
 const jwt = require('../calendarapi/jwtauth.js');
 const dbuser = require('../../database/user.js');
@@ -31,6 +31,16 @@ module.exports = {
       });
     });
 
+  },
+  UserEvent: (req,res)=>{
+    selectUserEvents(req.body.email,(err,userEvent)=>{
+      if (err)
+        res.status(401).end();
+      else {
+        res.status(200).json(userEvent).end();
+      }
+
+    });
   },
   createEvent: (req, res) => {
     setEvent(dataInfo);

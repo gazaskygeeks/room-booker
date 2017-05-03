@@ -6,20 +6,12 @@ const GoogleData = [
   }
 ];
 
-test('AUTHORIZED_USER should authorize new user if he has @gazaskygeeks or @mercycorps domain  ',()=>{
+test('UPDATE_PROFILE should authorize new user if he has @gazaskygeeks or @mercycorps domain  ',()=>{
   const expectedAction = {
-    type: 'AUTHORIZED_USER',
+    type: 'UPDATE_PROFILE',
     payload: GoogleData
   };
   expect(currentUserReducer([], expectedAction)).toEqual(GoogleData);
-});
-
-test('UNAUTHORIZED_USER should not authorize new user if he has not @gazaskygeeks or @mercycorps domain  ',()=>{
-  const expectedAction = {
-    type: 'UNAUTHORIZED_USER',
-    payload: GoogleData
-  };
-  expect(currentUserReducer([], expectedAction)).toEqual(null);
 });
 
 test('booking should book by day ',()=>{

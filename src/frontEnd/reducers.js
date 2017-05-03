@@ -1,9 +1,7 @@
 const currentUserReducer = (state={}, action) => {
   switch (action.type) {
-  case 'AUTHORIZED_USER':
+  case 'UPDATE_PROFILE':
     return action.payload;
-  case 'UNAUTHORIZED_USER':
-    return null;
   default:
     return state;
   }
@@ -13,9 +11,7 @@ const currentUserReducer = (state={}, action) => {
 const bookings = (state = [] , action)=> {
   switch (action.type) {
   case 'FETCH_DAY_BOOKING':
-    return action.payload.filter((event) => {
-      if(event.created == '2017-04-26T10:29:10.000Z') return action.payload;
-    });
+    return action.payload;
   case 'FETCH_WEEK_BOOKING':
     return action.payload;
   default:return state;
@@ -32,12 +28,14 @@ const currentUserReservations =(state = [] , action)=> {
   }
 };
 
-const currentView = (state='HOME',action)=>{
+const currentView = (state='SPINNER',action)=>{
   switch(action.type){
   case 'CHANGE_CURRENT_VIEW':
     return action.payload;
-  default:return state;
+  default:
+    return state;
   }
 };
+
 
 export {currentUserReducer,bookings,currentUserReservations,currentView};

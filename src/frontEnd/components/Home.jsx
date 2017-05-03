@@ -1,28 +1,36 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
-import GoogleLogin from './GoogleLogin.jsx';
+import Rooms from './Rooms.jsx';
+import MyReservation from './MyReservation.jsx';
 
-const Home = (props) => (
-  <div>
-    <div className="row">
-      <h1 className="text-center">Room Booking</h1>
-      <div className="list-group col-md-6 col-md-offset-3">
-        <button type="button" onClick={() => {props.onClick('ROOM_1');}} className="list-group-item">Meeting Room 1</button>
-        <button type="button" className="list-group-item">Meeting Room 2</button>
-        <button type="button" className="list-group-item">Meeting Room 3</button>
-        <button type="button" className="list-group-item">Meeting Room 4</button>
+const HOME =({onClick}) => {
+  return (
+    <div>
+      <div className="container">
+        <ul className="nav nav-tabs">
+          <li className="active">
+            <a href="#home">Rooms</a>
+          </li>
+          <li>
+            <a href="#menu1">My Reservation</a>
+          </li>
+        </ul>
+
+        <div className="tab-content">
+          <div id="home" className="tab-pane fade in active">
+            <Rooms onClick={onClick} />
+          </div>
+          <div id="menu1" className="tab-pane fade">
+            <MyReservation />
+          </div>
+        </div>
       </div>
     </div>
-    <div className="row">
-      <div className="col-md-4 col-md-offset-4">
-        <GoogleLogin/>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
-Home.propTypes = {
+HOME.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-export default Home;
+export default HOME;
