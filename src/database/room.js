@@ -15,7 +15,7 @@ const addRoom =(data,cb)=>{
   });
 };
 
-const selectRoom= (roomName,cb)=>{
+const selectRoom= (cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
@@ -23,7 +23,7 @@ const selectRoom= (roomName,cb)=>{
     const sqlQuery = 'SELECT * from rooms';
     client.query(sqlQuery,(err,result)=>{
       const response = result.rowCount > 0
-        ? result.rows[0]
+        ? result.rows
         : null;
       done(err);
       return err
