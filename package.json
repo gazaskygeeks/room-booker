@@ -11,7 +11,8 @@
     "watch:client": "webpack --watch",
     "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
     "build": "webpack",
-    "lint": "eslint --ext .jsx --ext .js ."
+    "lint": "eslint --ext .jsx --ext .js .",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,6 @@
   },
   "homepage": "https://github.com/gazaskygeeks/room-booker#readme",
   "devDependencies": {
-    "babel-loader": "^6.4.1",
     "babel-jest": "^19.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
@@ -43,6 +43,8 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "async": "^2.4.0",
+    "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.1",
@@ -58,7 +60,8 @@
     "react-big-calendar": "^0.13.0",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "webpack": "^2.4.1"
   },
   "precommit": [
     "test"
