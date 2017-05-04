@@ -24,7 +24,7 @@ const Lobby = (props) => (
     </div>
     <div className="row">
       <div className="col-md-4 col-md-offset-4">
-        <GoogleLogin/>
+        <GoogleLogin onClick={props.onClick} login={props.logIn}/>
       </div>
     </div>
   </div>
@@ -32,7 +32,9 @@ const Lobby = (props) => (
 
 Lobby.propTypes = {
   onClick: PropTypes.func.isRequired,
-  getEvent: PropTypes.func.isRequired
+  getEvent: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired,
+  userInfo:PropTypes.object
 };
 
 export default Lobby;
