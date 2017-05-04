@@ -13,7 +13,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
 const routes = require('../backEnd/routes.js');
-
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
 app.use(routes);
@@ -24,9 +23,9 @@ beforeAll(done => {
     cb =>
       setupClient.connect(cb),
     cb =>
-      setupClient.query('DROP DATABASE IF EXISTS test_room_booking', cb),
+      setupClient.query(`DROP DATABASE IF EXISTS ${dbConfig.database}`, cb),
     cb =>
-      setupClient.query('CREATE DATABASE test_room_booking', cb),
+      setupClient.query(`CREATE DATABASE ${dbConfig.database}`, cb),
     cb =>
       createTables(cb)
   ],
@@ -38,7 +37,7 @@ beforeAll(done => {
 
 afterAll(done => {
   require('./pool.js').end();
-  setupClient.query('DROP DATABASE test_room_booking', err => {
+  setupClient.query(`DROP DATABASE ${dbConfig.database}`, err => {
     if (err) throw err;
     setupClient.end();
     done();
