@@ -4,7 +4,9 @@ const setEvent = (data) => {
   event.description = data.description;
   event.start.dateTime = data.dateStart;
   event.end.dateTime = data.dateEnd;
+  event.attendees[0].email = data.email;
 };
+
 const event = {
   'summary': null,
   'location': 'gazaskygeeks',
