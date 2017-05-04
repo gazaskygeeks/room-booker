@@ -37,6 +37,7 @@ module.exports = {
     if(req.signedCookies['userID']){
       const userId = req.signedCookies['userID'];
       usersdb.selectUserById(userId, (err, user) => {
+        console.log('err',err);
         if (err) throw err;
         else {
           res.status(200).json(user);
