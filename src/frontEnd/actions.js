@@ -68,7 +68,6 @@ const isLoggedIn = () => {
     method: 'GET',
     credentials: 'include'
   }).then(res => {
-    console.log(res);
     if (res.status === 200) {
       store.dispatch({
         type: 'CHANGE_CURRENT_VIEW',
