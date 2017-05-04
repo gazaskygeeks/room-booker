@@ -40,13 +40,14 @@ const selectUserById = (id,cb)=>{
     }
     const sqlQuery = 'SELECT id,email,first_name,last_name from users WHERE id=$1';
     pool.query(sqlQuery,[id],(err,result)=>{
+      done(err);
+      if(err){
+        return cb(err);
+      }
       const response = result.rowCount > 0
         ? result.rows[0]
         : null;
-      done(err);
-      return err
-        ? cb(err)
-        : cb(null, response);
+      return cb(null, response);
     });
   });
 };
