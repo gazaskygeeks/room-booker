@@ -7,10 +7,10 @@
     "start": "node ./src/backEnd/index.js",
     "test": "jest",
     "test:integration": "jest src/database/database.test.js",
-    "test:watch": "jest --watch",
-    "watch:client": "webpack --watch",
+    "test:watch": "jest --watch ",
+    "watch:client": "webpack --watch --hot",
     "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
-    "build": "webpack",
+    "build": "webpack --config=webpack.min.config.js",
     "lint": "eslint --ext .jsx --ext .js .",
     "heroku-postbuild": "npm run build"
   },

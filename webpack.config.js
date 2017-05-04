@@ -1,4 +1,5 @@
-module.exports = {
+const webpack = require('webpack');
+const common= {
   entry: {
     bundle: ['./src/frontEnd/index.jsx']
   },
@@ -12,7 +13,6 @@ module.exports = {
       test: /\.jsx$/,
       loader: 'babel-loader',
       exclude: /node_modules/
-
     },
     {
       test: /\.css$/,
@@ -20,5 +20,32 @@ module.exports = {
     }
     ]
   },
+};
+const development = {
   devtool:'inline-source-map'
 };
+const production = {
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        screw_ie8: true
+      },
+      comments: false
+    })
+  ]};
+module.exports =
+  Object.assign(
+    common,
+     process.env.NODE_ENV === 'production'
+      ? production
+      : development
+  );
