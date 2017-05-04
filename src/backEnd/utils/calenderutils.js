@@ -47,9 +47,23 @@ const createEvent = (auth,data,calendarID,cb)=> {
     cb(err,res);
   });
 };
+const {PRIVATE_KEY,CLIENT_EMAIL} = require('../../../config.js').API_GOOGLE;
+const auth = (cb) => {
+  var jwtClient = new google.auth.JWT(CLIENT_EMAIL,
+    null,
+    PRIVATE_KEY,
+    ['https://www.googleapis.com/auth/calendar'],
+    null
+  );
+  jwtClient.authorize((err)=>{
+    cb(err,jwtClient);
+  });
+};
+
 
 module.exports = {
   deleteEvent: deleteEvent,
   listEvents: listEvents,
-  createEvent: createEvent
+  createEvent: createEvent,
+  auth: auth
 };

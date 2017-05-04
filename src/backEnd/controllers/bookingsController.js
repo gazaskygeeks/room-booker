@@ -1,12 +1,12 @@
-const calenderOperations = require('../calendarapi/calenderutils.js');
+const calenderOperations = require('../utils/calenderutils.js');
 const {insertEvent,selectUserEvents} = require('../../database/reservation.js');
-const jwt = require('../calendarapi/jwtauth.js');
+const {auth} = require('../utils/calenderutils.js');
 const dbuser = require('../../database/user.js');
 const calenderId = '1m5k20i4kuknts1fr7v7qql8v0@group.calendar.google.com';
 
 module.exports = {
   getAllEvents: (req, res) => {
-    jwt((err, jwtAuth) => {
+    auth((err, jwtAuth) => {
       if (err) {
         res.status(300).json({
           'err': 'error in autherization'
@@ -32,7 +32,7 @@ module.exports = {
     });
   },
   createEvent: (req, res) => {
-    jwt((err, jwtAuth) => {
+    auth((err, jwtAuth) => {
       if (err) {
         res.status(300).json({
           'err': 'error in autherization'
@@ -56,7 +56,7 @@ module.exports = {
   deleteEvent: (req, res) => {
     const calenderId = req.body;
     const eventId = req.body;
-    jwt((err, jwtAuth) => {
+    auth((err, jwtAuth) => {
 
       if (err) {
         res.status(300).json({
