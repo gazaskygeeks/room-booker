@@ -1,19 +1,21 @@
 import React from 'react';
 import reactDOM from 'react-dom';
-import {container} from 'react-bootstrap';
 import store from './store.js';
 import {Provider} from 'react-redux';
 import App from './components/containers/App.js';
-
+import Navbar from './components/Navbar.jsx';
 const Main = () => {
   return (
-        <Provider store={store} >
-            <container id="main">
-                <App/>
-            </container>
-        </Provider>
+    <Provider store={store}>
+      <div>
+        <Navbar />
+        <div className="container">
+          <App/>
+        </div>
+      </div>
+    </Provider>
   );
 };
 
 reactDOM.render(
-    <Main/>, document.getElementById('myApp'));
+  <Main/>, document.getElementById('myApp'));

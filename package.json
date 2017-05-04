@@ -6,11 +6,13 @@
   "scripts": {
     "start": "node ./src/backEnd/index.js",
     "test": "jest",
+    "test:integration": "jest src/database/database.test.js",
     "test:watch": "jest --watch",
     "watch:client": "webpack --watch",
-    "watch:server": "nodemon -x 'npm start'",
+    "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
     "build": "webpack",
-    "lint": "eslint --ext .jsx --ext .js ."
+    "lint": "eslint --ext .jsx --ext .js .",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -28,8 +30,8 @@
   },
   "homepage": "https://github.com/gazaskygeeks/room-booker#readme",
   "devDependencies": {
-    "babel-loader": "^6.4.1",
     "babel-jest": "^19.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
@@ -41,20 +43,29 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "async": "^2.4.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "googleapis": "^19.0.0",
+    "moment": "^2.18.1",
+    "nock": "^9.0.13",
     "node-fetch": "^1.6.3",
     "pg": "^6.1.5",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
-    "react-bootstrap": "^0.30.10",
-    "react-bootstrap-table": "^3.2.1",
+    "react-big-calendar": "^0.13.0",
+    "react-bootstrap": "^0.31.0",
+    "react-bootstrap-modal": "^3.0.1",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "url": "^0.11.0",
+    "webpack": "^2.4.1"
   },
   "precommit": [
     "test"

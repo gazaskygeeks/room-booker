@@ -1,44 +1,23 @@
-import React, {Component} from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-
-const products = [
-  {
-    id: 1,
-    name: 'Product1',
-    time: 1
-  }, {
-    id: 2,
-    name: 'Product2',
-    time: 1
-  }, {
-    id: 3,
-    name: 'Product3',
-    time: 1
-  }, {
-    id: 4,
-    name: '',
-    time: 1
-  }, {
-    id: 5,
-    name: '',
-    time: 1
-
-  }
-];
-
-function trClassFormat(row, rowIndex) {
-  // row is the current row data
-  return rowIndex % 2 === 0 ? 'tr-odd' : 'tr-even';  // return class name.
-}
-
-const DayView = ({room})=>(
-
-      <BootstrapTable data={products} className="col-md-5" trClassName={ trClassFormat }>
-        <TableHeaderColumn dataField='id' isKey>Hour</TableHeaderColumn>
-        <TableHeaderColumn dataField='name' dataAlign="center">30/2/2017</TableHeaderColumn>
-      </BootstrapTable>
-    );
+import React from 'react';
+import {PropTypes} from 'prop-types';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
 
 
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+
+const DayView = ({events})=>{
+  return(
+      <div className="calendar-container">
+        <BigCalendar selectable events={events} views={['week','day']}  defaultView='day' scrollToTime={new Date(1970, 1, 1, 6)} defaultDate={new Date(2015, 3, 12)} onSelectEvent={event => alert(event.title)} onSelectSlot={(slotInfo) => alert(`selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` + `\nend: ${slotInfo.end.toLocaleString()}`)}/>
+      </div>
+  );
+};
+
+
+
+DayView.propTypes = {
+  events: PropTypes.array
+};
 
 export default DayView;

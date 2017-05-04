@@ -1,11 +1,11 @@
 import {createStore,combineReducers} from 'redux';
-import {currentUserReducer,booking,currentUserReservations,currentView} from './reducers.js';
+import {currentUserReducer,bookings,currentUserReservations,currentView} from './reducers.js';
 
 
 const allReducers = combineReducers(
   {
     userInfo: currentUserReducer,
-    booking:booking,
+    bookings:bookings,
     userReservations:currentUserReservations,
     currentView:currentView
   }

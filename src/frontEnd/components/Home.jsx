@@ -1,26 +1,22 @@
 import React from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import {PropTypes} from 'prop-types';
-import GoogleLogin from './GoogleLogin.jsx';
+import {Tabs, Tab} from 'react-bootstrap';
+import Rooms from './Rooms.jsx';
+import MyReservation from './MyReservation.jsx';
 
-
-
-const Home = (props) =>(
-      <div>
-        <h1>Room Booking</h1>
-        <h3>Gaza Sky Geeks</h3>
-        <ListGroup>
-          <ListGroupItem href="#meetingRoom1" onClick={()=>{props.onClick('ROOM_1');}}>Meeting Room 1</ListGroupItem>
-          <ListGroupItem href="#meetingRoom2">Meeting Room 2</ListGroupItem>
-          <ListGroupItem href="#meetingRoom3">Meeting Room 3</ListGroupItem>
-          <ListGroupItem href="#meetingRoom4">Meeting Room 4</ListGroupItem>
-        </ListGroup>
-        <GoogleLogin/>
-      </div>
-    );
-
-Home.propTypes = {
-  onClick : PropTypes.func.isRequired
+const HOME = ({onClick}) => {
+  return (
+    <div>
+      <Tabs defaultActiveKey={1}>
+        <Tab eventKey={1} title="Rooms"><Rooms onClick={onClick}/></Tab>
+        <Tab eventKey={2} title="My Reservation"><MyReservation/></Tab>
+      </Tabs>
+    </div>
+  );
 };
 
-export default Home;
+HOME.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
+
+export default HOME;

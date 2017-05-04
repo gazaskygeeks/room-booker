@@ -1,4 +1,4 @@
-import {currentUserReducer,booking,currentUserReservations} from './reducers.js';
+import {currentUserReducer,bookings,currentUserReservations} from './reducers.js';
 
 const GoogleData = [
   {
@@ -6,37 +6,29 @@ const GoogleData = [
   }
 ];
 
-test('AUTHORIZED_USER should authorize new user if he has @gazaskygeeks or @mercycorps domain  ',()=>{
+test('UPDATE_PROFILE should authorize new user if he has @gazaskygeeks or @mercycorps domain  ',()=>{
   const expectedAction = {
-    type: 'AUTHORIZED_USER',
+    type: 'UPDATE_PROFILE',
     payload: GoogleData
   };
   expect(currentUserReducer([], expectedAction)).toEqual(GoogleData);
 });
 
-test('UNAUTHORIZED_USER should not authorize new user if he has not @gazaskygeeks or @mercycorps domain  ',()=>{
-  const expectedAction = {
-    type: 'UNAUTHORIZED_USER',
-    payload: GoogleData
-  };
-  expect(currentUserReducer([], expectedAction)).toEqual(null);
-});
-
 test('booking should book by day ',()=>{
   const dayBooking = [
     {
-      summary: 'meeting room 1',
-      location: 'GSG',
-      start_time:'12:00 pm',
-      end_time: '5:00 pm'
+      summary: '800 Howard St., San Francisco, CA 94103',
+      location: '800 Howard St., San Francisco, CA 94103',
+      created:'2017-04-26T10:29:10.000Z'
 
     }
   ];
   const expected = {
     type: 'FETCH_DAY_BOOKING',
-    payload: dayBooking
+    payload: dayBooking,
+    date:'2017-04-26T10:29:10.000Z'
   };
-  expect(booking([], expected)).toEqual(dayBooking);
+  expect(bookings([], expected)).toEqual(dayBooking);
 });
 
 test('booking should book by week ',()=>{
@@ -55,7 +47,7 @@ test('booking should book by week ',()=>{
     type: 'FETCH_WEEK_BOOKING',
     payload: weekBooking
   };
-  expect(booking([], expectedAction)).toEqual(weekBooking);
+  expect(bookings([], expectedAction)).toEqual(weekBooking);
 });
 
 const userReservations = {

@@ -1,50 +1,70 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
-body{
-  background-color: #92E1C0;
-}
-#main{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
 
+body {
+  background-color: rgba(239, 239, 239, 0.4);
 }
 
-#my-signin2{
-  margin-top: 30px;
-}
-
-a.list-group-item:hover{
-  background-color: #4183D7;
-  color: white;
-}
-
-h1{
+h1 {
   font-size: 72px;
   font-weight: bold;
+  text-align: center;
 }
 
-h3{
+h3 {
   font-size: 32px;
   text-align: center;
   margin-bottom: 30px;
 }
-.react-bs-table .table-bordered>thead>tr>th:first-child{
-  width: 10%;
+
+#my-signin2 {
+  margin-top: 30px;
 }
-.react-bs-table .table-bordered>tbody>tr>td:first-child{
-  width: 10%;
+.modal-container {
+ position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+ position: absolute;
 }
 
-#align-center{
-  text-align: center;
+.abcRioButtonContentWrapper {
+  background-color: #fff;
 }
-.tr-odd{
+
+.abcRioButton {
+  box-shadow: 0px 0px 5px #999!important;
+}
+
+button.list-group-item:hover {
   background-color: #4183D7;
+  color: white;
+  cursor: pointer;
 }
-.tr-even{
-  background-color: none;
+
+.list-group {
+  box-shadow: 0px 0px 10px #999;
+  padding-right: 0;
+  border-radius: 5px;
+}
+
+.calendar-container {
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #999;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.card {
+  background-color: #fff;
+  box-shadow: 0px 0px 5px #999;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.row .col-sm-4 {
+  padding: 0px;
 }

@@ -4,7 +4,7 @@ const checkAuth = (accessToken) => {
   return fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + accessToken)
     .then(res=>res.json())
     .then(result => {
-      if (result.email && validEmail(result.email)) {
+      if (result.email) {
         return result.email;
       } else {
         return false;
@@ -12,7 +12,7 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  return email.includes('mhmd') || email.includes('@mercycorps.com');
+  return email.includes('@gmail.com') || email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
 };
 
 module.exports = {
