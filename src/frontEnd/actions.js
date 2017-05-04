@@ -25,7 +25,15 @@ const insertUser = (data) => {
       'Accept': 'application/json',
       'content-type': 'application/json'
     }
-  }).then(res => res.json())
+  }).then(res =>{
+    if (res.status === 200) {
+      store.dispatch({
+        type: 'CHANGE_CURRENT_VIEW',
+        payload: 'HOME'
+      });
+      res.json();
+    }
+  })
     .then((result) => {
       store.dispatch({
         type: 'AUTHORIZED_USER',
@@ -111,10 +119,34 @@ const formateEvents = (events) => {
   return reformatEvents;
 };
 
+const logout = ()=>{
+  fetch('/logout', {
+    credentials: 'include'
+  })
+  .then((res)=>{
+    if(res.status === 200){
+      store.dispatch({
+        type: 'CHANGE_CURRENT_VIEW',
+        payload: 'LOBBY'
+      });
+      store.dispatch({
+        type:'UPDATE_PROFILE',
+        payload:{}
+      });
+    }
+  })
+  .catch(err=>{
+    return err;
+  });
+};
+
+
+
 export {
   validEmail,
   insertUser,
   ChangeCurrentView,
   getDayEvents,
-  isLoggedIn
+  isLoggedIn,
+  logout
 };
