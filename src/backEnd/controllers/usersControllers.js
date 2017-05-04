@@ -2,7 +2,7 @@ const utils = require('../utils/utils.js');
 const usersdb = require('../../database/user.js');
 
 const respondWithUser = (res, user) => {
-  res.cookie('userID', user.id, {
+  res.cookie('user_id', user.id, {
     expires: new Date(Date.now() + 900000000000),
     signed: true
   });
@@ -34,8 +34,8 @@ module.exports = {
       });
   },
   getProfile: (req,res)=>{
-    if(req.signedCookies['userID']){
-      const userId = req.signedCookies['userID'];
+    if(req.signedCookies['user_id']){
+      const userId = req.signedCookies['user_id'];
       usersdb.selectUserById(userId, (err, user) => {
         if (err) throw err;
         else {
@@ -49,7 +49,9 @@ module.exports = {
     }
   },
   logout: (req,res)=>{
-    res.clearCookie('userID');
+    res.cookie('user_id', '', {
+      expires: new Date(0)
+    });
     res.end();
   }
 
