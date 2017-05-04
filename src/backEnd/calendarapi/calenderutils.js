@@ -1,6 +1,6 @@
 const google = require('googleapis');
 const calendar = google.calendar('v3');
-const {getEvent} = require('../calendarapi/event.js');
+const userEvent = require('../utils/eventUtils.js');
 
 const deleteEvent =(auth,calendarId,eventId,cb)=> {
   calendar.events.delete({
@@ -38,11 +38,11 @@ const listEvents = (auth,calenderId,cb)=> {
   });
 };
 
-const createEvent = (auth,calendarID,cb)=> {
+const createEvent = (auth,data,calendarID,cb)=> {
   calendar.events.insert({
     auth: auth,
     calendarId: calendarID,
-    resource: getEvent,
+    resource: userEvent(data),
   }, (err, res)=> {
     cb(err,res);
   });
