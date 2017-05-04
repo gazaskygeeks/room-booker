@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
+import Form from './Form.jsx';
 import moment from 'moment';
 import events from '../events.js';
 BigCalendar.setLocalizer(
@@ -16,6 +17,7 @@ class MonthView extends Component {
         <h1>
           Room 1
         </h1>
+        <Form />
         <BigCalendar
           selectable
           events={events}
@@ -24,10 +26,10 @@ class MonthView extends Component {
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={new Date(2017, 3, 30)}
           onSelectEvent={event => alert(event.title)}
-          onSelectSlot={(slotInfo) => alert(
-            `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-            `\nend: ${slotInfo.end.toLocaleString()}`
-          )}
+          onSelectSlot={()=>{
+            
+          }
+          }
         />
       </div>
     );
