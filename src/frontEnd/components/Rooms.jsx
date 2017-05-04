@@ -4,7 +4,7 @@ import {PropTypes} from 'prop-types';
 const Rooms = ({onClick}) => {
   return (
     <div className="row">
-      <div className='col-md-4'>
+      <div className='col-md-4 col-sm-6 col-xs-6'>
         <div className="card">
           <img className="card-img-top img-responsive" src="/images/blank.jpg" alt="Card image cap"/>
           <div className="card-block">
@@ -16,7 +16,7 @@ const Rooms = ({onClick}) => {
           </div>
         </div>
       </div>
-      <div className='col-md-4'>
+      <div className='col-md-4 col-sm-6 col-xs-6'>
         <div className="card">
           <img className="card-img-top img-responsive" src="/images/blank.jpg" alt="Card image cap"/>
           <div className="card-block">
@@ -28,7 +28,7 @@ const Rooms = ({onClick}) => {
           </div>
         </div>
       </div>
-      <div className='col-md-4'>
+      <div className='col-md-4 col-sm-6 col-xs-6'>
         <div className="card">
           <img className="card-img-top img-responsive" src="/images/blank.jpg" alt="Card image cap"/>
           <div className="card-block">
