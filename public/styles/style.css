@@ -22,6 +22,12 @@ h3 {
 #my-signin2 {
   margin-top: 30px;
 }
+.modal-container {
+ position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+ position: absolute;
+}
 
 .abcRioButtonContentWrapper {
   background-color: #fff;
