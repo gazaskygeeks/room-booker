@@ -32,6 +32,7 @@ const selectUserEvents = (userID,cb)=>{
     });
   });
 };
+
 const deleteEvents = (calendarID,eventID,cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){

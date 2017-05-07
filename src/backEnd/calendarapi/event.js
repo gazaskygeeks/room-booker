@@ -19,7 +19,7 @@ const event = {
   },
   'attendees': [
     {
-      'email': 'mhmdrshorafa@gmail.com',
+      'email': 'shahy.m.93@gmail.com',
       'organizer': true
     }
   ],

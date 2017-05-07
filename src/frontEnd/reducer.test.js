@@ -15,6 +15,11 @@ test('AUTHORIZED_USER should authorize new user if he has @gazaskygeeks or @merc
 });
 
 test('UNAUTHORIZED_USER should not authorize new user if he has not @gazaskygeeks or @mercycorps domain  ',()=>{
+  const GoogleData = [
+    {
+      email: 'shahenaz@gmail.com'
+    }
+  ];
   const expectedAction = {
     type: 'UNAUTHORIZED_USER',
     payload: GoogleData
