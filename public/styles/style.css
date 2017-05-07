@@ -22,7 +22,29 @@ h3 {
 #my-signin2 {
   margin-top: 30px;
 }
+.modal-container {
+ position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+ position: absolute;
+}
 
+.navbar-default{
+  background-color: rgba(0, 0, 0, 0.88);
+  border-color: rgba(0, 0, 0, 0.77);
+}
+.navbar-default .navbar-brand{
+  color: #eee;
+}
+.navbar-default .navbar-text{
+  color: #eee;
+}
+.navbar-default .navbar-link{
+  color: #eee;
+}
+.navbar-default .navbar-link:hover{
+  color: #fff;
+}
 .abcRioButtonContentWrapper {
   background-color: #fff;
 }

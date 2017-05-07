@@ -1,11 +1,5 @@
 
-const setEvent = (data) => {
-  event.summary = data.summary;
-  event.description = data.description;
-  event.start.dateTime = data.dateStart;
-  event.end.dateTime = data.dateEnd;
-};
-const event = {
+const eventDefaults = {
   'summary': null,
   'location': 'gazaskygeeks',
   'description': null,
@@ -41,7 +35,26 @@ const event = {
   },
 };
 
-module.exports = {
-  setEvent: setEvent,
-  getEvent: event
+
+module.exports = (data)=> {
+  const newData = {
+    'summary': data.summary,
+    'description': data.description,
+    'start': {
+      'dateTime': data.startDateTime,
+      'timeZone': '(GMT+03:00) Jerusalem',
+    },
+    'end': {
+      'dateTime': data.endDateTime,
+      'timeZone': '(GMT+03:00) Jerusalem',
+    }
+    ,
+    'attendees': [
+      {
+        'email': data.email,
+        'organizer': true
+      }
+    ]
+  };
+  return Object.assign({}, eventDefaults, newData);
 };

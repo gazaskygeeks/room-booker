@@ -3,7 +3,6 @@ import DayView from './DayView.jsx';
 import {PropTypes} from 'prop-types';
 
 const RoomAvailbility = ({bookings}) => {
-
   return (
     <div className="row">
       <h1>Room 1</h1>
@@ -16,7 +15,7 @@ const RoomAvailbility = ({bookings}) => {
 };
 
 RoomAvailbility.propTypes = {
-  bookings: PropTypes.arr,
+  bookings: PropTypes.array
 };
 
 export default RoomAvailbility;

@@ -1,9 +1,11 @@
 import React from 'react';
-import Home from './containers/Lobby.js';
+import Lobby from './containers/Lobby.js';
 import ChangeDayView from './containers/ChangeDayView.js';
 import {PropTypes} from 'prop-types';
-import Tabs from './Tabs.jsx';
+import Home from './containers/Home.js';
 import Spinner from './Spinner.jsx';
+import MonthView from './MonthView.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,6 @@ class App extends React.Component {
   }
 
   render(){
-
     switch (this.props.currentView) {
     case 'ROOM_1_AVAILABILITY':
       return <ChangeDayView room={this.props.currentView}/>;
@@ -28,11 +29,13 @@ class App extends React.Component {
     case 'ROOM_4_AVAILABILITY':
       return <ChangeDayView room={this.props.currentView}/>;
     case 'HOME':
-      return <Tabs/>;
-    case 'LOBBY':
       return <Home/>;
+    case 'LOBBY':
+      return <Lobby/>;
     case 'SPINNER':
       return <Spinner/>;
+    case 'MONTH_VIEW':
+      return <MonthView />;
     }
   }
 }

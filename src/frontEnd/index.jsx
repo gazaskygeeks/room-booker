@@ -3,7 +3,7 @@ import reactDOM from 'react-dom';
 import store from './store.js';
 import {Provider} from 'react-redux';
 import App from './components/containers/App.js';
-import Navbar from './components/Navbar.jsx';
+import Navbar from './components/containers/Navbar.js';
 const Main = () => {
   return (
     <Provider store={store}>

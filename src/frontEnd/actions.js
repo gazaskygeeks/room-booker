@@ -2,7 +2,7 @@ import store from './store.js';
 import {
   setToRightKeys
 } from './utils/utils.js';
-import Mock from './mock.js';
+
 
 const validEmail = (data) => {
   const info = setToRightKeys(data);
@@ -25,7 +25,15 @@ const insertUser = (data) => {
       'Accept': 'application/json',
       'content-type': 'application/json'
     }
-  }).then(res => res.json())
+  }).then(res =>{
+    if (res.status === 200) {
+      store.dispatch({
+        type: 'CHANGE_CURRENT_VIEW',
+        payload: 'HOME'
+      });
+      res.json();
+    }
+  })
     .then((result) => {
       store.dispatch({
         type: 'AUTHORIZED_USER',
@@ -40,39 +48,33 @@ const insertUser = (data) => {
 };
 
 const ChangeCurrentView = (currentView) => {
-  getDayEvents(currentView);
   return {
     type: 'CHANGE_CURRENT_VIEW',
     payload: currentView
   };
 };
 
-const getDayEvents = (room) => {
+const getDayEvents = () => {
   fetch('/event', {
-    method: 'GET',
-  //  body: room
+    method: 'GET'
+
   }).then(res => res.json())
     .then((result) => {
       store.dispatch({
         type: 'FETCH_DAY_BOOKING',
-        payload: result,
-        date: new Date()
+        payload: formateEvents(result),
       });
     })
     .catch((err) => {
       console.error('Error', err); //eslint-disable-line
-      store.dispatch({
-        type: 'FETCH_DAY_BOOKING',
-        payload: Mock,
-        date: new Date().getDate()
-      });
     });
 
 };
 
 const isLoggedIn = () => {
   fetch('/profile', {
-    method: 'GET'
+    method: 'GET',
+    credentials: 'include'
   }).then(res => {
     if (res.status === 200) {
       store.dispatch({
@@ -106,10 +108,45 @@ const isLoggedIn = () => {
   });
 };
 
+const formateEvents = (events) => {
+  var reformatEvents = events.map(function(obj) {
+    var rObj = {};
+    rObj['title'] = obj.summary;
+    rObj['start'] = new Date(obj.start.dateTime);
+    rObj['end'] = new Date(obj.end.dateTime);
+    return rObj;
+  });
+  return reformatEvents;
+};
+
+const logout = ()=>{
+  fetch('/logout', {
+    credentials: 'include'
+  })
+  .then((res)=>{
+    if(res.status === 200){
+      store.dispatch({
+        type: 'CHANGE_CURRENT_VIEW',
+        payload: 'LOBBY'
+      });
+      store.dispatch({
+        type:'UPDATE_PROFILE',
+        payload:{}
+      });
+    }
+  })
+  .catch(err=>{
+    return err;
+  });
+};
+
+
+
 export {
   validEmail,
   insertUser,
   ChangeCurrentView,
   getDayEvents,
-  isLoggedIn
+  isLoggedIn,
+  logout
 };
