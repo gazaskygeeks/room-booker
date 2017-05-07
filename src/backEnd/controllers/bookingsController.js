@@ -21,7 +21,7 @@ module.exports = {
       });
     });
   },
-  UserEvent: (req,res)=>{
+  userEvent: (req,res)=>{
     selectUserEvents(req.body.email,(err,userEvent)=>{
       if (err)
         return res.status(401).end();
