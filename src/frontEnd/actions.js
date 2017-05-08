@@ -33,9 +33,10 @@ const ChangeCurrentView = (currentView) => {
   return {type: 'CHANGE_CURRENT_VIEW', payload: currentView};
 };
 
-const getDayEvents = () => {
+const getDayEvents = (id) => {
 
-  fetch('/events').then(res => res.json()).then((result) => {
+  fetch('/events/'+id).then(res => res.json()).then((result) => {
+
 
     store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result.items)});
   }).catch((err) => {

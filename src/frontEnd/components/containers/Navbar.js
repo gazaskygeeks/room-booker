@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Navbar from '../Navbar.jsx';
-import {logout} from '../../actions.js';
+import {logout,ChangeCurrentView} from '../../actions.js';
 
 
 const mapStateToProps = (state) => {
@@ -9,11 +9,10 @@ const mapStateToProps = (state) => {
   });
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => {
-      logout();
-    }
+    logout: () => {logout();},
+    onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));}
   };
 };
 
