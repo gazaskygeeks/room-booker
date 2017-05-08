@@ -32,6 +32,7 @@ module.exports = (cb) => {
       (callback) => {
         client.query(`CREATE TABLE IF NOT EXISTS rooms (
           id SERIAL PRIMARY KEY,
+          calendar_id varchar(255),
           room_name varchar(255),
           room_capacity varchar(255),
           room_image varchar(255),
