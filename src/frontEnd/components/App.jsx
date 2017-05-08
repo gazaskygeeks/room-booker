@@ -4,7 +4,7 @@ import RoomAvailability from './containers/RoomAvailability.js';
 import {PropTypes} from 'prop-types';
 import Home from './containers/Home.js';
 import Spinner from './Spinner.jsx';
-import MonthView from './MonthView.jsx';
+import WeekView from './containers/CreateEvent.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,8 +29,8 @@ class App extends React.Component {
       return <Lobby/>;
     case 'SPINNER':
       return <Spinner/>;
-    case 'MONTH_VIEW':
-      return <MonthView />;
+    case 'WEEK_VIEW':
+      return <WeekView />;
     }
   }
 }
@@ -40,7 +40,7 @@ App.propTypes = {
   userInfo: PropTypes.object,
   onClick: PropTypes.func,
   isLoggedIn: PropTypes.func,
-  getRooms : PropTypes.func
+  getRooms: PropTypes.func
 };
 
 export default App;

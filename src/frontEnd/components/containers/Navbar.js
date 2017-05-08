@@ -5,10 +5,8 @@ import {logout} from '../../actions.js';
 
 const mapStateToProps = (state) => {
   return ({
-    firstName: state.userInfo.first_name,
-    lastName: state.userInfo.last_name,
+    userInfo:state.userInfo
   });
-
 };
 
 const mapDispatchToProps = () => {

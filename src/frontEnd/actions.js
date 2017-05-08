@@ -24,7 +24,9 @@ const insertUser = (data) => {
   }).then((result) => {
     store.dispatch({type: 'AUTHORIZED_USER', payload: result});
   }).catch((err) => {
-    store.dispatch({type: 'UNAUTHORIZED_USER', payload: err});});
+    store.dispatch({type: 'UNAUTHORIZED_USER', payload: err});
+  });
+
 };
 
 const ChangeCurrentView = (currentView) => {
@@ -32,8 +34,20 @@ const ChangeCurrentView = (currentView) => {
 };
 
 const getDayEvents = () => {
-  fetch('/event', {method: 'GET'}).then(res => res.json()).then((result) => {
+
+  fetch('/events', {method: 'GET'}).then(res => res.json()).then((result) => {
+
     store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
+  }).catch((err) => {
+        console.error('Error', err); //eslint-disable-line
+  });
+
+
+
+};
+const createEvent = (event) => {
+  fetch('/event', {method: 'POST',payload:event}).then(res => res.json()).then(() => {
+    getDayEvents();
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
   });
@@ -48,7 +62,6 @@ const isLoggedIn = () => {
     if (res.status === 200) {
       store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'HOME'});
       return res.json();
-
     } else {
       store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'LOBBY'});
       return {};
@@ -63,25 +76,23 @@ const isLoggedIn = () => {
 };
 
 const formateEvents = (events) => {
-  var reformatEvents = events.map(function(obj) {
-    var rObj = {};
-    rObj['title'] = obj.summary;
-    rObj['start'] = new Date(obj.start.dateTime);
-    rObj['end'] = new Date(obj.end.dateTime);
-    return rObj;
+  var reformatEvents = events.map((obj)=>{
+    return({
+      title: obj.summary,
+      start: new Date(obj.start.dateTime),
+      end: new Date(obj.end.dateTime)
+    });
   });
   return reformatEvents;
 };
 
 const logout = () => {
-  fetch('/logout', {credentials: 'include'})
-  .then((res) => {
+  fetch('/logout', {credentials: 'include'}).then((res) => {
     if (res.status === 200) {
       store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'LOBBY'});
       store.dispatch({type: 'UPDATE_PROFILE', payload: {}});
     }
-  })
-  .catch(err => {
+  }).catch(err => {
     return err;
   });
 };
@@ -106,6 +117,7 @@ const selectRoom = (id,room)=>{
   };
 };
 
+
 export {
     validEmail,
     insertUser,
@@ -114,5 +126,6 @@ export {
     isLoggedIn,
     logout,
     getRooms,
-    selectRoom
+    selectRoom,
+    createEvent
 };
