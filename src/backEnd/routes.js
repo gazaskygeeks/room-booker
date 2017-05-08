@@ -6,8 +6,8 @@ const roomsControllers = require('./controllers/roomsControllers.js');
 router
 .get('/profile', userControllers.getProfile )
 .post('/user', userControllers.checkAuthThenInsert)
-.get('/event',bookingsControllers.getAllEvents)
-.get('/events',bookingsControllers.createEvent)
+.get('/events',bookingsControllers.getAllEvents)
+.post('/event',bookingsControllers.createEvent)
 .get('/userevents',bookingsControllers.UserEvent)
 .get('/rooms',roomsControllers.getRooms)
 .get('/logout',userControllers.logout)
