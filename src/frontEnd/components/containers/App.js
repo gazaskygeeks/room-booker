@@ -5,7 +5,7 @@ import {ChangeCurrentView,isLoggedIn,getRooms}from '../../actions.js';
 const mapStateToProps = (state)=>{
   return{
     currentView: state.currentView,
-    userInfo: state.userInfo,
+    userInfo: state.userInfo
   };
 };
 
