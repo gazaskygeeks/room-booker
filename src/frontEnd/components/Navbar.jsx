@@ -31,7 +31,7 @@ class Nav extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <Navbar.Link onClick={()=>this.props.onClick('HOME')}>Gaza Sky Geeks
+            <Navbar.Link onClick={()=>this.props.isLoggedIn()}>Gaza Sky Geeks
             </Navbar.Link>
           </Navbar.Brand>
           <Navbar.Toggle/>
@@ -50,7 +50,8 @@ class Nav extends Component {
 Nav.propTypes = {
   logout: PropTypes.func,
   userInfo:PropTypes.object,
-  onClick:PropTypes.func
+  onClick:PropTypes.func,
+  isLoggedIn:PropTypes.func
 };
 
 export default Nav;
