@@ -53,7 +53,7 @@ const production = {
 module.exports =
   Object.assign(
     common,
-     process.env.NODE_ENV !== 'production'
+    process.env.NODE_ENV === 'production'
       ? production
       : development
   );
