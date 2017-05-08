@@ -73,7 +73,7 @@ class WeekView extends Component {
                   Event Title
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.title} onChange={this.onTitleChange} placeholder="Event Title"/>
+                  <FormControl type="text" value={this.state.title} onChange={this.onTitleChange} placeholder="Event Title" required/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -81,7 +81,7 @@ class WeekView extends Component {
                   Discription
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.desc} onChange={this.onDescChange} placeholder="discription"/>
+                  <FormControl type="text" value={this.state.desc} onChange={this.onDescChange} placeholder="discription" required/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -103,8 +103,8 @@ class WeekView extends Component {
               <FormGroup>
                 <Col smOffset={2} sm={10}>
                   <Button onClick={()=>{
-                    this.closeModal;
                     this.props.createEvent(event,this.props.room.room_id);
+                    this.closeModal();
                   }}>
                     Submit
                   </Button>
@@ -119,8 +119,10 @@ class WeekView extends Component {
           events={events}
           views={['week', 'day']}
           defaultView='week'
-          scrollToTime={new Date(1970, 1, 1, 6)}
+          scrollToTime={new Date(2016)}
           defaultDate={new Date()}
+          min={new Date(0,0,0,8,0,0,0)}
+          max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={event => alert(event.title)}
           onSelectSlot={(slotInfo) => {
             this.setState({

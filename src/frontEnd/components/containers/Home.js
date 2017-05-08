@@ -4,8 +4,8 @@ import {ChangeCurrentView,selectRoom}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
-    rooms: state.rooms
-
+    rooms: state.rooms,
+    userReservations:state.userReservations
   });
 };
 
