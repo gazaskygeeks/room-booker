@@ -36,7 +36,6 @@ const ChangeCurrentView = (currentView) => {
 const getDayEvents = (id) => {
 
   fetch('/events/'+id).then(res => res.json()).then((result) => {
-
     store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
