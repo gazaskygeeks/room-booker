@@ -59,7 +59,7 @@ class WeekView extends Component {
     return (
       <div className="calendar-container">
         <h1>
-          Room 1
+          {this.props.room.room_name}
         </h1>
         <Modal show={this.state.open} onHide={this.closeModal} aria-labelledby="ModalHeader">
           <Modal.Header closeButton>

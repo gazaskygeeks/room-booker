@@ -1,7 +1,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-const Rooms = ({onClick, rooms}) => {
+const Rooms = ({onClick, rooms,selectRoom}) => {
   return (
     <div className="row">
         {rooms.map(function(room) {
@@ -16,6 +16,7 @@ const Rooms = ({onClick, rooms}) => {
                         <p className="card-text">Time Limit : 3 Hours</p>
                         <a href="#" onClick={() => {
                           onClick('WEEK_VIEW');
+                          selectRoom(room.id,room.room_name);
                         }} className="btn btn-primary">Reserve</a>
                     </div>
                 </div>
@@ -29,6 +30,7 @@ const Rooms = ({onClick, rooms}) => {
 
 Rooms.propTypes = {
   onClick: PropTypes.func,
-  rooms: PropTypes.array
+  rooms: PropTypes.array,
+  selectRoom: PropTypes.func
 };
 export default Rooms;

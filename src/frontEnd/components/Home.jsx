@@ -4,11 +4,11 @@ import {Tabs, Tab} from 'react-bootstrap';
 import Rooms from './Rooms.jsx';
 import MyReservation from './MyReservation.jsx';
 
-const HOME = ({onClick,rooms}) => {
+const HOME = ({onClick,rooms,selectRoom}) => {
   return (
     <div>
       <Tabs defaultActiveKey={1} id='tabContainer'>
-        <Tab eventKey={1} title="Rooms"><Rooms onClick={onClick} rooms={rooms}/></Tab>
+        <Tab eventKey={1} title="Rooms"><Rooms onClick={onClick} rooms={rooms} selectRoom={selectRoom}/></Tab>
         <Tab eventKey={2} title="My Reservation"><MyReservation/></Tab>
       </Tabs>
     </div>
@@ -17,7 +17,8 @@ const HOME = ({onClick,rooms}) => {
 
 HOME.propTypes = {
   onClick: PropTypes.func.isRequired,
-  rooms: PropTypes.array
+  rooms: PropTypes.array,
+  selectRoom:PropTypes.func
 };
 
 export default HOME;
