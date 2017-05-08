@@ -104,7 +104,7 @@ class WeekView extends Component {
                 <Col smOffset={2} sm={10}>
                   <Button onClick={()=>{
                     this.closeModal;
-                    this.props.createEvent(event);
+                    this.props.createEvent(event,this.props.room.room_id);
                   }}>
                     Submit
                   </Button>
@@ -138,7 +138,8 @@ class WeekView extends Component {
 
 WeekView.propTypes = {
   userInfo: PropTypes.object,
-  createEvent: PropTypes.func
+  createEvent: PropTypes.func,
+  room:PropTypes.object
 };
 
 export default WeekView;
