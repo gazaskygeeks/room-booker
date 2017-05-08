@@ -6,6 +6,5 @@ module.exports = router
 .delete('/event',bookingsControllers.deleteEvent)
 .get('/profile', userControllers.getProfile )
 .get('/userevents',bookingsControllers.userEvent)
-.post('/events',bookingsControllers.createEvent)
-.post('/user', userControllers.checkAuthThenInsert)
+.post('/event',bookingsControllers.createEvent)
 .get('/logout',userControllers.logout);
