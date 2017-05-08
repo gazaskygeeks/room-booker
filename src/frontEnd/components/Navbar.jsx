@@ -5,19 +5,25 @@ import {PropTypes} from 'prop-types';
 class Nav extends Component {
   constructor(props) {
     super(props);
-    this.state = {
 
-      value: 'none'
-    };
+    this.getUserProfile = this.getUserProfile.bind(this);
   }
-
-  componentWillReceiveProps(nextProps) {
-  if(nextProps.firstName === undefined){
-    }else{
-      this.setState({
-        value:'inline'
-      });
+  getUserProfile() {
+    if (this.props.userInfo.hasOwnProperty('first_name')) {
+      return (
+        <div>
+          <Navbar.Text pullRight>
+            <Navbar.Link onClick={() => {
+              this.props.logout();
+            }}>Logout</Navbar.Link>
+          </Navbar.Text>
+          <Navbar.Text pullRight>
+            Welcome : {this.props.userInfo.first_name + ' ' + this.props.userInfo.last_name}
+          </Navbar.Text>
+        </div>
+      );
     }
+
   }
 
   render() {
@@ -33,19 +39,7 @@ class Nav extends Component {
           <Navbar.Text>
             Room Booking
           </Navbar.Text>
-          <Navbar.Text pullRight style={{
-            display: this.state.value
-          }}>
-            <Navbar.Link onClick={() => {
-              this.setState({value:'none'});
-              this.props.logout();
-            }}>Logout</Navbar.Link>
-          </Navbar.Text>
-          <Navbar.Text pullRight style={{
-            display: this.state.value
-          }}>
-            Welcome : {this.props.firstName + ' ' + this.props.lastName}
-          </Navbar.Text>
+          {this.getUserProfile()}
         </Navbar.Collapse>
       </Navbar>
     );
@@ -54,8 +48,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
   logout: PropTypes.func,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string
+  userInfo:PropTypes.object
 };
 
 export default Nav;
