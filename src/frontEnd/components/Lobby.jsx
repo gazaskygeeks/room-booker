@@ -2,7 +2,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import GoogleLogin from './GoogleLogin.jsx';
 
-const Lobby = ({onClick, getEvent, logIn, rooms}) => {
+const Lobby = ({onClick, getEvent, logIn, rooms,selectRoom}) => {
   return (
     <div>
       <div className="row">
@@ -11,8 +11,10 @@ const Lobby = ({onClick, getEvent, logIn, rooms}) => {
           {rooms.map(function(room) {
             return (
               <button type="button" onClick={() => {
-                onClick(room.room_name);
+                onClick('ROOM_AVAILABILITY');
                 getEvent(room.id);
+                selectRoom(room.id,room.room_name);
+
               }} className="list-group-item" key={room.id}>{room.room_name}</button>
             );
           })}
@@ -32,7 +34,8 @@ Lobby.propTypes = {
   getEvent: PropTypes.func.isRequired,
   logIn: PropTypes.func.isRequired,
   userInfo: PropTypes.object,
-  rooms: PropTypes.array
+  rooms: PropTypes.array,
+  selectRoom: PropTypes.func.isRequired
 };
 
 export default Lobby;
