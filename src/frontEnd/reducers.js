@@ -7,6 +7,14 @@ const currentUserReducer = (state={}, action) => {
   }
 };
 
+const rooms = (state =[],action)=>{
+  switch (action.type){
+    case 'FETCH_ROOMS':
+      return action.payload;
+      default:
+      return state;
+  }
+}
 
 const bookings = (state = [] , action)=> {
   switch (action.type) {
@@ -37,5 +45,4 @@ const currentView = (state='SPINNER',action)=>{
   }
 };
 
-
-export {currentUserReducer,bookings,currentUserReservations,currentView};
+export {currentUserReducer,bookings,currentUserReservations,currentView,rooms};

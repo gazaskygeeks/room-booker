@@ -9,13 +9,14 @@ import MonthView from './MonthView.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      isLoggedIn:props.isLoggedIn
-    };
+  }
+
+  componentWillMount(){
+    this.props.getRooms();
   }
 
   componentDidMount(){
-    this.state.isLoggedIn();
+    this.props.isLoggedIn();
   }
 
   render(){
@@ -40,13 +41,11 @@ class App extends React.Component {
   }
 }
 
-
 App.propTypes = {
   currentView: PropTypes.string.isRequired,
   userInfo: PropTypes.object,
   onClick: PropTypes.func,
   isLoggedIn: PropTypes.func
 };
-
 
 export default App;

@@ -6,18 +6,18 @@ class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
+
       value: 'none'
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      firstName:nextProps.firstName,
-      lastName:nextProps.firstName,
-      value:'inline'
-    });
+  if(nextProps.firstName === undefined){
+    }else{
+      this.setState({
+        value:'inline'
+      });
+    }
   }
 
   render() {
@@ -44,7 +44,7 @@ class Nav extends Component {
           <Navbar.Text pullRight style={{
             display: this.state.value
           }}>
-            Welcome : {this.state.firstName + ' ' + this.state.lastName}
+            Welcome : {this.props.firstName + ' ' + this.props.lastName}
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
