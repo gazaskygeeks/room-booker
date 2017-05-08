@@ -8,7 +8,7 @@ const validEmail = (data) => {
         : store.dispatch({type: 'UNAUTHORIZED_USER', payload: null});
 };
 const insertUser = (data) => {
-  fetch('/user', {
+  fetch('/login', {
     method: 'POST',
     body: JSON.stringify(data),
     credentials: 'include',
@@ -35,9 +35,9 @@ const ChangeCurrentView = (currentView) => {
 
 const getDayEvents = () => {
 
-  fetch('/events', {method: 'GET'}).then(res => res.json()).then((result) => {
+  fetch('/events').then(res => res.json()).then((result) => {
 
-    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
+    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result.items)});
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
   });
@@ -45,12 +45,15 @@ const getDayEvents = () => {
 
 
 };
-const createEvent = (event) => {
-  fetch('/event', {method: 'POST',payload:event}).then(res => res.json()).then(() => {
-    getDayEvents();
-  }).catch((err) => {
+const createEvent = (event,id) => {
+  fetch('/event/'+id, {
+    method: 'POST',
+    payload:event,
+    credentials:'include'}).then(res => res.json()).then(() => {
+      getDayEvents();
+    }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
-  });
+    });
 
 };
 
