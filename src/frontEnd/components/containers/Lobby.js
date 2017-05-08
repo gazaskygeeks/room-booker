@@ -11,7 +11,7 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
-    getEvent: ()=>{getDayEvents();},
+    getEvent: (id)=>{getDayEvents(id);},
     logIn: (data) =>{insertUser(data);},
     selectRoom: (id,room)=>{dispatch(selectRoom(id,room));}
 

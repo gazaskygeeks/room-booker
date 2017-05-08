@@ -31,7 +31,8 @@ class Nav extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">Gaza Sky Geeks</a>
+            <Navbar.Link onClick={()=>this.props.onClick('HOME')}>Gaza Sky Geeks
+            </Navbar.Link>
           </Navbar.Brand>
           <Navbar.Toggle/>
         </Navbar.Header>
@@ -48,7 +49,8 @@ class Nav extends Component {
 
 Nav.propTypes = {
   logout: PropTypes.func,
-  userInfo:PropTypes.object
+  userInfo:PropTypes.object,
+  onClick:PropTypes.func
 };
 
 export default Nav;
