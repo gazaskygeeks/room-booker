@@ -4,14 +4,15 @@ import {createEvent} from '../../actions.js';
 
 const mapStateToProps = (state) => {
   return ({
-    userInfo:state.userInfo
+    userInfo:state.userInfo,
+    room:state.currentRoom
   });
 };
 
 const mapDispatchToProps = () => {
   return {
-    createEvent: (event) => {
-      createEvent(event);
+    createEvent: (event,id) => {
+      createEvent(event,id);
     }
   };
 };
