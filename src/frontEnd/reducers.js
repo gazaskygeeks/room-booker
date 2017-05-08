@@ -9,12 +9,12 @@ const currentUserReducer = (state={}, action) => {
 
 const rooms = (state =[],action)=>{
   switch (action.type){
-    case 'FETCH_ROOMS':
-      return action.payload;
-      default:
-      return state;
+  case 'FETCH_ROOMS':
+    return action.payload;
+  default:
+    return state;
   }
-}
+};
 
 const bookings = (state = [] , action)=> {
   switch (action.type) {
