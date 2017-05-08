@@ -77,6 +77,7 @@ const isLoggedIn = () => {
     }
   }).then((result) => {
     store.dispatch({type: 'UPDATE_PROFILE', payload: result});
+    getUserBookings(result.email);
   }).catch((err) => {
         console.log(err); //eslint-disable-line
     store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'HOME'});
@@ -84,6 +85,19 @@ const isLoggedIn = () => {
   });
 };
 
+const getUserBookings = (email)=>{
+  fetch('/userevents', {
+    credentials: 'include',
+    body:{
+      email : email
+    }
+  }).then(res => res.json()
+).then((result)=>{
+  store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: result});
+}).catch((err) => {
+    console.log(err); //eslint-disable-line
+});
+};
 
 
 const formateEvents = (events) => {
@@ -138,5 +152,6 @@ export {
     logout,
     getRooms,
     selectRoom,
-    createEvent
+    createEvent,
+    getUserBookings
 };

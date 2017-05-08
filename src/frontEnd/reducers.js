@@ -30,8 +30,6 @@ const currentUserReservations =(state = [] , action)=> {
   switch (action.type) {
   case 'FETCH_USER_RESERVATIONS_SUCCESS':
     return action.payload;
-  case 'FETCH_USER_RESERVATIONS_FAILED':
-    return null;
   default:return state;
   }
 };
