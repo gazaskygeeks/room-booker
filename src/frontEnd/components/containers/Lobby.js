@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Lobby from '../Lobby.jsx';
-import {ChangeCurrentView,getDayEvents,insertUser}from '../../actions.js';
+import {ChangeCurrentView,getDayEvents,insertUser,selectRoom}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
     getEvent: ()=>{getDayEvents();},
     logIn: (data) =>{insertUser(data);},
+    selectRoom: (id,room)=>{dispatch(selectRoom(id,room));}
 
   };
 };

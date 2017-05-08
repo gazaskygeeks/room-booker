@@ -1,5 +1,5 @@
 import {createStore,combineReducers} from 'redux';
-import {currentUserReducer,bookings,currentUserReservations,currentView,rooms} from './reducers.js';
+import {currentUserReducer,bookings,currentUserReservations,currentView,rooms,currentRoom} from './reducers.js';
 
 
 const allReducers = combineReducers(
@@ -8,7 +8,8 @@ const allReducers = combineReducers(
     bookings:bookings,
     userReservations:currentUserReservations,
     currentView:currentView,
-    rooms:rooms
+    rooms:rooms,
+    currentRoom:currentRoom
   }
 );
 
