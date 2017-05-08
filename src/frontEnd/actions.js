@@ -10,7 +10,7 @@ const validEmail = (data) => {
 const insertUser = (data) => {
   fetch('/login', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: data,
     credentials: 'include',
     headers: {
       'Accept': 'application/json',
@@ -49,9 +49,14 @@ const getDayEvents = (id) => {
 const createEvent = (event,id) => {
   fetch('/event/'+id, {
     method: 'POST',
-    payload:event,
-    credentials:'include'}).then(res => res.json()).then(() => {
-      getDayEvents();
+    body:event,
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }})
+    .then(res => res.json()).then(() => {
+      getDayEvents(id);
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
@@ -78,6 +83,8 @@ const isLoggedIn = () => {
     store.dispatch({type: 'UPDATE_PROFILE', payload: {}});
   });
 };
+
+
 
 const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
