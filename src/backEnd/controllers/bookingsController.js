@@ -1,5 +1,6 @@
 const {deleteEvent,listEvents,createEvent} = require('../utils/calendarOperations.js');
 const {insertEvent,selectUserEvents} = require('../../database/events.js');
+const {selectRoomName} = require('../../database/room.js');
 const {selectCalendarID} = require('../../database/room.js');
 const {event,dayRoomEvents} = require('../utils/eventUtils.js');
 
@@ -38,8 +39,15 @@ module.exports = {
               'err': 'error creating event'
             });
           }
-          insertEvent(event,req.user.id,calendarId,roomId, () => {
-            return res.status(200).end();
+          selectRoomName(roomId,(err,roomName)=>{
+            if(err){
+              res.status(404).json({
+                'err': 'no room with this id'
+              });
+            }
+            insertEvent(event,req.user.id,calendarId,roomName,roomId, () => {
+              return res.status(200).end();
+            });
           });
         });
       } else {
