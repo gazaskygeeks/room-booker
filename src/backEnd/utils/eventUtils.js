@@ -35,10 +35,6 @@ const eventDefaults = {
   },
 };
 
-const formatGoogleDate = time =>
-  time.replace(' ','T')+'-07:00';
-
-
 const event = (data,email)=> {
   const newData = {
     'summary': data.summary,
