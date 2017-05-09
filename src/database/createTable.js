@@ -20,10 +20,13 @@ module.exports = (cb) => {
         client.query(`CREATE TABLE IF NOT EXISTS bookings (
           id SERIAL PRIMARY KEY,
           room_id varchar(255),
+          room_name varchar(255),
           calendar_id varchar(255),
           event_id varchar(255),
           users_id integer REFERENCES users(id),
           summary varchar(255),
+          description varchar(255),
+          event_link varchar(255),
           location varchar(255),
           start_date timeStamp,
           end_date timeStamp

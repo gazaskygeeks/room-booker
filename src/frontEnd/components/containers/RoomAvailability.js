@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import RoomAvailbility from '../RoomAvailability.jsx';
+import {isLoggedIn}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
@@ -8,6 +9,13 @@ const mapStateToProps = (state)=>{
   });
 };
 
-const RoomAvailability= connect(mapStateToProps,null)(RoomAvailbility);
+const mapDispatchToProps = () => {
+  return {
+    isLoggedIn: () =>{ isLoggedIn();},
+
+  };
+};
+
+const RoomAvailability= connect(mapStateToProps,mapDispatchToProps)(RoomAvailbility);
 
 export default RoomAvailability;
