@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import {Modal,Button,Form,FormControl,FormGroup,Col} from 'react-bootstrap';
 import moment from 'moment';
-import events from '../events.js';
+
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment
   ));
@@ -20,8 +20,7 @@ class WeekView extends Component {
       title:'',
       desc:'',
       startTime:'',
-      endTime:'',
-      email: 'props.userInfo.email'
+      endTime:''
     };
   }
 
@@ -49,18 +48,22 @@ class WeekView extends Component {
   }
 
   render() {
+
+
     var event = {
       summary : this.state.title,
       description : this.state.desc,
       startDateTime : this.state.startTime,
-      endDateTime :this.state.endTime,
-      email: this.props.userInfo.email
+      endDateTime :this.state.endTime
     };
     return (
       <div className="calendar-container">
-        <h1>
-          {this.props.room.room_name}
-        </h1>
+        <div className="row">
+          <img onClick={()=>this.props.onClick('HOME')} className="col-md-1" src="images/back5.png" style={{cursor: 'pointer',width: '80px',height: '50px'}} />
+          <h1 className="col-md-11">
+            {this.props.room.room_name}
+          </h1>
+        </div>
         <Modal show={this.state.open} onHide={this.closeModal} aria-labelledby="ModalHeader">
           <Modal.Header closeButton>
             <Modal.Title id='ModalHeader'>Create Event</Modal.Title>
@@ -116,7 +119,7 @@ class WeekView extends Component {
         </Modal>
         <BigCalendar
           selectable
-          events={events}
+          events={this.props.bookings}
           views={['week', 'day']}
           defaultView='week'
           scrollToTime={new Date(2016)}
@@ -127,10 +130,11 @@ class WeekView extends Component {
           onSelectSlot={(slotInfo) => {
             this.setState({
               open:true,
-              startTime:`${slotInfo.start.toLocaleString()}`,
-              endTime: `${slotInfo.end.toLocaleString()}`
+              startTime:`${slotInfo.start.toString()}`,
+              endTime: `${slotInfo.end.toString()}`
             });
           }
+
           }/>
       </div>
     );
@@ -141,7 +145,9 @@ class WeekView extends Component {
 WeekView.propTypes = {
   userInfo: PropTypes.object,
   createEvent: PropTypes.func,
-  room:PropTypes.object
+  room:PropTypes.object,
+  bookings:PropTypes.array,
+  onClick: PropTypes.func
 };
 
 export default WeekView;
