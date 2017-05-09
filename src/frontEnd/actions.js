@@ -80,12 +80,9 @@ const isLoggedIn = () => {
   });
 };
 
-const getUserBookings = (email)=>{
+const getUserBookings = ()=>{
   fetch('/userevents', {
     credentials: 'include',
-    body:{
-      email : email
-    }
   }).then(res => res.json()
 ).then((result)=>{
   store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: result});
