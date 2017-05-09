@@ -48,9 +48,14 @@ const getDayEvents = (id) => {
 const createEvent = (event,id) => {
   fetch('/event/'+id, {
     method: 'POST',
-    payload:event,
-    credentials:'include'}).then(res => res.json()).then(() => {
-      getDayEvents();
+    body:JSON.stringify(event),
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }})
+    .then(res => res.json()).then(() => {
+      getDayEvents(id);
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
@@ -71,12 +76,28 @@ const isLoggedIn = () => {
     }
   }).then((result) => {
     store.dispatch({type: 'UPDATE_PROFILE', payload: result});
+    getUserBookings(result.email);
   }).catch((err) => {
         console.log(err); //eslint-disable-line
     store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'HOME'});
     store.dispatch({type: 'UPDATE_PROFILE', payload: {}});
   });
 };
+
+const getUserBookings = (email)=>{
+  fetch('/userevents', {
+    credentials: 'include',
+    body:{
+      email : email
+    }
+  }).then(res => res.json()
+).then((result)=>{
+  store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: result});
+}).catch((err) => {
+    console.log(err); //eslint-disable-line
+});
+};
+
 
 const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
@@ -130,5 +151,6 @@ export {
     logout,
     getRooms,
     selectRoom,
-    createEvent
+    createEvent,
+    getUserBookings
 };
