@@ -44,11 +44,11 @@ const event = (data,email)=> {
     'summary': data.summary,
     'description': data.description,
     'start': {
-      'dateTime': formatGoogleDate(data.startDateTime),
+      'dateTime': new Date(data.startDateTime),
       'timeZone': '(GMT+03:00) Jerusalem',
     },
     'end': {
-      'dateTime': formatGoogleDate(data.endDateTime),
+      'dateTime': new Date(data.endDateTime),
       'timeZone': '(GMT+03:00) Jerusalem',
     }
     ,
