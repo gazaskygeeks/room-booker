@@ -13,21 +13,21 @@ const deleteEvent =(auth,calendarId,eventId,cb)=> {
   });
 };
 
-const listEvents = (auth,cb)=> {
+const listEvents = (auth,calendarId,cb)=> {
   calendar.events.list({
     auth: auth,
-    calendarId: '1m5k20i4kuknts1fr7v7qql8v0@group.calendar.google.com',
+    calendarId: calendarId,
     maxResults: 100,
     singleEvents: true,
     orderBy: 'startTime'
   }, cb);
 };
 
-const createEvent = (auth,data,calendarID,cb)=> {
+const createEvent = (auth,resource,calendarId,cb)=> {
   calendar.events.insert({
     auth: auth,
-    calendarId: calendarID,
-    resource: userEvent(data),
+    calendarId: calendarId,
+    resource: resource,
   }, cb);
 };
 const {PRIVATE_KEY,CLIENT_EMAIL} = require('../../../config.js').API_GOOGLE;
@@ -43,7 +43,6 @@ const auth = (cb) => {
   })
 );
 };
-
 
 module.exports = {
   deleteEvent: deleteEvent,
