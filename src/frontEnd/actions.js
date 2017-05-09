@@ -56,15 +56,15 @@ const createEvent = (event,id) => {
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
-
 };
-const deleteEvent = (event,room) => {
+
+const deleteEvent = (event,calendar,room) => {
   fetch('/event', {
     method: 'DELETE',
-    body: {
-      event_id:event,
-      room_id:room
-    },
+    body: JSON.stringify({
+      eventId:event,
+      calendarId:calendar
+    }),
     credentials:'include',
     headers: {
       'Accept': 'application/json',
@@ -74,9 +74,7 @@ const deleteEvent = (event,room) => {
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
-
 };
-
 
 const isLoggedIn = () => {
   fetch('/profile', {

@@ -8,9 +8,7 @@ const deleteEvent =(auth,calendarId,eventId,cb)=> {
     calendarId: calendarId,
     eventId: eventId,
     sendNotifications: true
-  }, (err, response)=> {
-    cb(err,response);
-  });
+  },cb);
 };
 
 const listEvents = (auth,calendarId,cb)=> {
