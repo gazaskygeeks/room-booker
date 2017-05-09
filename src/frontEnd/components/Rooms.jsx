@@ -1,12 +1,12 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-const Rooms = ({onClick, rooms,selectRoom}) => {
+const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
   return (
     <div className="row">
         {rooms.map(function(room) {
           return (
-            <div className='col-md-4 col-sm-6 col-xs-6' key={room.id}>
+            <div className='col-md-4 col-sm-6 col-xs-12' key={room.id}>
                 <div className="card">
                     <img className="card-img-top img-responsive" src={room.room_image} alt="Card image cap"/>
                     <div className="card-block">
@@ -14,10 +14,18 @@ const Rooms = ({onClick, rooms,selectRoom}) => {
                         <p className="card-text">Capacity : {room.room_capacity}</p>
                         <p className="card-text"> Location : {room.location}</p>
                         <p className="card-text">Time Limit : 3 Hours</p>
+                        <div className="btn-group btn-group-justified">
                         <a href="#" onClick={() => {
                           onClick('WEEK_VIEW');
+                          getEvent(room.id);
                           selectRoom(room.id,room.room_name);
                         }} className="btn btn-primary">Reserve</a>
+                        <a href="#" onClick={() => {
+                          onClick('ROOM_AVAILABILITY');
+                          getEvent(room.id);
+                          selectRoom(room.id,room.room_name);
+                        }} className="btn btn-success">View</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -31,6 +39,7 @@ const Rooms = ({onClick, rooms,selectRoom}) => {
 Rooms.propTypes = {
   onClick: PropTypes.func,
   rooms: PropTypes.array,
-  selectRoom: PropTypes.func
+  selectRoom: PropTypes.func,
+  getEvent: PropTypes.func
 };
 export default Rooms;

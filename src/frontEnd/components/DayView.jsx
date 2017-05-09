@@ -5,11 +5,17 @@ import moment from 'moment';
 
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
-const DayView = ({events}) => {
+const DayView = ({bookings, room, isLoggedIn}) => {
   return (
     <div className="calendar-container">
+      <div className="row">
+        <img onClick={()=>isLoggedIn()} className="col-md-1" src="images/back5.png" style={{cursor: 'pointer',width: '80px',height: '50px'}} />
+        <h1 className="col-md-11">
+          {room.room_name}
+        </h1>
+      </div>
       <BigCalendar
-        events={events}
+        events={bookings}
         views={['week', 'day']}
         defaultView='day'
         scrollToTime={new Date(1970, 1, 1, 6)}
@@ -25,7 +31,9 @@ const DayView = ({events}) => {
 
 
 DayView.propTypes = {
-  events: PropTypes.array
+  bookings: PropTypes.array,
+  room:PropTypes.object,
+  isLoggedIn: PropTypes.func
 };
 
 export default DayView;

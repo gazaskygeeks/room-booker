@@ -33,6 +33,7 @@ h3 {
   background-color: rgba(0, 0, 0, 0.88);
   border-color: rgba(0, 0, 0, 0.77);
 }
+
 .navbar-default .navbar-brand{
   color: #eee;
 }
@@ -42,8 +43,16 @@ h3 {
 .navbar-default .navbar-link{
   color: #eee;
 }
+.log-out{
+  padding: 10px;
+  margin-left: -10px;
+}
 .navbar-default .navbar-link:hover{
-  color: #fff;
+  color: #000;
+  text-decoration: none;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .abcRioButtonContentWrapper {
   background-color: #fff;

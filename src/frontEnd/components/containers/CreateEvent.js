@@ -1,19 +1,19 @@
 import {connect} from 'react-redux';
 import WeekView from '../WeekView.jsx';
-import {createEvent} from '../../actions.js';
+import {createEvent,ChangeCurrentView} from '../../actions.js';
 
 const mapStateToProps = (state) => {
   return ({
     userInfo:state.userInfo,
-    room:state.currentRoom
+    room:state.currentRoom,
+    bookings:state.bookings
   });
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    createEvent: (event,id) => {
-      createEvent(event,id);
-    }
+    createEvent: createEvent,
+    onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));}
   };
 };
 
