@@ -66,7 +66,6 @@ const dayRoomEvents = (events)=>{
   const todayEvents = events.filter((elem)=>{
     return new Date(elem.start.dateTime).getDate() === toDay;
   });
-  console.log('tody events ssssssssssssssssssssssssssssssssssssssss',todayEvents);
   return todayEvents;
 };
 
