@@ -7,7 +7,7 @@ class MyReservation extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-4 col-sm-6 col-xs-6">
           <div className="card">
             <div className="card-block">
               <h3 className="card-title">Special title treatment</h3>
@@ -16,7 +16,7 @@ class MyReservation extends Component {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 col-sm-6 col-xs-6">
           <div className="card">
             <div className="card-block">
               <h3 className="card-title">Special title treatment</h3>

@@ -36,6 +36,7 @@ const dbConfig = (env) => {
 };
 
 module.exports = {
+  USER_COOKIE: 'user_id',
   DB_CONFIG: dbConfig(process.env.NODE_ENV),
   API_GOOGLE: {
     PRIVATE_KEY:process.env.PRIVATE_KEY,

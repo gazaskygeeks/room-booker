@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import App from '../App.jsx';
-import {ChangeCurrentView,isLoggedIn}from '../../actions.js';
+import {ChangeCurrentView,isLoggedIn,getRooms}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return{
@@ -12,7 +12,8 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
-    isLoggedIn: () =>{ isLoggedIn();}
+    isLoggedIn: () =>{ isLoggedIn();},
+    getRooms:()=>{getRooms();}
   };
 };
 

@@ -1,81 +1,88 @@
-const calenderOperations = require('../utils/calenderutils.js');
-const {insertEvent,selectUserEvents} = require('../../database/reservation.js');
-const {auth} = require('../utils/calenderutils.js');
-const dbuser = require('../../database/user.js');
-const calenderId = '1m5k20i4kuknts1fr7v7qql8v0@group.calendar.google.com';
+const {deleteEvent,listEvents,createEvent} = require('../utils/calendarOperations.js');
+const {insertEvent,selectUserEvents} = require('../../database/events.js');
+const {selectCalendarID} = require('../../database/room.js');
+const {event,dayRoomEvents} = require('../utils/eventUtils.js');
 
 module.exports = {
   getAllEvents: (req, res) => {
-    auth((err, jwtAuth) => {
+    listEvents(req.googleAuth, (err, events) => {
       if (err) {
-        res.status(300).json({
-          'err': 'error in autherization'
+        return res.status(401).json({
+          'err': 'error getting events'
         });
       }
-      calenderOperations.listEvents(jwtAuth, calenderId, (err, events) => {
-        if (err) {
-          res.status(300).json({
-            'err': 'error getting events'
-          });
-        }
-        res.json(events);
-      });
+      res.json(events);
     });
   },
-  UserEvent: (req,res)=>{
-    selectUserEvents(req.body.email,(err,userEvent)=>{
+  userEvent: (req,res)=>{
+    selectUserEvents(req.user.id,(err,userEvent)=>{
       if (err)
-        res.status(401).end();
+        return res.status(401).end();
       else {
-        res.json(userEvent);
+        return res.json(userEvent);
       }
     });
   },
   createEvent: (req, res) => {
-    auth((err, jwtAuth) => {
-      if (err) {
-        res.status(300).json({
-          'err': 'error in autherization'
-        });
+    const roomId = req.params.id;
+    selectCalendarID(roomId,(err,calendarId)=>{
+      if(err) {
+        return res.status(500).end();
       }
-      calenderOperations.createEvent(jwtAuth, calenderId, (err, events) => {
-        if (err) {
-          res.status(300).json({
-            'err': 'error creating event'
-          });
-        }
-        dbuser.selectUserByEmail(events.attendees[0].email, (err, user) => {
-          insertEvent(events, user.id, () => {
-            res.status(200).end();
+      if (calendarId) {
+        const email = req.user.email;
+        const resource= event(req.body,email);
+        createEvent(req.googleAuth,resource,calendarId, (err, event) => {
+          if (err) {
+            return res.status(300).json({
+              'err': 'error creating event'
+            });
+          }
+          insertEvent(event,req.user.id,calendarId,roomId, () => {
+            return res.status(200).end();
           });
         });
-        res.json(events);
-      });
+      } else {
+        res.status(404).end();
+      }
+    });
+  },
+  roomEvents:(req,res)=>{
+    const roomId = req.params.id;
+    selectCalendarID(roomId,(err,calendarId)=>{
+      if(err) {
+        return res.status(500).end();
+      }
+      if (calendarId) {
+        listEvents(req.googleAuth, calendarId,(err, events) => {
+          if (err) {
+            return res.status(401).json({
+              'err': 'error getting events'
+            });
+          }
+          const dayEvent = dayRoomEvents(events.items);
+          res.json(dayEvent);
+        });
+      } else {
+        res.status(404).end();
+      }
     });
   },
   deleteEvent: (req, res) => {
     const calenderId = req.body;
     const eventId = req.body;
-    auth((err, jwtAuth) => {
-
+    deleteEvent(req.googleAuth, calenderId, eventId, (err) => {
       if (err) {
-        res.status(300).json({
-          'err': 'error in autherization'
+        return res.status(300).json({
+          'err': 'error deleting event'
         });
       }
-      calenderOperations.deleteEvent(jwtAuth, calenderId, eventId, (err) => {
-        if (err) {
-          res.status(300).json({
-            'err': 'error deleting event'
-          });
+      selectUserEvents(req.body.email,(err,userEvent)=>{
+        if (err)
+          return res.status(401).end();
+        else {
+          return res.json(userEvent);
         }
-        selectUserEvents(req.body.email,(err,userEvent)=>{
-          if (err)
-            res.status(401).end();
-          else {
-            res.json(userEvent);
-          }
-        });
       });
     });
   }

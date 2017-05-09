@@ -1,14 +1,23 @@
 import {connect} from 'react-redux';
 import Lobby from '../Lobby.jsx';
-import {ChangeCurrentView,getDayEvents}from '../../actions.js';
+import {ChangeCurrentView,getDayEvents,insertUser,selectRoom}from '../../actions.js';
+
+const mapStateToProps = (state)=>{
+  return({
+    rooms: state.rooms
+  });
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView) );},
-    getEvent: ()=>{getDayEvents();}
+    onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
+    getEvent: (id)=>{getDayEvents(id);},
+    logIn: (data) =>{insertUser(data);},
+    selectRoom: (id,room)=>{dispatch(selectRoom(id,room));}
+
   };
 };
 
-const ChangeView= connect(null,mapDispatchToProps)(Lobby);
+const LobbyView= connect(mapStateToProps,mapDispatchToProps)(Lobby);
 
-export default ChangeView;
+export default LobbyView;

@@ -13,12 +13,12 @@ const eventDefaults = {
   },
   'attendees': [
     {
-      'email': 'mhmdrshorafa@gmail.com',
+      'email': 'shahy.m.93@gmail.com',
       'organizer': true
     }
   ],
   'recurrence': [
-    'RRULE:FREQ=DAILY;COUNT=2'
+    'RRULE:FREQ=DAILY;COUNT=1'
   ],
   'sendNotifications': true,
   'reminders': {
@@ -35,26 +35,38 @@ const eventDefaults = {
   },
 };
 
+const formatGoogleDate = time =>
+  time.replace(' ','T')+'-07:00';
 
-module.exports = (data)=> {
+
+const event = (data,email)=> {
   const newData = {
     'summary': data.summary,
     'description': data.description,
     'start': {
-      'dateTime': data.startDateTime,
+      'dateTime': formatGoogleDate(data.startDateTime),
       'timeZone': '(GMT+03:00) Jerusalem',
     },
     'end': {
-      'dateTime': data.endDateTime,
+      'dateTime': formatGoogleDate(data.endDateTime),
       'timeZone': '(GMT+03:00) Jerusalem',
     }
     ,
     'attendees': [
       {
-        'email': data.email,
+        'email': email,
         'organizer': true
       }
     ]
   };
   return Object.assign({}, eventDefaults, newData);
 };
+const dayRoomEvents = (events)=>{
+  const toDay = new Date().getDate();
+  const todayEvents = events.filter((elem)=>{
+    return new Date(elem.start.dateTime).getDate() === toDay;
+  });
+  return todayEvents;
+};
+
+module.exports = {event,dayRoomEvents};

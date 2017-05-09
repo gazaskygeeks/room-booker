@@ -1,12 +1,12 @@
 const pool = require('./pool.js');
 
-const insertEvent = (data, userId,cb)=>{
-  const sqlQuery = 'INSERT INTO bookings(event_id,users_id,summary,location,start_date,end_date,room_id)VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
+const insertEvent = (data, userId,calenderId,roomId,cb)=>{
+  const sqlQuery = 'INSERT INTO bookings(event_id,calendar_id,users_id,summary,location,start_date,end_date,room_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *';
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
     }
-    client.query(sqlQuery,[data.id, userId, data.summary, data.location,data.start.dateTime,data.end.dateTime,data.iCalUID],(err,result)=>{
+    client.query(sqlQuery,[data.id,calenderId,userId, data.summary, data.location,data.start.dateTime,data.end.dateTime,roomId],(err,result)=>{
       done(err);
       return err
         ? cb(err)
@@ -32,6 +32,7 @@ const selectUserEvents = (userID,cb)=>{
     });
   });
 };
+
 const deleteEvents = (calendarID,eventID,cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){

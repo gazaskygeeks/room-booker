@@ -7,6 +7,14 @@ const currentUserReducer = (state={}, action) => {
   }
 };
 
+const rooms = (state =[],action)=>{
+  switch (action.type){
+  case 'FETCH_ROOMS':
+    return action.payload;
+  default:
+    return state;
+  }
+};
 
 const bookings = (state = [] , action)=> {
   switch (action.type) {
@@ -22,8 +30,6 @@ const currentUserReservations =(state = [] , action)=> {
   switch (action.type) {
   case 'FETCH_USER_RESERVATIONS_SUCCESS':
     return action.payload;
-  case 'FETCH_USER_RESERVATIONS_FAILED':
-    return null;
   default:return state;
   }
 };
@@ -37,5 +43,13 @@ const currentView = (state='SPINNER',action)=>{
   }
 };
 
+const currentRoom = (state='',action)=>{
+  switch(action.type){
+  case 'SELECTED_ROOM':
+    return action.payload;
+  default:
+    return state;
+  }
+};
 
-export {currentUserReducer,bookings,currentUserReservations,currentView};
+export {currentUserReducer,bookings,currentUserReservations,currentView,rooms,currentRoom};

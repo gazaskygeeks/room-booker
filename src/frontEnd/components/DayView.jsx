@@ -5,12 +5,20 @@ import moment from 'moment';
 
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
-
-const DayView = ({events})=>{
-  return(
-      <div className="calendar-container">
-        <BigCalendar selectable events={events} views={['week','day']}  defaultView='day' scrollToTime={new Date(1970, 1, 1, 6)} defaultDate={new Date(2015, 3, 12)} onSelectEvent={event => alert(event.title)} onSelectSlot={(slotInfo) => alert(`selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` + `\nend: ${slotInfo.end.toLocaleString()}`)}/>
-      </div>
+const DayView = ({events}) => {
+  return (
+    <div className="calendar-container">
+      <BigCalendar
+        events={events}
+        views={['week', 'day']}
+        defaultView='day'
+        scrollToTime={new Date(1970, 1, 1, 6)}
+        defaultDate={new Date()}
+        min={new Date(0,0,0,8,0,0,0)}
+        max={new Date(0,0,0,19,0,0,0)}
+        onSelectEvent={event => alert(event.title)}
+        onSelectSlot={(slotInfo) => alert(`selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` + `\nend: ${slotInfo.end.toLocaleString()}`)}/>
+    </div>
   );
 };
 

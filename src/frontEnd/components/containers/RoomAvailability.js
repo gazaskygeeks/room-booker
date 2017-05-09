@@ -4,9 +4,10 @@ import RoomAvailbility from '../RoomAvailability.jsx';
 const mapStateToProps = (state)=>{
   return({
     bookings: state.bookings,
+    room:state.currentRoom
   });
 };
 
-const ChangeDayView= connect(mapStateToProps,null)(RoomAvailbility);
+const RoomAvailability= connect(mapStateToProps,null)(RoomAvailbility);
 
-export default ChangeDayView;
+export default RoomAvailability;

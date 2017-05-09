@@ -8,7 +8,7 @@
     "test": "jest",
     "test:integration": "jest src/database/database.test.js",
     "test:watch": "jest --watch ",
-    "watch:client": "webpack --watch --hot",
+    "watch:client": "webpack --watch",
     "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
     "build": "webpack",
     "lint": "eslint --ext .jsx --ext .js .",
@@ -60,11 +60,10 @@
     "react": "^15.5.4",
     "react-big-calendar": "^0.13.0",
     "react-bootstrap": "^0.31.0",
-    "react-bootstrap-modal": "^3.0.1",
     "react-dom": "^15.5.4",
+    "react-google-login": "^2.8.9",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
-    "url": "^0.11.0",
     "webpack": "^2.4.1"
   },
   "precommit": [

@@ -2,10 +2,10 @@ import React from 'react';
 import DayView from './DayView.jsx';
 import {PropTypes} from 'prop-types';
 
-const RoomAvailbility = ({bookings}) => {
+const RoomAvailbility = ({room,bookings}) => {
   return (
     <div className="row">
-      <h1>Room 1</h1>
+      <h1>{room.room_name}</h1>
       <div className="col-md-12">
         <DayView events={bookings}/>
       </div>
@@ -15,7 +15,8 @@ const RoomAvailbility = ({bookings}) => {
 };
 
 RoomAvailbility.propTypes = {
-  bookings: PropTypes.array
+  bookings: PropTypes.array,
+  room:PropTypes.string
 };
 
 export default RoomAvailbility;
