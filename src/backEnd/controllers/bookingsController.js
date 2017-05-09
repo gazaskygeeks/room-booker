@@ -60,8 +60,8 @@ module.exports = {
               'err': 'error getting events'
             });
           }
-          dayRoomEvents(events.items);
-          res.json(events);
+          const dayEvent = dayRoomEvents(events.items);
+          res.json(dayEvent);
         });
       } else {
         res.status(404).end();
