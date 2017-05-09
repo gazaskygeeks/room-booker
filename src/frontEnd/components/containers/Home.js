@@ -1,19 +1,21 @@
 import {connect} from 'react-redux';
 import Home from '../Home.jsx';
-import {ChangeCurrentView,selectRoom}from '../../actions.js';
+import {ChangeCurrentView,selectRoom,getUserBookings,getDayEvents}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
     rooms: state.rooms,
-    userReservations:state.userReservations
+    userReservations:state.userReservations,
+    userEmail: state.userInfo.email
   });
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
-    selectRoom: (id,room)=>{dispatch(selectRoom(id,room));}
-
+    selectRoom: (id,room)=>{dispatch(selectRoom(id,room));},
+    getUserBookings: (email)=>{dispatch(getUserBookings(email));},
+    getEvent: getDayEvents
   };
 };
 
