@@ -2,11 +2,11 @@ import React from 'react';
 import DayView from './DayView.jsx';
 import {PropTypes} from 'prop-types';
 
-const RoomAvailbility = ({bookings,room,onClick}) => {
+const RoomAvailbility = ({bookings,room,isLoggedIn}) => {
   return (
     <div className="row">
       <div className="col-md-12">
-        <DayView bookings={bookings} room={room} onClick={onClick}/>
+        <DayView bookings={bookings} room={room} isLoggedIn={isLoggedIn}/>
       </div>
     </div>
   );
@@ -15,7 +15,7 @@ const RoomAvailbility = ({bookings,room,onClick}) => {
 RoomAvailbility.propTypes = {
   bookings: PropTypes.array,
   room:PropTypes.object,
-  onClick: PropTypes.func
+  isLoggedIn: PropTypes.func
 };
 
 export default RoomAvailbility;
