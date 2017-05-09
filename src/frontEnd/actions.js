@@ -58,6 +58,25 @@ const createEvent = (event,id) => {
     });
 
 };
+const deleteEvent = (event,room) => {
+  fetch('/event', {
+    method: 'DELETE',
+    body: {
+      event_id:event,
+      room_id:room
+    },
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }}).then(() => {
+      getDayEvents(room);
+    }).catch((err) => {
+        console.error('Error', err); //eslint-disable-line
+    });
+
+};
+
 
 const isLoggedIn = () => {
   fetch('/profile', {
@@ -147,5 +166,6 @@ export {
     getRooms,
     selectRoom,
     createEvent,
-    getUserBookings
+    getUserBookings,
+    deleteEvent
 };
