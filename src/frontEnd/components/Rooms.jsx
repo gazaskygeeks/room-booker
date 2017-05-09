@@ -6,7 +6,7 @@ const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
     <div className="row">
         {rooms.map(function(room) {
           return (
-            <div className='col-md-4 col-sm-6 col-xs-6' key={room.id}>
+            <div className='col-md-4 col-sm-6 col-xs-12' key={room.id}>
                 <div className="card">
                     <img className="card-img-top img-responsive" src={room.room_image} alt="Card image cap"/>
                     <div className="card-block">

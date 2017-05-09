@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
     selectRoom: (id,room)=>{dispatch(selectRoom(id,room));},
-    getUserBookings: (email)=>{dispatch(getUserBookings(email));},
+    getUserBookings: getUserBookings,
     getEvent: getDayEvents
   };
 };
