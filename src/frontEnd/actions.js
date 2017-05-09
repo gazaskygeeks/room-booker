@@ -10,7 +10,7 @@ const validEmail = (data) => {
 const insertUser = (data) => {
   fetch('/login', {
     method: 'POST',
-    body: data,
+    body: JSON.stringify(data),
     credentials: 'include',
     headers: {
       'Accept': 'application/json',
@@ -49,7 +49,7 @@ const getDayEvents = (id) => {
 const createEvent = (event,id) => {
   fetch('/event/'+id, {
     method: 'POST',
-    body:event,
+    body:JSON.stringify(event),
     credentials:'include',
     headers: {
       'Accept': 'application/json',
