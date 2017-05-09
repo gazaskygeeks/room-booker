@@ -38,18 +38,18 @@ const selectCalendarID = (roomId,cb)=>{
       return cb(poolError);
     }
     const sqlQuery = 'SELECT calendar_id from rooms where id=$1';
-    client.query(sqlQuery,[roomId],(err,result)=>{
-      const response = result.rowCount > 0
+    client.query(sqlQuery,[roomId],(err,result)=> {
+      done(err);
+      if (err) {
+        return cb(err);
+      }
+      const response = result && result.rowCount > 0
         ? result.rows[0].calendar_id
         : null;
-      done(err);
-      return err
-        ? cb(err)
-        : cb(null, response);
+      cb(null, response);
     });
   });
 };
-
 
 module.exports= {
   selectRoom,
