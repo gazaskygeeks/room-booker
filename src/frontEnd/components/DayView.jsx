@@ -16,17 +16,13 @@ const DayView = ({bookings, room, isLoggedIn}) => {
       </div>
       <BigCalendar
         events={bookings}
-        popup
-        timeslots={4}
-        step={15}
         views={['week', 'day']}
         defaultView='day'
         scrollToTime={new Date(1970, 1, 1, 6)}
         defaultDate={new Date()}
         min={new Date(0,0,0,8,0,0,0)}
         max={new Date(0,0,0,19,0,0,0)}
-        onSelectEvent={event => alert(event.title)}
-        onSelectSlot={(slotInfo) => alert(`selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` + `\nend: ${slotInfo.end.toLocaleString()}`)}/>
+        onSelectEvent={event => alert(event.title)}/>
     </div>
   );
 };
