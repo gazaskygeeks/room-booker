@@ -10,9 +10,9 @@ const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
                 <div className="card">
                     <img className="card-img-top img-responsive" src={room.room_image} alt="Card image cap"/>
                     <div className="card-block">
-                        <h4 className="card-title">Name : {room.room_name}</h4>
-                        <p className="card-text">Capacity : {room.room_capacity}</p>
-                        <p className="card-text"> Location : {room.location}</p>
+                        <h4 className="card-title">Name: {room.room_name}</h4>
+                        <p className="card-text">Capacity: {room.room_capacity}</p>
+                        <p className="card-text"> Location: {room.location}</p>
                         <div className="btn-group btn-group-justified">
                         <a href="#" onClick={() => {
                           onClick('WEEK_VIEW');
