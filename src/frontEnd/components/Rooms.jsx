@@ -13,7 +13,6 @@ const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
                         <h4 className="card-title">Name : {room.room_name}</h4>
                         <p className="card-text">Capacity : {room.room_capacity}</p>
                         <p className="card-text"> Location : {room.location}</p>
-                        <p className="card-text">Time Limit : 3 Hours</p>
                         <div className="btn-group btn-group-justified">
                         <a href="#" onClick={() => {
                           onClick('WEEK_VIEW');
