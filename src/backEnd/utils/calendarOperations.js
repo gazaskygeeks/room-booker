@@ -1,6 +1,5 @@
 const google = require('googleapis');
 const calendar = google.calendar('v3');
-const userEvent = require('../utils/eventUtils.js');
 
 const deleteEvent =(auth,calendarId,eventId,cb)=> {
   calendar.events.delete({
@@ -8,9 +7,7 @@ const deleteEvent =(auth,calendarId,eventId,cb)=> {
     calendarId: calendarId,
     eventId: eventId,
     sendNotifications: true
-  }, (err, response)=> {
-    cb(err,response);
-  });
+  },cb);
 };
 
 const listEvents = (auth,calendarId,cb)=> {

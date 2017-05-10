@@ -13,7 +13,7 @@ const MyReservation = ({deleteEvent,userReservations}) => {
                 <div className="card">
                   <div className="card-block">
                     <h3 className="card-title">{event.summary}</h3>
-                    <a className="btn btn-danger" onClick={deleteEvent(event.event_id,event.room_id)}>Cancel</a>
+                    <a className="btn btn-danger" onClick={()=>{deleteEvent(event.event_id,event.calendar_id,event.room_id);}}>Cancel</a>
                   </div>
                 </div>
               </div>

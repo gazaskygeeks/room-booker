@@ -19,9 +19,17 @@ class Nav extends Component {
             }}>Logout</Navbar.Link>
           </Navbar.Text>
           <Navbar.Text pullRight>
-            Welcome, {this.props.userInfo.first_name + ' ' + this.props.userInfo.last_name}
+            Welcome, {this.props.userInfo.last_name}!
           </Navbar.Text>
         </div>
+      );
+    }else {
+      return(
+      <div>
+        <Navbar.Text pullRight>
+          {this.props.userInfo.Error}
+        </Navbar.Text>
+      </div>
       );
     }
 
@@ -38,7 +46,6 @@ class Nav extends Component {
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
-
           {this.getUserProfile()}
         </Navbar.Collapse>
       </Navbar>
