@@ -56,7 +56,24 @@ const createEvent = (event,id) => {
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
+};
 
+const deleteEvent = (event,calendar,room) => {
+  fetch('/event', {
+    method: 'DELETE',
+    body: JSON.stringify({
+      eventId:event,
+      calendarId:calendar
+    }),
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }}).then(() => {
+      getDayEvents(room);
+    }).catch((err) => {
+        console.error('Error', err); //eslint-disable-line
+    });
 };
 
 const isLoggedIn = () => {
@@ -147,5 +164,6 @@ export {
     getRooms,
     selectRoom,
     createEvent,
-    getUserBookings
+    getUserBookings,
+    deleteEvent
 };

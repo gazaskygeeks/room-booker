@@ -32,6 +32,25 @@ const selectRoom= (cb)=>{
     });
   });
 };
+
+const selectRoomName = (roomName , cb)=>{
+  pool.connect((poolError,client, done) => {
+    if(poolError){
+      return cb(poolError);
+    }
+    const sqlQuery = 'SELECT * from rooms where id = $1';
+    client.query(sqlQuery,[roomName],(err,result)=>{
+      const response = result.rowCount > 0
+        ? result.rows[0].room_name
+        : null;
+      done(err);
+      return err
+        ? cb(err)
+        : cb(null, response);
+    });
+  });
+};
+
 const selectCalendarID = (roomId,cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){
@@ -53,6 +72,7 @@ const selectCalendarID = (roomId,cb)=>{
 
 module.exports= {
   selectRoom,
-  addRoom : addRoom,
-  selectCalendarID:selectCalendarID
+  addRoom ,
+  selectCalendarID,
+  selectRoomName
 };

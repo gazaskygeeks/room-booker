@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Home from '../Home.jsx';
-import {ChangeCurrentView,selectRoom,getUserBookings,getDayEvents}from '../../actions.js';
+import {ChangeCurrentView,selectRoom,getUserBookings,getDayEvents,deleteEvent}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
@@ -15,7 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
     selectRoom: (id,room)=>{dispatch(selectRoom(id,room));},
     getUserBookings: getUserBookings,
-    getEvent: getDayEvents
+    getEvent: getDayEvents,
+    deleteEvent:deleteEvent
   };
 };
 

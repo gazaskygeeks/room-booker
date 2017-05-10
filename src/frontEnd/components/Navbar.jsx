@@ -8,17 +8,18 @@ class Nav extends Component {
 
     this.getUserProfile = this.getUserProfile.bind(this);
   }
+
   getUserProfile() {
     if (this.props.userInfo.hasOwnProperty('first_name')) {
       return (
         <div>
           <Navbar.Text pullRight>
-            <Navbar.Link onClick={() => {
+            <Navbar.Link className="log-out" onClick={() => {
               this.props.logout();
             }}>Logout</Navbar.Link>
           </Navbar.Text>
           <Navbar.Text pullRight>
-            Welcome : {this.props.userInfo.first_name + ' ' + this.props.userInfo.last_name}
+            Welcome, {this.props.userInfo.first_name + ' ' + this.props.userInfo.last_name}
           </Navbar.Text>
         </div>
       );
@@ -31,15 +32,13 @@ class Nav extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <Navbar.Link onClick={()=>this.props.isLoggedIn()}>Gaza Sky Geeks
+            <Navbar.Link onClick={()=>this.props.isLoggedIn()}>Room Booking
             </Navbar.Link>
           </Navbar.Brand>
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
-          <Navbar.Text>
-            Room Booking
-          </Navbar.Text>
+
           {this.getUserProfile()}
         </Navbar.Collapse>
       </Navbar>

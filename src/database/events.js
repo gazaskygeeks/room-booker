@@ -1,12 +1,12 @@
 const pool = require('./pool.js');
 
-const insertEvent = (data, userId,calenderId,roomId,cb)=>{
-  const sqlQuery = 'INSERT INTO bookings(event_id,calendar_id,users_id,summary,location,start_date,end_date,room_id)VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *';
+const insertEvent = (data, userId,calenderId,roomName,roomId,cb)=>{
+  const sqlQuery = 'INSERT INTO bookings(event_id,calendar_id,users_id,summary,description,event_link,location,start_date,end_date,room_id,room_name)VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *';
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
     }
-    client.query(sqlQuery,[data.id,calenderId,userId, data.summary, data.location,data.start.dateTime,data.end.dateTime,roomId],(err,result)=>{
+    client.query(sqlQuery,[data.id,calenderId,userId, data.summary,data.description,data.htmlLink,data.location,data.start.dateTime,data.end.dateTime,roomId,roomName],(err,result)=>{
       done(err);
       return err
         ? cb(err)
@@ -22,31 +22,25 @@ const selectUserEvents = (userID,cb)=>{
     }
     const sqlQuery = 'SELECT * from bookings WHERE users_id=$1';
     pool.query(sqlQuery,[userID],(err,result)=>{
-      const response = result.rowCount > 0
-        ? result.rows
-        : null;
       done(err);
       return err
         ? cb(err)
-        : cb(null, response);
+        : cb(null, result.rows);
     });
   });
 };
 
-const deleteEvents = (calendarID,eventID,cb)=>{
+const deleteDbEvent = (calendarID,eventID,cb)=>{
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
     }
-    const sqlQuery = 'DELETE from bookings WHERE calendar_id=$1 && event_id=$2';
+    const sqlQuery = 'DELETE from bookings WHERE calendar_id=$1 AND event_id=$2';
     pool.query(sqlQuery,[calendarID,eventID],(err,result)=>{
-      const response = result.rowCount > 0
-        ? result.rows[0]
-        : null;
       done(err);
       return err
         ? cb(err)
-        : cb(null, response);
+        : cb(null, result);
     });
   });
 };
@@ -54,5 +48,5 @@ const deleteEvents = (calendarID,eventID,cb)=>{
 module.exports = {
   insertEvent: insertEvent,
   selectUserEvents: selectUserEvents,
-  deleteEvents: deleteEvents
+  deleteDbEvent: deleteDbEvent
 };

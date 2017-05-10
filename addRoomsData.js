@@ -18,7 +18,7 @@ async.series([
      VALUES ('fflniem7n09tud0k7ocvvsk810@group.calendar.google.com',
      'GSG Converance Room',
      '50',
-     'images/blank.jpg',
+     'images/mercymeetingroom.jpg',
      'Mercy corps')`,callback);
   },
   (callback) => {
@@ -31,7 +31,7 @@ async.series([
      VALUES ('ss1qchu7kvmkgbek3r6gl9d7ss@group.calendar.google.com',
      'GSG Converance Room',
      '20',
-     'images/blank.jpg',
+     'images/gsgconveranceroom.jpg',
      'Gaza Sky Geeks')`,callback);
   }
 ], (err) => {
