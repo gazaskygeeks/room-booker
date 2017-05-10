@@ -38,7 +38,11 @@ const ChangeCurrentView = (currentView) => {
 const getDayEvents = (id) => {
   fetch('/events/'+id)
   .then(res => {
-    if (res.status === 200) return res.json();
+    if (res.status === 200) {
+      return res.json();
+    } else {
+      return Promise.reject(Error('day events error'));
+    }
   })
   .then((result) => {
     store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
@@ -78,6 +82,7 @@ const deleteEvent = (event,calendar,room) => {
       'content-type': 'application/json'
     }}).then(() => {
       getDayEvents(room);
+      getUserBookings();
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
