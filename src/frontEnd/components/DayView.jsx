@@ -16,6 +16,9 @@ const DayView = ({bookings, room, isLoggedIn}) => {
       </div>
       <BigCalendar
         events={bookings}
+        popup
+        timeslots={4}
+        step={15}
         views={['week', 'day']}
         defaultView='day'
         scrollToTime={new Date(1970, 1, 1, 6)}
