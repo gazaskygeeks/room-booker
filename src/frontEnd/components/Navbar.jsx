@@ -23,6 +23,14 @@ class Nav extends Component {
           </Navbar.Text>
         </div>
       );
+    }else {
+      return(
+      <div>
+        <Navbar.Text pullRight>
+          {this.props.userInfo.Error}
+        </Navbar.Text>
+      </div>
+      );
     }
 
   }
@@ -38,7 +46,6 @@ class Nav extends Component {
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
-
           {this.getUserProfile()}
         </Navbar.Collapse>
       </Navbar>

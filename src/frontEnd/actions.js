@@ -20,9 +20,11 @@ const insertUser = (data) => {
     if (res.status === 200) {
       isLoggedIn();
       res.json();
+    }else {
+      store.dispatch({type: 'UPDATE_PROFILE', payload: {Error: 'Not authorize user'}});
     }
   }).then((result) => {
-    store.dispatch({type: 'AUTHORIZED_USER', payload: result});
+    store.dispatch({type: 'UPDATE_PROFILE', payload: result});
   }).catch((err) => {
     store.dispatch({type: 'UNAUTHORIZED_USER', payload: err});
   });
@@ -53,6 +55,7 @@ const createEvent = (event,id) => {
       'content-type': 'application/json'
     }}).then(() => {
       getDayEvents(id);
+      getUserBookings();
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
@@ -93,7 +96,6 @@ const isLoggedIn = () => {
   }).catch((err) => {
         console.log(err); //eslint-disable-line
     store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'HOME'});
-    store.dispatch({type: 'UPDATE_PROFILE', payload: {}});
   });
 };
 
