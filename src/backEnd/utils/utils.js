@@ -12,7 +12,7 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
+  return email.includes('@gmail.com') || email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
 };
 
 module.exports = {
