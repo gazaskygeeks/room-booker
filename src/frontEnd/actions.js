@@ -58,7 +58,7 @@ const createEvent = (event,id) => {
     });
 };
 
-const deleteEvent = (event,calendar,room) => {
+const deleteEvent = (event,calendar) => {
   fetch('/event', {
     method: 'DELETE',
     body: JSON.stringify({
@@ -69,9 +69,16 @@ const deleteEvent = (event,calendar,room) => {
     headers: {
       'Accept': 'application/json',
       'content-type': 'application/json'
-    }}).then(() => {
-      getDayEvents(room);
-    }).catch((err) => {
+    }})
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    })
+    .then(myBookings =>
+      store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: myBookings})
+    )
+    .catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
 };

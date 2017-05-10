@@ -8,7 +8,7 @@ module.exports = {
   userEvent: (req,res)=>{
     selectUserEvents(req.user.id,(err,userEvent)=>{
       if (err)
-        return res.status(401).end();
+        return res.status(500).end();
       else {
         return res.json(userEvent);
       }
@@ -76,11 +76,17 @@ module.exports = {
       }
       deleteDbEvent(calenderId,eventId,(err)=>{
         if(err){
-          return res.status(401).json({
+          return res.status(500).json({
             'err': 'error delete event'
           });
         }
-        res.status(200);
+        selectUserEvents(req.user.id,(err,userEvent)=>{
+          if (err)
+            return res.status(500).end();
+          else {
+            return res.json(userEvent);
+          }
+        });
       });
     });
   }
