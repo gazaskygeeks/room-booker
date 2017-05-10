@@ -15,7 +15,7 @@ let googleAuth;
 const updateAuth = () => {
   const jwtClient = new google.auth.JWT(CLIENT_EMAIL,
     null,
-    PRIVATE_KEY,
+    PRIVATE_KEY.replace(/\\n/g, '\n'),
     ['https://www.googleapis.com/auth/calendar'],
     null
   );
