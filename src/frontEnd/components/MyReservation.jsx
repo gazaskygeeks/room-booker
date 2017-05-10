@@ -12,8 +12,12 @@ const MyReservation = ({deleteEvent,userReservations}) => {
                 return(  <div className="col-md-4 col-sm-6 col-xs-12" key={event.id}>
                 <div className="card">
                   <div className="card-block">
-                    <h3 className="card-title">{event.summary}</h3>
-                    <a className="btn btn-danger" onClick={()=>{deleteEvent(event.event_id,event.calendar_id,event.room_id);}}>Cancel</a>
+                    <h4 className="card-title">{event.summary}</h4>
+                      <p className="card-text"> Room name: {event.room_name}</p>
+                      <p className="card-text"> Description: {event.description}</p>
+                    <a className="btn btn-danger" onClick={()=>{
+                      deleteEvent(event.event_id,event.calendar_id,event.room_id);
+                    }}>Cancel</a>
                   </div>
                 </div>
               </div>
