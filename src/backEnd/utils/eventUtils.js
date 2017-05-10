@@ -11,12 +11,7 @@ const eventDefaults = {
     'dateTime': null,
     'timeZone': '(GMT+03:00) Jerusalem',
   },
-  'attendees': [
-    {
-      'email': 'shahy.m.93@gmail.com',
-      'organizer': true
-    }
-  ],
+  'attendees': [],
   'recurrence': [
     'RRULE:FREQ=DAILY;COUNT=1'
   ],
@@ -35,7 +30,7 @@ const eventDefaults = {
   },
 };
 
-const event = (data,email)=> {
+module.exports = (data,email)=> {
   const newData = {
     'summary': data.summary,
     'description': data.description,
@@ -57,12 +52,3 @@ const event = (data,email)=> {
   };
   return Object.assign({}, eventDefaults, newData);
 };
-const dayRoomEvents = (events)=>{
-  const toDay = new Date().getDate();
-  const todayEvents = events.filter((elem)=>{
-    return new Date(elem.start.dateTime).getDate() === toDay;
-  });
-  return todayEvents;
-};
-
-module.exports = {event,dayRoomEvents};

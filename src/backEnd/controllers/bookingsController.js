@@ -2,7 +2,7 @@ const {deleteEvent,listEvents,createEvent} = require('../utils/calendarOperation
 const {insertEvent,selectUserEvents,deleteDbEvent} = require('../../database/events.js');
 const {selectRoomName} = require('../../database/room.js');
 const {selectCalendarID} = require('../../database/room.js');
-const {event,dayRoomEvents} = require('../utils/eventUtils.js');
+const event = require('../utils/eventUtils.js');
 
 module.exports = {
   userEvent: (req,res)=>{
