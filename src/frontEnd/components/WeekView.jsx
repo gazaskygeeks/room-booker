@@ -17,6 +17,9 @@ class WeekView extends Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.state={
       open:false,
+      eventModal:false,
+      eventTitle:'',
+      eventDesc:'',
       title:'',
       desc:'',
       startTime:'',
@@ -37,13 +40,15 @@ class WeekView extends Component {
 
   closeModal(){
     this.setState({
-      open: false
+      open: false,
+      eventModal:false
     });
   }
 
   showModal(){
     this.setState({
-      open: true
+      open: true,
+      eventModal:true
     });
   }
 
@@ -64,6 +69,31 @@ class WeekView extends Component {
             {this.props.room.room_name}
           </h1>
         </div>
+        <Modal show={this.state.eventModal} onHide={this.closeModal} aria-labelledby="ModalHeader">
+          <Modal.Header closeButton>
+            <Modal.Title id='ModalHeader'>Event: {this.state.eventTitle}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form horizontal>
+              <FormGroup>
+                <Col sm={2}>
+                  Title:
+                </Col>
+                <Col sm={10}>
+                  <FormControl type="text" value={this.state.eventTitle} disabled/>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col sm={2}>
+                  Description:
+                </Col>
+                <Col sm={10}>
+                  <FormControl type="text" value={this.state.eventDesc} disabled/>
+                </Col>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+        </Modal>
         <Modal show={this.state.open} onHide={this.closeModal} aria-labelledby="ModalHeader">
           <Modal.Header closeButton>
             <Modal.Title id='ModalHeader'>Create Event</Modal.Title>
@@ -129,7 +159,13 @@ class WeekView extends Component {
           defaultDate={new Date()}
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
-          onSelectEvent={event => alert(event.title)}
+          onSelectEvent={(event) => {
+            this.setState({
+              eventModal:true,
+              eventTitle:event.title,
+              eventDesc:event.desc,
+            });
+          }}
           onSelectSlot={(slotInfo) => {
             this.setState({
               open:true,
