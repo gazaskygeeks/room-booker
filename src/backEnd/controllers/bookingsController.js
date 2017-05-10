@@ -5,16 +5,6 @@ const {selectCalendarID} = require('../../database/room.js');
 const {event,dayRoomEvents} = require('../utils/eventUtils.js');
 
 module.exports = {
-  getAllEvents: (req, res) => {
-    listEvents(req.googleAuth, (err, events) => {
-      if (err) {
-        return res.status(401).json({
-          'err': 'error getting events'
-        });
-      }
-      res.json(events);
-    });
-  },
   userEvent: (req,res)=>{
     selectUserEvents(req.user.id,(err,userEvent)=>{
       if (err)
@@ -68,8 +58,7 @@ module.exports = {
               'err': 'error getting events'
             });
           }
-          const dayEvent = dayRoomEvents(events.items);
-          res.json(dayEvent);
+          res.json(events.items);
         });
       } else {
         res.status(404).end();
