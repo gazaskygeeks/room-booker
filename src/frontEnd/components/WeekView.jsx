@@ -118,7 +118,10 @@ class WeekView extends Component {
           </Modal.Body>
         </Modal>
         <BigCalendar
-          selectable
+          selectable="ignoreEvents"
+          popup
+          timeslots={4}
+          step={15}
           events={this.props.bookings}
           views={['week', 'day']}
           defaultView='week'
