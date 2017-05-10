@@ -19,7 +19,7 @@ class Nav extends Component {
             }}>Logout</Navbar.Link>
           </Navbar.Text>
           <Navbar.Text pullRight>
-            Welcome, {this.props.userInfo.first_name + ' ' + this.props.userInfo.last_name}
+            Welcome, {this.props.userInfo.last_name}!
           </Navbar.Text>
         </div>
       );
