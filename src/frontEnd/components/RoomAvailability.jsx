@@ -7,7 +7,7 @@ const RoomAvailbility = ({room,bookings}) => {
     <div className="row">
       <h1>{room.room_name}</h1>
       <div className="col-md-12">
-        <DayView events={bookings}/>
+        <DayView events={bookings} room={room}/>
       </div>
     </div>
   );
@@ -16,7 +16,7 @@ const RoomAvailbility = ({room,bookings}) => {
 
 RoomAvailbility.propTypes = {
   bookings: PropTypes.array,
-  room:PropTypes.string
+  room:PropTypes.object
 };
 
 export default RoomAvailbility;

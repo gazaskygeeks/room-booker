@@ -34,10 +34,8 @@ const ChangeCurrentView = (currentView) => {
 };
 
 const getDayEvents = (id) => {
-
   fetch('/events/'+id).then(res => res.json()).then((result) => {
-    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result.items)});
-
+    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
   });
@@ -46,15 +44,14 @@ const getDayEvents = (id) => {
 
 };
 const createEvent = (event,id) => {
-  fetch('/event/'+id, {
+  fetch('/event/' + id, {
     method: 'POST',
-    body:JSON.stringify(event),
+    body: JSON.stringify(event),
     credentials:'include',
     headers: {
       'Accept': 'application/json',
       'content-type': 'application/json'
-    }})
-    .then(res => res.json()).then(() => {
+    }}).then(() => {
       getDayEvents(id);
     }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
@@ -76,7 +73,6 @@ const isLoggedIn = () => {
     }
   }).then((result) => {
     store.dispatch({type: 'UPDATE_PROFILE', payload: result});
-    getUserBookings(result.email);
   }).catch((err) => {
         console.log(err); //eslint-disable-line
     store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'HOME'});
@@ -84,12 +80,9 @@ const isLoggedIn = () => {
   });
 };
 
-const getUserBookings = (email)=>{
+const getUserBookings = ()=>{
   fetch('/userevents', {
     credentials: 'include',
-    body:{
-      email : email
-    }
   }).then(res => res.json()
 ).then((result)=>{
   store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: result});
@@ -109,6 +102,8 @@ const formateEvents = (events) => {
   });
   return reformatEvents;
 };
+
+
 
 const logout = () => {
   fetch('/logout', {credentials: 'include'}).then((res) => {

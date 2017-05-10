@@ -23,7 +23,7 @@ const selectUserEvents = (userID,cb)=>{
     const sqlQuery = 'SELECT * from bookings WHERE users_id=$1';
     pool.query(sqlQuery,[userID],(err,result)=>{
       const response = result.rowCount > 0
-        ? result.rows[0]
+        ? result.rows
         : null;
       done(err);
       return err
