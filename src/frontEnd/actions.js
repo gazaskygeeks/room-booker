@@ -123,7 +123,7 @@ const formateEvents = (events) => {
 
 
 const logout = () => {
-  fetch('/logout', {credentials: 'include'}).then((res) => {
+  fetch('/logout', {  method: 'POST',credentials: 'include'}).then((res) => {
     if (res.status === 200) {
       store.dispatch({type: 'CHANGE_CURRENT_VIEW', payload: 'LOBBY'});
       store.dispatch({type: 'UPDATE_PROFILE', payload: {}});
