@@ -81,7 +81,7 @@ class WeekView extends Component {
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
                 <Col sm={2}>
-                  Discription
+                  Description
                 </Col>
                 <Col sm={10}>
                   <FormControl type="text" value={this.state.desc} onChange={this.onDescChange} placeholder="description" required/>
