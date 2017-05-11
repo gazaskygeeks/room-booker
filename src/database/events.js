@@ -29,6 +29,20 @@ const selectUserEvents = (userID,cb)=>{
     });
   });
 };
+const selectRoomEvents = (calendarId,cb)=>{
+  pool.connect((poolError,client, done) => {
+    if(poolError){
+      return cb(poolError);
+    }
+    const sqlQuery = 'SELECT * from bookings WHERE calendar_id=$1';
+    pool.query(sqlQuery,[calendarId],(err,result)=>{
+      done(err);
+      return err
+        ? cb(err)
+        : cb(null, result.rows);
+    });
+  });
+};
 
 const deleteDbEvent = (calendarID,eventID,cb)=>{
   pool.connect((poolError,client, done) => {
@@ -46,7 +60,8 @@ const deleteDbEvent = (calendarID,eventID,cb)=>{
 };
 
 module.exports = {
-  insertEvent: insertEvent,
-  selectUserEvents: selectUserEvents,
-  deleteDbEvent: deleteDbEvent
+  insertEvent,
+  selectUserEvents,
+  selectRoomEvents,
+  deleteDbEvent
 };
