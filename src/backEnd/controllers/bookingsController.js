@@ -66,7 +66,8 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
-            return res.status(401).json({
+            console.log(err);
+            return res.status(500).json({
               'err': 'error getting events'
             });
           }
