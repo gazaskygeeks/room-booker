@@ -2,19 +2,9 @@ const {deleteEvent,listEvents,createEvent} = require('../utils/calendarOperation
 const {insertEvent,selectUserEvents,deleteDbEvent} = require('../../database/events.js');
 const {selectRoomName} = require('../../database/room.js');
 const {selectCalendarID} = require('../../database/room.js');
-const {event,dayRoomEvents} = require('../utils/eventUtils.js');
+const event = require('../utils/eventUtils.js');
 
 module.exports = {
-  getAllEvents: (req, res) => {
-    listEvents(req.googleAuth, (err, events) => {
-      if (err) {
-        return res.status(401).json({
-          'err': 'error getting events'
-        });
-      }
-      res.json(events);
-    });
-  },
   userEvent: (req,res)=>{
     selectUserEvents(req.user.id,(err,userEvent)=>{
       if (err)
@@ -64,12 +54,12 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
-            return res.status(401).json({
+            console.log(err);
+            return res.status(500).json({
               'err': 'error getting events'
             });
           }
-          const dayEvent = dayRoomEvents(events.items);
-          res.json(dayEvent);
+          res.json(events.items);
         });
       } else {
         res.status(404).end();
