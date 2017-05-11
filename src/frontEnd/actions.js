@@ -53,8 +53,7 @@ const createEvent = (event,id) => {
       'content-type': 'application/json'
     }}).then(() => {
       getDayEvents(id);
-    }).catch((err) => {
-        console.error('Error', err); //eslint-disable-line
+    }).catch(() => {
     });
 };
 
@@ -75,8 +74,9 @@ const deleteEvent = (event,calendar) => {
         return res.json();
       }
     })
-    .then(myBookings =>
-      store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: myBookings})
+    .then(myBookings =>{
+      store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: myBookings});
+    }
     )
     .catch((err) => {
         console.error('Error', err); //eslint-disable-line
@@ -126,8 +126,6 @@ const formateEvents = (events) => {
   });
   return reformatEvents;
 };
-
-
 
 const logout = () => {
   fetch('/logout', {  method: 'POST',credentials: 'include'}).then((res) => {
