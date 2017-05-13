@@ -12,10 +12,16 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
+  return email.includes('@gmail.com') ||email.includes('@gazaskygeeks.com') || email.includes('@mercycorps.com');
 };
 
+const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
+  return roomEvents.filter(elem =>
+    (eventStartAt.valueOf() <= elem.end_date.valueOf() && eventEndAt.valueOf() >= elem.start_date.valueOf())
+  );
+};
 module.exports = {
-  checkAuth: checkAuth,
-  validEmail: validEmail
+  checkAuth,
+  validEmail,
+  checkEventAvailability
 };
