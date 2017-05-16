@@ -11,7 +11,8 @@ module.exports = {
       if (err)
         return res.status(500).end();
       else {
-        return res.json(userEvent);
+        return res.status(200).json(userEvent);
+
       }
     });
   },
