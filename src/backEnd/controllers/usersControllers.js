@@ -38,6 +38,7 @@ module.exports = {
     const userId = req.signedCookies[USER_COOKIE];
     if(userId){
       usersdb.selectUserById(userId, (err, user) => {
+
         if (err) {
           res.status(500).end();
         }

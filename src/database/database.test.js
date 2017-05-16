@@ -12,10 +12,11 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
-const routes = require('../backEnd/routes.js');
+const openRoutes = require('../backEnd/openRoutes.js');
+
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
-app.use(routes);
+app.use(openRoutes);
 
 beforeAll(done => {
 
@@ -46,7 +47,7 @@ afterAll(done => {
 
 const userLoginFixture = {
   accessToken: 'ya29.Glw1BFPcruLIrQlbGQxBECmlvUP3WtrcBa4SeF3EfiUGa9FC4hAnBLFxDym-9A4_1fp1To79Qz79CGAzTWQBQ2uY1hryzZLDhIajo_6aIvfIlR0WoM8CcSzOkbYSHA',
-  email: 'mhmdrshorafa@gmail.com',
+  email: 'roombooking@gazaskygeeks.com',
   firstName: 'Mhmd',
   lastName: 'Shorafa'
 };
@@ -62,7 +63,7 @@ nock('https://www.googleapis.com')
 
 test('bad token', () => {
   return request(app)
-    .post('/user')
+    .post('/login')
     .send(userLoginFixture)
     .set('Accept', 'application/json')
     .set('content-type', 'application/json')
@@ -83,7 +84,7 @@ nock('https://www.googleapis.com')
   });
 test('good token, bad email', () => {
   return request(app)
-    .post('/user')
+    .post('/login')
     .send(userLoginFixture)
     .set('Accept', 'application/json')
     .set('content-type', 'application/json')
@@ -103,7 +104,7 @@ nock('https://www.googleapis.com')
   });
 test('good token, good email', () => {
   return request(app)
-    .post('/user')
+    .post('/login')
     .send(userLoginFixture)
     .set('Accept', 'application/json')
     .set('content-type', 'application/json')
