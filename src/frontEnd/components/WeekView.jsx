@@ -3,6 +3,7 @@ import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import {Modal,Button,Form,FormControl,FormGroup,Col} from 'react-bootstrap';
 import moment from 'moment';
+import {checkEventAvailability} from '../utils/utils.js';
 
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment
@@ -53,8 +54,6 @@ class WeekView extends Component {
   }
 
   render() {
-
-
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -166,15 +165,17 @@ class WeekView extends Component {
               eventDesc:event.desc,
             });
           }}
-          onSelectSlot={(slotInfo) => {
-            this.setState({
-              open:true,
-              startTime:`${slotInfo.start.toString()}`,
-              endTime: `${slotInfo.end.toString()}`
-            });
+          onSelectSlot={
+            (slotInfo) => {
+              const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());
+              this.setState({
+                open:availability,
+                startTime:`${slotInfo.start.toString()}`,
+                endTime: `${slotInfo.end.toString()}`
+              });
+            }
           }
-
-          }/>
+          />
       </div>
     );
   }
