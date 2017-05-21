@@ -56,6 +56,6 @@ test('FETCH_USER_RESERVATIONS_FAILED should not fetch reservation for user  ', (
     type: 'FETCH_USER_RESERVATIONS_FAILED',
     payload: userReservations
   };
-  expect(currentUserReservations([], expectedAction)).toEqual(null);
+  expect(currentUserReservations([], expectedAction)).toEqual([]);
 
 });
