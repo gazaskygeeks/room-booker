@@ -165,6 +165,7 @@ class WeekView extends Component {
               eventDesc:event.desc,
             });
           }}
+          
           onSelectSlot={
             (slotInfo) => {
               const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());

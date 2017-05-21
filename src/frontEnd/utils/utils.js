@@ -8,7 +8,6 @@ const setToRightKeys = ({Eea, Paa,U3,ofa,wea},access_token)=>
     'lastName': wea,
     'accessToken':access_token
   });
-
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
   const startTime = new Date(eventStartAt).getTime();
   const endTime = new Date(eventEndAt).getTime();

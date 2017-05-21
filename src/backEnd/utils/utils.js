@@ -16,9 +16,14 @@ const validEmail = (email) => {
 };
 
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
-  return roomEvents.filter(elem =>
-    (eventStartAt.valueOf() <= elem.end_date.valueOf() && eventEndAt.valueOf() >= elem.start_date.valueOf())
+  if(eventStartAt.getTime() > (new Date().getTime())){
+    return roomEvents.filter(elem =>
+    (eventStartAt.getTime() <= elem.end_date.getTime() && eventEndAt.getTime() >= elem.start_date.getTime())
   );
+  }
+  else {
+    return [{summary:'choose time in future'}];
+  }
 };
 module.exports = {
   checkAuth,
