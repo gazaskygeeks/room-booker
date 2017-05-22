@@ -24,7 +24,7 @@ const selectRoom= (cb)=>{
     client.query(sqlQuery,(err,result)=>{
       const response = result.rowCount > 0
         ? result.rows
-        : null;
+        : [];
       done(err);
       return err
         ? cb(err)
