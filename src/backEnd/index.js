@@ -30,6 +30,16 @@ const updateAuth = () => {
 updateAuth();
 setInterval(updateAuth, 1800000); // 1,800,000 === 30mins
 
+if(process.env.NODE === 'development'){
+  app.use (function (req, res, next) {
+    if (req.secure) {
+      next();
+    } else {
+      res.redirect('https://' + req.headers.host + req.url);
+    }
+  });
+}
+
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
