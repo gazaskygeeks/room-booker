@@ -6,7 +6,6 @@ import MyReservation from './MyReservation.jsx';
 
 const HOME = ({onClick,rooms,selectRoom,userReservations,getUserBookings,getEvent,deleteEvent}) => {
 
-
   return (
     <div>
       <Tabs defaultActiveKey={1} onSelect={()=>{getUserBookings();}}id='tabContainer'>
