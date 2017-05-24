@@ -30,7 +30,7 @@ const updateAuth = () => {
 updateAuth();
 setInterval(updateAuth, 1800000); // 1,800,000 === 30mins
 
-if(process.env.NODE === 'development'){
+if(process.env.NODE_ENV === 'production'){
   app.use (function (req, res, next) {
     if (req.secure) {
       next();
