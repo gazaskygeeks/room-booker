@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+
 const weekView = connect(mapStateToProps, mapDispatchToProps)(WeekView);
 
 export default weekView;

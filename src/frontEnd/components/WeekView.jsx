@@ -82,6 +82,7 @@ class WeekView extends Component {
   }
 
   render() {
+    
     const {userInfo} = this.props;
     var event = {
       summary : this.state.title,
