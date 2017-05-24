@@ -5,6 +5,7 @@ const app = express();
 const openRoutes = require('../openRoutes.js');
 const authCheck = require('../authedCheck.js');
 const authenticatedRoutes = require('../authenticatedRoutes.js');
+
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
 app.use(openRoutes);
@@ -12,17 +13,18 @@ app.use(authCheck);
 app.use(authenticatedRoutes);
 const calenderId = '1m5k20i4kuknts1fr7v7qql8v0@group.calendar.google.com';
 //const { USER_COOKIE } = require('../../../config.js');
+
+
 const request = require('supertest');
 const agent = request.agent(app);
 const nock = require('nock');
 
-// const data = {
-//   summary : 'myTestSummary',
-//   description : 'mytestDescription',
-//   startDateTime : 'mytestStartDate',
-//   endDateTime :'myTestEndDate',
-//   email: 'mhmdrshorafa@gmail.com'
-// };
+const data = {
+  summary : 'myTestSummary',
+  description : 'mytestDescription',
+  startDateTime : new Date(),
+  endDateTime :'Fri May 12 2017 12:30:00 GMT+0300 (EEST)'
+};
 
 
 nock('https://accounts.google.com')
@@ -65,11 +67,11 @@ nock('https://www.googleapis.com')
     defaultReminders: [],
     items: ['sddsds']
   });
-// 
+//
 // test('/userevents response with events for user', () => {
 //   return agent
 //     .get('/userevents')
-//     .expect('set-cookie', 'cookie=USER_COOKIE; Path=/')
+//   //  .expect('set-cookie', 'cookie=USER_COOKIE; Path=/')
 //     .set('Accept', 'application/json')
 //     .set('content-type', 'application/json')
 //       .then((res)=>{
@@ -77,26 +79,26 @@ nock('https://www.googleapis.com')
 //         expect(res.body.kind).toBe('calendar#events');
 //       }).catch();
 // });
-
-
-
-// nock('https://accounts.google.com')
-// .post('/o/oauth2/token')
-// .reply(200, { access_token: 'asdsasassaadsa',
-//   token_type: 'Bearer',
-//   expiry_date: NaN,
-//   refresh_token: 'jwt-placeholder' });
-// nock('https://www.googleapis.com')
-//   .post(`/calendar/v3/calendars/${calenderId}/events`)
-//   .reply(200,{'reply':'created event'});
 //
-// test('/create event response with created event', () => {
-//   return request(app)
-//     .post('/events')
-//     .send(data)
-//     .set('Accept', 'application/json')
-//     .set('content-type', 'application/json')
-//       .then((res)=>{
-//         expect(res.status).toBe(200);
-//       }).catch();
-// });
+
+
+nock('https://accounts.google.com')
+.post('/o/oauth2/token')
+.reply(200, { access_token: 'asdsasassaadsa',
+  token_type: 'Bearer',
+  expiry_date: NaN,
+  refresh_token: 'jwt-placeholder' });
+nock('https://www.googleapis.com')
+  .post(`/calendar/v3/calendars/${calenderId}/events`)
+  .reply(200,{'reply':'created event'});
+
+test('/create event response with created event', () => {
+  return request(app)
+    .post('/event')
+    .send(data)
+    .set('Accept', 'application/json')
+    .set('content-type', 'application/json')
+      .then((res)=>{
+        expect(res.status).toBe(401);
+      }).catch();
+});

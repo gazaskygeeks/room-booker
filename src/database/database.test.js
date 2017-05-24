@@ -6,20 +6,22 @@ const setupClient = new pg.Client(Object.assign({}, dbConfig, {
   database: 'postgres'
 }));
 const createTables = require('./createTable.js');
-
+const openRoutes = require('../backEnd/openRoutes.js');
+const authCheck = require('../backEnd/authedCheck.js');
+const authenticatedRoutes = require('../backEnd/authenticatedRoutes.js');
 const request = require('supertest');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
-const openRoutes = require('../backEnd/openRoutes.js');
 
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
 app.use(openRoutes);
+app.use(authCheck);
+app.use(authenticatedRoutes);
 
 beforeAll(done => {
-
   async.series([
     cb =>
       setupClient.connect(cb),
