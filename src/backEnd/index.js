@@ -47,9 +47,11 @@ app.use((req, res, next) => {
   req.googleAuth = googleAuth;
   next();
 });
+
 app.use(openRoutes);
 app.use(authCheck);
 app.use(authenticatedRoutes);
+
 createTables( err => {
   if (err) throw err;
   app.listen(PORT, () => {
