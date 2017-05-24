@@ -36,7 +36,7 @@ module.exports = (data,email)=> {
     'description': data.description,
     'start': {
       'dateTime': new Date(data.startDateTime),
-      'timeZone': '(GMT+03:00) Jerusalem',
+      'timeZone': '(GMT+03:00) Jerusalem'
     },
     'end': {
       'dateTime': new Date(data.endDateTime),
