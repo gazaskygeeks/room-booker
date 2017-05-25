@@ -49,9 +49,6 @@ const getDayEvents = (id) => {
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
   });
-
-
-
 };
 const createEvent = (event,id) => {
   fetch('/event/' + id, {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
-import {Modal,Button,Form,FormControl,FormGroup,Col} from 'react-bootstrap';
+import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel} from 'react-bootstrap';
 import moment from 'moment';
 import {checkEventAvailability} from '../utils/utils.js';
 
@@ -16,16 +16,29 @@ class WeekView extends Component {
     this.showModal = this.showModal.bind(this);
     this.onDescChange = this.onDescChange.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
+    this.eventModalDetails = this.eventModalDetails.bind(this);
     this.state={
       open:false,
       eventModal:false,
       eventTitle:'',
       eventDesc:'',
+      eventOwner:'',
       title:'',
       desc:'',
       startTime:'',
-      endTime:''
+      endTime: '',
+      loop: null
     };
+  }
+
+  componentDidMount(){
+    const {getEvent, room} = this.props;
+    const loop = setInterval(function () {
+      getEvent(room.room_id);
+    }, 5000);
+    this.setState({
+      loop
+    });
   }
 
   onTitleChange(ev){
@@ -53,7 +66,24 @@ class WeekView extends Component {
     });
   }
 
+  componentWillUnmount(){
+    clearInterval(this.state.loop);
+  }
+
+  eventModalDetails(details,event){
+    this.setState({
+      eventModal:true,
+      eventTitle:event.title,
+      startTime: event.start.getHours()+':'+event.start.getMinutes(),
+      endTime: event.end.getHours()+':'+event.end.getMinutes(),
+      eventOwner:details.first_name+' '+details.last_name,
+      eventDesc:details.email,
+    });
+  }
+
   render() {
+    
+    const {userInfo} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -76,18 +106,42 @@ class WeekView extends Component {
             <Form horizontal>
               <FormGroup>
                 <Col sm={2}>
-                  Title:
+                  <ControlLabel>Title:</ControlLabel>
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.eventTitle} disabled/>
+                  <ControlLabel>{this.state.eventTitle}</ControlLabel>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col sm={2}>
-                  Description:
+                    <ControlLabel>Name:</ControlLabel>
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.eventDesc} disabled/>
+                  <ControlLabel>{this.state.eventOwner}</ControlLabel>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col sm={2}>
+                    <ControlLabel>Email:</ControlLabel>
+                </Col>
+                <Col sm={10}>
+                  <ControlLabel>{this.state.eventDesc}</ControlLabel>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col sm={2}>
+                    <ControlLabel>Start time:</ControlLabel>
+                </Col>
+                <Col sm={10}>
+                  <ControlLabel>{this.state.startTime}</ControlLabel>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col sm={2}>
+                    <ControlLabel>End time:</ControlLabel>
+                </Col>
+                <Col sm={10}>
+                  <ControlLabel>{this.state.endTime}</ControlLabel>
                 </Col>
               </FormGroup>
             </Form>
@@ -121,7 +175,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.startTime} disabled/>
+                  <FormControl type="text" value={this.state.startTime}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -129,7 +183,7 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.endTime} disabled/>
+                  <FormControl type="text" value={this.state.endTime}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -158,14 +212,7 @@ class WeekView extends Component {
           defaultDate={new Date()}
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
-          onSelectEvent={(event) => {
-            this.setState({
-              eventModal:true,
-              eventTitle:event.title,
-              eventDesc:event.desc,
-            });
-          }}
-          
+          onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
           onSelectSlot={
             (slotInfo) => {
               const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());
@@ -188,7 +235,8 @@ WeekView.propTypes = {
   createEvent: PropTypes.func,
   room:PropTypes.object,
   bookings:PropTypes.array,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  getEvent: PropTypes.func
 };
 
 export default WeekView;
