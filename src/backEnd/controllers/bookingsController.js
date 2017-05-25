@@ -67,7 +67,7 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
-            console.log(err);
+            console.log(err); // eslint_disable_
             return res.status(500).json({
               'err': 'error getting events'
             });
