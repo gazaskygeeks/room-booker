@@ -1,5 +1,5 @@
-const {deleteEvent,listEvents,createEvent} = require('../utils/calendarOperations.js');
-const {insertEvent,selectUserEvents,deleteDbEvent,selectRoomEvents} = require('../../database/events.js');
+const {deleteEvent,listEvents,createEvent,updateCalendarEvent} = require('../utils/calendarOperations.js');
+const {insertEvent,selectUserEvents,deleteDbEvent,selectRoomEvents,updateDBEvent} = require('../../database/events.js');
 const {selectRoomName} = require('../../database/room.js');
 const {selectCalendarID} = require('../../database/room.js');
 const event = require('../utils/eventUtils.js');
@@ -8,11 +8,12 @@ const {checkEventAvailability} = require('../utils/utils.js');
 module.exports = {
   userEvent: (req,res)=>{
     selectUserEvents(req.user.id,(err,userEvent)=>{
-      if (err)
+      if (err){
         return res.status(500).end();
+      }
+
       else {
         return res.status(200).json(userEvent);
-
       }
     });
   },
@@ -26,11 +27,10 @@ module.exports = {
         const email = req.user.email;
         const resource= event(req.body,email);
         selectRoomEvents(calendarId,(err,roomEvent)=>{
-          if(err) throw err;
-          const conflict = checkEventAvailability(roomEvent,resource.start.dateTime,resource.end.dateTime);
-          if(conflict.length > 0){
+          const eventAvailability = checkEventAvailability(roomEvent,resource.start.dateTime,resource.end.dateTime);
+          if(eventAvailability.length > 0){
             return res.status(500).json({
-              'err': 'conflict with'+ conflict.summary
+              'err': 'conflict with'+ eventAvailability.summary
             });
           }
           else{
@@ -67,7 +67,9 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
-            console.log(err); // eslint_disable_
+
+            console.log(err);
+
             return res.status(500).json({
               'err': 'error getting events'
             });
@@ -78,6 +80,32 @@ module.exports = {
         res.status(404).end();
       }
     });
+  },
+  updateEvent: (req,res) => {
+    const roomId = req.params.id;
+    selectCalendarID(roomId,(err,calendarId) => {
+      if(err) {
+        return res.status(500).end();
+      }
+      if (calendarId) {
+        const eventId = req.body.eventId;
+        const resource = event(req.body);
+        updateCalendarEvent(req.googleAuth,calendarId,eventId,resource,(err) => {
+          if (err) {
+            return res.status(300).json({
+              'err': 'error updating event'
+            });
+          }
+          updateDBEvent(req.body,req.user.id,(err,updateStatus) => {
+            if(err) console.log(err,updateStatus);
+            selectRoomEvents(calendarId,(err,events) => {
+              if(err) console.log(err);
+              return res.json(events);
+            });
+          });
+        });
+      }}
+    );
   },
   deleteEvent: (req, res) => {
     const calenderId = req.body.calendarId;

@@ -32,7 +32,7 @@ setInterval(updateAuth, 1800000); // 1,800,000 === 30mins
 
 if(process.env.NODE_ENV === 'production'){
   app.use (function (req, res, next) {
-    if (req.secure) {
+    if (req.headers['x-forwarded-proto'] === 'https') {
       next();
     } else {
       res.redirect('https://' + req.headers.host + req.url);

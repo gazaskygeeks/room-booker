@@ -50,6 +50,7 @@ const getDayEvents = (id) => {
         console.error('Error', err); //eslint-disable-line
   });
 };
+
 const createEvent = (event,id) => {
   fetch('/event/' + id, {
     method: 'POST',
@@ -61,6 +62,32 @@ const createEvent = (event,id) => {
     }}).then(() => {
       getDayEvents(id);
     }).catch((err) => {
+        console.error('Error', err); //eslint-disable-line
+    });
+};
+
+const updateEvent = (roomId,eventId,event) => {
+  fetch('/event'+roomId, {
+    method: 'PUT',
+    body: JSON.stringify({
+      eventId:eventId,
+      event:event
+    }),
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }})
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    })
+    .then(myBookings =>{
+      store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: myBookings});
+    }
+    )
+    .catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
 };
@@ -167,15 +194,16 @@ const selectRoom = (id,room)=>{
 
 
 export {
-    validEmail,
-    insertUser,
-    ChangeCurrentView,
-    getDayEvents,
-    isLoggedIn,
-    logout,
-    getRooms,
-    selectRoom,
-    createEvent,
-    getUserBookings,
-    deleteEvent
+  validEmail,
+  insertUser,
+  ChangeCurrentView,
+  getDayEvents,
+  isLoggedIn,
+  logout,
+  getRooms,
+  selectRoom,
+  createEvent,
+  getUserBookings,
+  deleteEvent,
+  updateEvent
 };
