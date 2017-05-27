@@ -9,6 +9,14 @@ const deleteEvent =(auth,calendarId,eventId,cb)=> {
     sendNotifications: true
   },cb);
 };
+const updateCalendarEvent =(auth,calendarId,eventId,resource,cb)=> {
+  calendar.events.update({
+    auth: auth,
+    calendarId: calendarId,
+    eventId: eventId,
+    resource: resource
+  },cb);
+};
 
 const listEvents = (auth,calendarId,cb)=> {
   calendar.events.list({
@@ -41,9 +49,4 @@ const auth = (cb) => {
 );
 };
 
-module.exports = {
-  deleteEvent: deleteEvent,
-  listEvents: listEvents,
-  createEvent: createEvent,
-  auth: auth
-};
+module.exports = {deleteEvent,listEvents,createEvent,updateCalendarEvent,auth};

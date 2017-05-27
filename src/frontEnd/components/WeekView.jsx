@@ -34,7 +34,7 @@ class WeekView extends Component {
 
   componentDidMount(){
     const {getEvent, room} = this.props;
-    const loop = setInterval(function () {
+    const loop = setInterval( () => {
       getEvent(room.room_id);
     }, 5000);
     this.setState({
@@ -42,11 +42,16 @@ class WeekView extends Component {
     });
   }
 
+  componentWillUnmount(){
+    clearInterval(this.state.loop);
+  }
+
   onTitleChange(ev){
     this.setState({
       title:ev.target.value
     });
   }
+
   onDescChange(ev){
     this.setState({
       desc:ev.target.value
@@ -93,9 +98,6 @@ class WeekView extends Component {
     }
   }
 
-  componentWillUnmount(){
-    clearInterval(this.state.loop);
-  }
 
   eventModalDetails(details,event){
     this.setState({
