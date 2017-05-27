@@ -23,16 +23,7 @@ class Nav extends Component {
           </Navbar.Text>
         </div>
       );
-    }else {
-      return(
-      <div>
-        <Navbar.Text pullRight>
-          {this.props.userInfo.Error}
-        </Navbar.Text>
-      </div>
-      );
     }
-
   }
 
   render() {
