@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
-import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel} from 'react-bootstrap';
+import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel, Alert} from 'react-bootstrap';
 import moment from 'moment';
 import {checkEventAvailability} from '../utils/utils.js';
 
@@ -27,7 +27,8 @@ class WeekView extends Component {
       desc:'',
       startTime:'',
       endTime: '',
-      loop: null
+      loop: null,
+      alert:true
     };
   }
 
@@ -66,6 +67,32 @@ class WeekView extends Component {
     });
   }
 
+  alertInfo(){
+    if (this.state.alert) {
+      return(
+        <Alert>
+          <h4>Drag to book a date.</h4>
+        </Alert>
+      );
+    }else {
+      return(
+      <Alert>
+        <h4>You can't book on the past or over a date</h4>
+      </Alert>
+      );
+    }
+  }
+
+  alertWarning(){
+    if (!this.state.alert) {
+      return(
+        <Alert bsStyle="warning">
+          <h4>You can't book over a date.</h4>
+        </Alert>
+      );
+    }
+  }
+
   componentWillUnmount(){
     clearInterval(this.state.loop);
   }
@@ -82,7 +109,7 @@ class WeekView extends Component {
   }
 
   render() {
-    
+
     const {userInfo} = this.props;
     var event = {
       summary : this.state.title,
@@ -98,6 +125,15 @@ class WeekView extends Component {
             {this.props.room.room_name}
           </h1>
         </div>
+        {
+          (this.state.alert)
+            ?(
+              this.alertInfo()
+            )
+            :(
+                this.alertWarning()
+            )
+        }
         <Modal show={this.state.eventModal} onHide={this.closeModal} aria-labelledby="ModalHeader">
           <Modal.Header closeButton>
             <Modal.Title id='ModalHeader'>Event: {this.state.eventTitle}</Modal.Title>
@@ -218,6 +254,7 @@ class WeekView extends Component {
               const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());
               this.setState({
                 open:availability,
+                alert:availability,
                 startTime:`${slotInfo.start.toString()}`,
                 endTime: `${slotInfo.end.toString()}`
               });
