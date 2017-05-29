@@ -17,6 +17,8 @@ class WeekView extends Component {
     this.onDescChange = this.onDescChange.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.eventModalDetails = this.eventModalDetails.bind(this);
+    this.onStartTimeChange = this.onStartTimeChange.bind(this);
+    this.onEndTimeChange = this.onEndTimeChange.bind(this);
     this.state={
       open:false,
       eventModal:false,
@@ -55,6 +57,18 @@ class WeekView extends Component {
   onDescChange(ev){
     this.setState({
       desc:ev.target.value
+    });
+  }
+
+  onStartTimeChange(){
+    this.setState({
+      startTime:ev.target.value
+    });
+  }
+
+  onEndTimeChange(){
+    this.setState({
+      endTime:ev.target.value
     });
   }
 
@@ -103,8 +117,6 @@ class WeekView extends Component {
     this.setState({
       eventModal:true,
       eventTitle:event.title,
-      startTime: event.start.getHours()+':'+event.start.getMinutes(),
-      endTime: event.end.getHours()+':'+event.end.getMinutes(),
       eventOwner:details.first_name+' '+details.last_name,
       eventDesc:details.email,
     });
@@ -213,7 +225,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.startTime}/>
+                  <FormControl type="text" onChange={this.onStartTimeChange}value={this.state.startTime}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -221,7 +233,7 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.endTime}/>
+                  <FormControl type="text" value={this.state.endTime} onChange={this.state.endTime}/>
                 </Col>
               </FormGroup>
               <FormGroup>
