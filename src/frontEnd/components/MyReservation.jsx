@@ -1,15 +1,45 @@
 import React,{Component} from 'react';
 import {PropTypes} from 'prop-types';
-import {Modal} from 'react-bootstrap';
+import Reservations from './Reservations.jsx';
+import UpdateModal from './UpdateModal.jsx';
 
 class MyReservation extends Component {
   constructor(props){
     super(props);
+    this.closeModal = this.closeModal.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.state = {
-      
+      openModal:false,
+      eventTitle: '',
+      eventDesc: '',
+      start: '',
+      end: ''
     };
   }
+
+  closeModal(){
+    this.setState({
+      openModal: false
+    });
+  }
+
+  showModal(eventId){
+    const {userReservations} = this.props;
+    const event = userReservations.find((event)=>{
+      return event.id === eventId;
+    });
+    this.setState({
+      openModal: true,
+      eventTitle: event.summary,
+      eventDesc: event.description,
+      start: event.start_date,
+      end: event.end_date
+    });
+  }
+
   render(){
+    const {showModal, closeModal} = this;
+    const {openModal, eventTitle, eventDesc, start, end} = this.state;
     const {userReservations, deleteEvent} = this.props;
     return (
         <div className="row">
@@ -17,20 +47,11 @@ class MyReservation extends Component {
             (userReservations.length !== 0)
               ? (
                 userReservations.map(function(event) {
-                  return(  <div className="col-md-4 col-sm-6 col-xs-12" key={event.id}>
-                  <div className="card">
-                    <div className="card-block">
-                      <h4 className="card-title">{event.summary}</h4>
-                        <p className="card-text"> Room name: {event.room_name}</p>
-                        <p className="card-text"> Description: {event.description}</p>
-                        <p className="card-text"> Room: {event.room_name}</p>
-                      <a className="btn btn-danger" onClick={()=>{
-                        deleteEvent(event.event_id,event.calendar_id,event.room_id);
-                      }}>Cancel</a>
-                    <a className="btn btn-primary" style={{marginLeft:'3%'}} onClick={()=>{}}>Update</a>
+                  return(
+                    <div key={event.id}>
+                      <Reservations event={event} deleteEvent={deleteEvent} showModal={showModal}/>
+                      <UpdateModal open={openModal} close={closeModal} title={eventTitle} desc={eventDesc} start={start} end={end}/>
                     </div>
-                  </div>
-                </div>
                   );
                 })
               )
@@ -40,11 +61,6 @@ class MyReservation extends Component {
                 </div>
               )
             }
-            <Modal >
-              <Modal.Header closeButton>
-                <Modal.Title id='ModalHeader'>Edit event: {this.state.eventTitle}</Modal.Title>
-              </Modal.Header>
-            </Modal>
         </div>
     );
   }
