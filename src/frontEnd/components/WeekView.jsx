@@ -125,11 +125,11 @@ class WeekView extends Component {
   }
 
   checkEventAvailability(){
-      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
-      this.setState({
-        open:availability,
-        alert:availability
-      });
+    const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+    this.setState({
+      open:availability,
+      alert:availability
+    });
   }
 
   render() {
@@ -257,9 +257,6 @@ class WeekView extends Component {
                     else{
                       this.closeModal();
                     }
-
-
-
                   }}>
                     Submit
                   </Button>
@@ -282,12 +279,13 @@ class WeekView extends Component {
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
-          onSelectSlot={(slotInfo)=>{console.log(slotInfo);
-            this.setState({startTime:slotInfo.start,
-            endTime:slotInfo.end})
-          this.checkEventAvailability();
-      }
-    }
+          onSelectSlot={(slotInfo)=>{
+            this.setState({
+              startTime:slotInfo.start,
+              endTime:slotInfo.end});
+            this.checkEventAvailability();
+          }
+        }
           />
       </div>
     );
