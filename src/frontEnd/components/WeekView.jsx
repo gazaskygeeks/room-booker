@@ -19,6 +19,7 @@ class WeekView extends Component {
     this.eventModalDetails = this.eventModalDetails.bind(this);
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
+    this.checkEventAvailability = this.checkEventAvailability.bind(this);
     this.state={
       open:false,
       eventModal:false,
@@ -30,7 +31,8 @@ class WeekView extends Component {
       startTime:'',
       endTime: '',
       loop: null,
-      alert:true
+      alert:true,
+      slotInfo:{}
     };
   }
 
@@ -58,15 +60,15 @@ class WeekView extends Component {
     this.setState({
       desc:ev.target.value
     });
-  }
 
-  onStartTimeChange(){
+  }
+  onStartTimeChange(ev){
     this.setState({
       startTime:ev.target.value
     });
   }
 
-  onEndTimeChange(){
+  onEndTimeChange(ev){
     this.setState({
       endTime:ev.target.value
     });
@@ -120,6 +122,14 @@ class WeekView extends Component {
       eventOwner:details.first_name+' '+details.last_name,
       eventDesc:details.email,
     });
+  }
+
+  checkEventAvailability(){
+      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+      this.setState({
+        open:availability,
+        alert:availability
+      });
   }
 
   render() {
@@ -225,7 +235,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" onChange={this.onStartTimeChange}value={this.state.startTime}/>
+                  <FormControl type="text" onChange={this.onStartTimeChange} value={this.state.startTime}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -233,14 +243,23 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.endTime} onChange={this.state.endTime}/>
+                  <FormControl type="text" onChange={this.onEndTimeChange} value={this.state.endTime}/>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col smOffset={2} sm={10}>
-                  <Button onClick={()=>{
-                    this.props.createEvent(event,this.props.room.room_id);
-                    this.closeModal();
+                  <Button onClick={(slotInfo)=>{
+                    this.checkEventAvailability(slotInfo);
+                    if(this.open == false){
+                      this.props.createEvent(event,this.props.room.room_id);
+                      this.closeModal();
+                    }
+                    else{
+                      this.closeModal();
+                    }
+
+
+
                   }}>
                     Submit
                   </Button>
@@ -263,17 +282,12 @@ class WeekView extends Component {
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
-          onSelectSlot={
-            (slotInfo) => {
-              const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());
-              this.setState({
-                open:availability,
-                alert:availability,
-                startTime:`${slotInfo.start.toString()}`,
-                endTime: `${slotInfo.end.toString()}`
-              });
-            }
-          }
+          onSelectSlot={(slotInfo)=>{console.log(slotInfo);
+            this.setState({startTime:slotInfo.start,
+            endTime:slotInfo.end})
+          this.checkEventAvailability();
+      }
+    }
           />
       </div>
     );
