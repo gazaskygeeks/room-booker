@@ -192,6 +192,12 @@ const selectRoom = (id,room)=>{
   };
 };
 
+const clearEvents = ()=>{
+store.dispatch({type: 'FETCH_DAY_BOOKING', payload:[]});
+};
+
+
+
 
 export {
   validEmail,
@@ -205,5 +211,6 @@ export {
   createEvent,
   getUserBookings,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  clearEvents
 };
