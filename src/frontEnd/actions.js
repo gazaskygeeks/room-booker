@@ -50,6 +50,7 @@ const getDayEvents = (id) => {
         console.error('Error', err); //eslint-disable-line
   });
 };
+
 const createEvent = (event,id) => {
   fetch('/event/' + id, {
     method: 'POST',
@@ -61,6 +62,31 @@ const createEvent = (event,id) => {
     }}).then(() => {
       getDayEvents(id);
     }).catch((err) => {
+        console.error('Error', err); //eslint-disable-line
+    });
+};
+
+const updateEvent = (roomId,ev) => {
+  fetch('/event/'+roomId, {
+    method: 'PUT',
+    body: JSON.stringify({
+      eventId:ev.id,
+      event:ev.newEvent
+    }),
+    credentials:'include',
+    headers: {
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    }})
+    .then(res => {
+      if (res.status === 200) {
+        getUserBookings();
+        return res.json();
+      }
+    }).then(res =>{
+      store.dispatch({type: 'FETCH_USER_RESERVATIONS_SUCCESS', payload: res});
+    }
+    ).catch((err) => {
         console.error('Error', err); //eslint-disable-line
     });
 };
@@ -127,6 +153,7 @@ const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
     return({
       title: obj.summary,
+      email: 'Title: '+obj.summary+'\n'+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName,
       start: new Date(obj.start.dateTime),
       end: new Date(obj.end.dateTime)
     });
@@ -165,17 +192,25 @@ const selectRoom = (id,room)=>{
   };
 };
 
+const clearEvents = ()=>{
+  store.dispatch({type: 'FETCH_DAY_BOOKING', payload:[]});
+};
+
+
+
 
 export {
-    validEmail,
-    insertUser,
-    ChangeCurrentView,
-    getDayEvents,
-    isLoggedIn,
-    logout,
-    getRooms,
-    selectRoom,
-    createEvent,
-    getUserBookings,
-    deleteEvent
+  validEmail,
+  insertUser,
+  ChangeCurrentView,
+  getDayEvents,
+  isLoggedIn,
+  logout,
+  getRooms,
+  selectRoom,
+  createEvent,
+  getUserBookings,
+  deleteEvent,
+  updateEvent,
+  clearEvents
 };

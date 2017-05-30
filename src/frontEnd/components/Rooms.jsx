@@ -1,7 +1,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
+const Rooms = ({onClick, rooms,selectRoom,getEvent,clearEvents}) => {
   return (
     <div className="row">
         {rooms.map(function(room) {
@@ -21,6 +21,7 @@ const Rooms = ({onClick, rooms,selectRoom,getEvent}) => {
                         }} className="btn btn-primary">Reserve</a>
                         <a href="#" onClick={() => {
                           onClick('ROOM_AVAILABILITY');
+                          clearEvents();
                           getEvent(room.id);
                           selectRoom(room.id,room.room_name);
                         }} className="btn btn-success">View</a>

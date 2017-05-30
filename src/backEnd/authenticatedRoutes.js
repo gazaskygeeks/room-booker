@@ -7,4 +7,5 @@ module.exports = router
 .get('/profile', userControllers.getProfile )
 .get('/userevents',bookingsControllers.userEvent)
 .post('/event/:id',bookingsControllers.createEvent)
+.put('/event/:id',bookingsControllers.updateEvent)
 .post('/logout',userControllers.logout);

@@ -14,6 +14,21 @@ const insertEvent = (data, userId,calenderId,roomName,roomId,cb)=>{
     });
   });
 };
+const updateDBEvent = (data,eventId,cb)=>{
+
+  const sqlQuery = 'UPDATE bookings SET summary=$1,description=$2,start_date=$3,end_date=$4 WHERE event_id=$5 ';
+  pool.connect((poolError,client, done) => {
+    if(poolError){
+      return cb(poolError);
+    }
+    client.query(sqlQuery,[data.summary,data.description,data.start.dateTime,data.end.dateTime,eventId],(err,result)=>{
+      done(err);
+      return err
+        ? cb(err)
+        : cb(null, result);
+    });
+  });
+};
 
 const selectUserEvents = (userID,cb)=>{
   pool.connect((poolError,client, done) => {
@@ -63,5 +78,6 @@ module.exports = {
   insertEvent,
   selectUserEvents,
   selectRoomEvents,
-  deleteDbEvent
+  deleteDbEvent,
+  updateDBEvent
 };

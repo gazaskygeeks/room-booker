@@ -4,7 +4,8 @@ import {ChangeCurrentView,getDayEvents,insertUser,selectRoom}from '../../actions
 
 const mapStateToProps = (state)=>{
   return({
-    rooms: state.rooms
+    rooms: state.rooms,
+    userInfo:state.userInfo
   });
 };
 

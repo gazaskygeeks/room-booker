@@ -14,7 +14,7 @@ const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
 
   if(startTime > (new Date().getTime())){
     const events = roomEvents.filter(elem =>
-    (startTime < elem.end.getTime() && endTime > elem.start.getTime())
+    (startTime <= elem.end.getTime() && endTime >= elem.start.getTime())
   );
     if(events.length > 0){
       return false;

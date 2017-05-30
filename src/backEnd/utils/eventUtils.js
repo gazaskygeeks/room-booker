@@ -31,6 +31,7 @@ const eventDefaults = {
 };
 
 module.exports = (data,email)=> {
+
   const newData = {
     'summary': data.summary,
     'description': data.description,
