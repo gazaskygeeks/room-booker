@@ -14,13 +14,14 @@ const insertEvent = (data, userId,calenderId,roomName,roomId,cb)=>{
     });
   });
 };
-const updateDBEvent = (data,userId,cb)=>{
-  const sqlQuery = 'UPDATE bookings SET summary=$1,description=$2,location=$3,start_date=$4,end_date=$5 WHERE event_id=$5 AND users_id=$6';
+const updateDBEvent = (data,eventId,cb)=>{
+
+  const sqlQuery = 'UPDATE bookings SET summary=$1,description=$2,start_date=$3,end_date=$4 WHERE event_id=$5 ';
   pool.connect((poolError,client, done) => {
     if(poolError){
       return cb(poolError);
     }
-    client.query(sqlQuery,[data.summary,data.description,data.location,data.start.dateTime,data.end.dateTime,data.eventID,userId],(err,result)=>{
+    client.query(sqlQuery,[data.summary,data.description,data.start.dateTime,data.end.dateTime,eventId],(err,result)=>{
       done(err);
       return err
         ? cb(err)

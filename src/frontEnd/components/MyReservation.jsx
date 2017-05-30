@@ -1,34 +1,8 @@
 import React,{Component} from 'react';
 import {PropTypes} from 'prop-types';
 import Reservations from './Reservations.jsx';
-import UpdateModal from './UpdateModal.jsx';
 
-class MyReservation extends Component {
-  constructor(props){
-    super(props);
-    this.closeModal = this.closeModal.bind(this);
-    this.showModal = this.showModal.bind(this);
-    this.state = {
-      openModal:false
-  }
-};
-
-  closeModal(){
-    this.setState({
-      openModal: false
-    });
-  }
-
-  showModal(eventId){
-    this.setState({
-      openModal: true
-    });
-  }
-
-  render(){
-    const {showModal, closeModal} = this;
-    const {openModal} = this.state;
-    const {userReservations, deleteEvent,updateEvent, bookings} = this.props;
+const MyReservation = ({userReservations, deleteEvent,updateEvent, bookings})=>{
 
     return (
         <div className="row">
@@ -36,12 +10,9 @@ class MyReservation extends Component {
             (userReservations.length !== 0)
               ? (
                 userReservations.map(function(event) {
-
-
                   return(
                     <div key={event.id}>
-                      <Reservations event={event} deleteEvent={deleteEvent} showModal={showModal}/>
-                      <UpdateModal open={openModal} close={closeModal} bookings = {bookings} event={event} updateEvent={updateEvent}/>
+                      <Reservations event={event} deleteEvent={deleteEvent} updateEvent={updateEvent} bookings={bookings}/>
                     </div>
                   );
                 })
@@ -55,7 +26,7 @@ class MyReservation extends Component {
         </div>
     );
   }
-}
+
 
 MyReservation.propTypes = {
   userReservations: PropTypes.array,
