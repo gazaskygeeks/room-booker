@@ -37,6 +37,9 @@ class Nav extends Component {
           <Navbar.Toggle/>
         </Navbar.Header>
         <Navbar.Collapse>
+          <Navbar.Text  >
+            <Navbar.Link className="log-out" href="https://goo.gl/bKTLhF" target="_blank">Give us feedback!</Navbar.Link>
+          </Navbar.Text>
           {this.getUserProfile()}
         </Navbar.Collapse>
       </Navbar>
