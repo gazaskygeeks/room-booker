@@ -33,6 +33,7 @@ class WeekView extends Component {
       loop: null,
       alert:true,
       slotInfo:{}
+
     };
   }
 
@@ -119,22 +120,24 @@ class WeekView extends Component {
     this.setState({
       eventModal:true,
       eventTitle:event.title,
+      startTime:event.start.getHours()+':'+event.start.getMinutes()+' - '+event.start.getDate()+'/'+event.start.getMonth()+'/'+event.start.getYear(),
+      endTime:event.end.getHours()+':'+event.end.getMinutes()+' - '+event.end.getDate()+'/'+event.end.getMonth()+'/'+event.end.getYear(),
       eventOwner:details.first_name+' '+details.last_name,
       eventDesc:details.email,
     });
   }
 
   checkEventAvailability(){
-    const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
-    this.setState({
-      open:availability,
-      alert:availability
-    });
+      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+      this.setState({
+        open:availability,
+        alert:availability
+      });
   }
 
   render() {
 
-    const {userInfo} = this.props;
+    const {userInfo, bookings} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -250,13 +253,8 @@ class WeekView extends Component {
                 <Col smOffset={2} sm={10}>
                   <Button onClick={(slotInfo)=>{
                     this.checkEventAvailability(slotInfo);
-                    if(this.open == false){
-                      this.props.createEvent(event,this.props.room.room_id);
-                      this.closeModal();
-                    }
-                    else{
-                      this.closeModal();
-                    }
+                    this.props.createEvent(event,this.props.room.room_id);
+                    this.closeModal();
                   }}>
                     Submit
                   </Button>
@@ -269,6 +267,7 @@ class WeekView extends Component {
         <BigCalendar
           selectable="ignoreEvents"
           popup
+          titleAccessor='email'
           timeslots={4}
           step={15}
           events={this.props.bookings}
@@ -282,10 +281,11 @@ class WeekView extends Component {
           onSelectSlot={(slotInfo)=>{
             this.setState({
               startTime:slotInfo.start,
-              endTime:slotInfo.end});
+              endTime:slotInfo.end
+            });
             this.checkEventAvailability();
           }
-        }
+    }
           />
       </div>
     );
