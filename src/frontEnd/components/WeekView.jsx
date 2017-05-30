@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
-import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel} from 'react-bootstrap';
+import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel, Alert} from 'react-bootstrap';
 import moment from 'moment';
 import {checkEventAvailability} from '../utils/utils.js';
 
@@ -17,6 +17,9 @@ class WeekView extends Component {
     this.onDescChange = this.onDescChange.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.eventModalDetails = this.eventModalDetails.bind(this);
+    this.onStartTimeChange = this.onStartTimeChange.bind(this);
+    this.onEndTimeChange = this.onEndTimeChange.bind(this);
+    this.checkEventAvailability = this.checkEventAvailability.bind(this);
     this.state={
       open:false,
       eventModal:false,
@@ -27,7 +30,10 @@ class WeekView extends Component {
       desc:'',
       startTime:'',
       endTime: '',
-      loop: null
+      loop: null,
+      alert:true,
+      slotInfo:{}
+
     };
   }
 
@@ -55,6 +61,18 @@ class WeekView extends Component {
     this.setState({
       desc:ev.target.value
     });
+
+  }
+  onStartTimeChange(ev){
+    this.setState({
+      startTime:ev.target.value
+    });
+  }
+
+  onEndTimeChange(ev){
+    this.setState({
+      endTime:ev.target.value
+    });
   }
 
   closeModal(){
@@ -71,20 +89,55 @@ class WeekView extends Component {
     });
   }
 
+  alertInfo(){
+    if (this.state.alert) {
+      return(
+        <Alert>
+          <h4>Drag to book a date.</h4>
+        </Alert>
+      );
+    }else {
+      return(
+      <Alert>
+        <h4>You can't book on the past or over a date</h4>
+      </Alert>
+      );
+    }
+  }
+
+  alertWarning(){
+    if (!this.state.alert) {
+      return(
+        <Alert bsStyle="warning">
+          <h4>You can't book over a date.</h4>
+        </Alert>
+      );
+    }
+  }
+
+
   eventModalDetails(details,event){
     this.setState({
       eventModal:true,
       eventTitle:event.title,
-      startTime: event.start.getHours()+':'+event.start.getMinutes(),
-      endTime: event.end.getHours()+':'+event.end.getMinutes(),
+      startTime:event.start.getHours()+':'+event.start.getMinutes()+' - '+event.start.getDate()+'/'+event.start.getMonth()+'/'+event.start.getYear(),
+      endTime:event.end.getHours()+':'+event.end.getMinutes()+' - '+event.end.getDate()+'/'+event.end.getMonth()+'/'+event.end.getYear(),
       eventOwner:details.first_name+' '+details.last_name,
       eventDesc:details.email,
     });
   }
 
+  checkEventAvailability(){
+      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+      this.setState({
+        open:availability,
+        alert:availability
+      });
+  }
+
   render() {
 
-    const {userInfo} = this.props;
+    const {userInfo, bookings} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -99,6 +152,15 @@ class WeekView extends Component {
             {this.props.room.room_name}
           </h1>
         </div>
+        {
+          (this.state.alert)
+            ?(
+              this.alertInfo()
+            )
+            :(
+                this.alertWarning()
+            )
+        }
         <Modal show={this.state.eventModal} onHide={this.closeModal} aria-labelledby="ModalHeader">
           <Modal.Header closeButton>
             <Modal.Title id='ModalHeader'>Event: {this.state.eventTitle}</Modal.Title>
@@ -176,7 +238,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.startTime}/>
+                  <FormControl type="text" onChange={this.onStartTimeChange} value={this.state.startTime}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -184,12 +246,13 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.endTime}/>
+                  <FormControl type="text" onChange={this.onEndTimeChange} value={this.state.endTime}/>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col smOffset={2} sm={10}>
-                  <Button onClick={()=>{
+                  <Button onClick={(slotInfo)=>{
+                    this.checkEventAvailability(slotInfo);
                     this.props.createEvent(event,this.props.room.room_id);
                     this.closeModal();
                   }}>
@@ -204,6 +267,7 @@ class WeekView extends Component {
         <BigCalendar
           selectable="ignoreEvents"
           popup
+          titleAccessor='email'
           timeslots={4}
           step={15}
           events={this.props.bookings}
@@ -214,16 +278,14 @@ class WeekView extends Component {
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
-          onSelectSlot={
-            (slotInfo) => {
-              const availability = checkEventAvailability(this.props.bookings,slotInfo.start.toString(),slotInfo.end.toString());
-              this.setState({
-                open:availability,
-                startTime:`${slotInfo.start.toString()}`,
-                endTime: `${slotInfo.end.toString()}`
-              });
-            }
+          onSelectSlot={(slotInfo)=>{
+            this.setState({
+              startTime:slotInfo.start,
+              endTime:slotInfo.end
+            });
+            this.checkEventAvailability();
           }
+    }
           />
       </div>
     );
