@@ -157,7 +157,11 @@ UpdateModal.propTypes = {
   title: PropTypes.string,
   desc: PropTypes.string,
   start: PropTypes.string,
-  end: PropTypes.string
+  end: PropTypes.string,
+  updateEvent: PropTypes.func,
+  bookings: PropTypes.array,
+  event: PropTypes.object
+
 };
 
 export default UpdateModal;

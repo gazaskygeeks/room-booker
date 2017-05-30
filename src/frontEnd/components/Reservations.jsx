@@ -56,6 +56,9 @@ class Reservations extends Component {
 Reservations.propTypes = {
   deleteEvent: PropTypes.func,
   event: PropTypes.object,
-  showModal: PropTypes.func
+  showModal: PropTypes.func,
+  updateEvent: PropTypes.func,
+  bookings: PropTypes.array
+
 };
 export default Reservations;

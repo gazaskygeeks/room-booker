@@ -153,7 +153,7 @@ const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
     return({
       title: obj.summary,
-      email: 'Title: '+obj.summary+'\n'+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName,
+      email: 'Title: '+obj.summary+', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName,
       start: new Date(obj.start.dateTime),
       end: new Date(obj.end.dateTime)
     });
