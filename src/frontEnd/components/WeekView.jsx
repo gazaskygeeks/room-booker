@@ -128,16 +128,16 @@ class WeekView extends Component {
   }
 
   checkEventAvailability(){
-      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
-      this.setState({
-        open:availability,
-        alert:availability
-      });
+    const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+    this.setState({
+      open:availability,
+      alert:availability
+    });
   }
 
   render() {
 
-    const {userInfo, bookings} = this.props;
+    const {userInfo} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
