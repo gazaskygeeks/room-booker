@@ -33,6 +33,7 @@ class WeekView extends Component {
       loop: null,
       alert:true,
       slotInfo:{}
+
     };
   }
 
