@@ -70,7 +70,8 @@ module.exports = {
           if (err) {
             console.log('get event',err);
             return res.status(500).json({
-              'err': 'error getting events'
+              'err': 'error getting events',
+              'details': err
             });
           }
           res.json(events.items);
