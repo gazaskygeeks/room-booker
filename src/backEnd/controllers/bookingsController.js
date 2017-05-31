@@ -36,6 +36,7 @@ module.exports = {
           else{
             createEvent(req.googleAuth,resource,calendarId, (err, event) => {
               if (err) {
+                console.log('create event',err);
                 return res.status(300).json({
                   'err': 'error creating event'
                 });
@@ -67,6 +68,7 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
+            console.log('get event',err);
             return res.status(500).json({
               'err': 'error getting events'
             });
@@ -100,7 +102,7 @@ module.exports = {
             if(err)
             selectRoomEvents(calendarId,(err,events) => {
               if(err)
-            
+
                 return res.json(events);
             });
           });
