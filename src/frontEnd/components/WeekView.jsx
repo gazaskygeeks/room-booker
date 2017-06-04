@@ -20,6 +20,7 @@ class WeekView extends Component {
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
     this.checkEventAvailability = this.checkEventAvailability.bind(this);
+    this.formateEventsForCalendar = this.formateEventsForCalendar.bind(this);
     this.state={
       open:false,
       eventModal:false,
@@ -49,6 +50,11 @@ class WeekView extends Component {
 
   componentWillUnmount(){
     clearInterval(this.state.loop);
+  }
+
+  formateEventsForCalendar(){
+    const {formateEvents, bookings} = this.props;
+    return formateEvents(bookings);
   }
 
   onTitleChange(ev){
@@ -117,13 +123,16 @@ class WeekView extends Component {
 
 
   eventModalDetails(details,event){
+    const thisEvent = details.find((ev)=>{
+      return ev.id === event.id;
+    });
     this.setState({
       eventModal:true,
       eventTitle:event.title,
       startTime:event.start.getHours()+':'+event.start.getMinutes()+' - '+event.start.getDate()+'/'+event.start.getMonth()+'/'+event.start.getYear(),
       endTime:event.end.getHours()+':'+event.end.getMinutes()+' - '+event.end.getDate()+'/'+event.end.getMonth()+'/'+event.end.getYear(),
-      eventOwner:details.first_name+' '+details.last_name,
-      eventDesc:details.email,
+      eventOwner:thisEvent.attendees[0].displayName,
+      eventDesc:thisEvent.attendees[0].email,
     });
   }
 
@@ -136,8 +145,7 @@ class WeekView extends Component {
   }
 
   render() {
-
-    const {userInfo} = this.props;
+    const {bookings} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -270,14 +278,14 @@ class WeekView extends Component {
           titleAccessor='email'
           timeslots={4}
           step={15}
-          events={this.props.bookings}
+          events={this.formateEventsForCalendar()}
           views={['week', 'day']}
           defaultView='week'
           scrollToTime={new Date(2016)}
           defaultDate={new Date()}
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
-          onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
+          onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           onSelectSlot={(slotInfo)=>{
             this.setState({
               startTime:slotInfo.start,
@@ -299,7 +307,8 @@ WeekView.propTypes = {
   room:PropTypes.object,
   bookings:PropTypes.array,
   onClick: PropTypes.func,
-  getEvent: PropTypes.func
+  getEvent: PropTypes.func,
+  formateEvents: PropTypes.func
 };
 
 export default WeekView;
