@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import RoomAvailbility from '../RoomAvailability.jsx';
-import {isLoggedIn}from '../../actions.js';
+import {isLoggedIn, formateEvents}from '../../actions.js';
 
 const mapStateToProps = (state)=>{
   return({
@@ -12,7 +12,7 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = () => {
   return {
     isLoggedIn: () =>{ isLoggedIn();},
-
+    formateEvents:formateEvents
   };
 };
 
