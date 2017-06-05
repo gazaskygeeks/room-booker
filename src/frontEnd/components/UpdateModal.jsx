@@ -50,11 +50,17 @@ class UpdateModal extends Component {
   }
 
   checkEventAvailability() {
-    const availability = checkEventAvailability(this.props.bookings, this.state.startTime.toString(), this.state.endTime.toString());
-    if (availability) {
+    if(this.props.event.start_date != this.state.startTime){
+      if(this.props.event.end_end != this.state.endTime){
+        const availability = checkEventAvailability(this.props.bookings, this.state.startTime.toString(), this.state.endTime.toString());
+        if (availability) {
+          this.setState({alert: 'success'});
+        } else {
+          this.setState({alert: 'failure'});
+        }
+      }
+    }else{
       this.setState({alert: 'success'});
-    } else {
-      this.setState({alert: 'failure'});
     }
 
   }
@@ -64,6 +70,7 @@ class UpdateModal extends Component {
   }
 
   onDescChange(ev) {
+
     this.setState({desc: ev.target.value});
 
   }
