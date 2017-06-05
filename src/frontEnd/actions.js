@@ -45,7 +45,7 @@ const getDayEvents = (id) => {
     }
   })
   .then((result) => {
-    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: formateEvents(result)});
+    store.dispatch({type: 'FETCH_DAY_BOOKING', payload: result});
   }).catch((err) => {
         console.error('Error', err); //eslint-disable-line
   });
@@ -152,6 +152,7 @@ const getUserBookings = ()=>{
 const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
     return({
+      id:obj.id,
       title: obj.summary,
       email: 'Title: '+obj.summary+', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName,
       start: new Date(obj.start.dateTime),
@@ -212,5 +213,6 @@ export {
   getUserBookings,
   deleteEvent,
   updateEvent,
-  clearEvents
+  clearEvents,
+  formateEvents
 };

@@ -40,6 +40,7 @@ Rooms.propTypes = {
   onClick: PropTypes.func,
   rooms: PropTypes.array,
   selectRoom: PropTypes.func,
-  getEvent: PropTypes.func
+  getEvent: PropTypes.func,
+  clearEvents: PropTypes.func
 };
 export default Rooms;

@@ -18,7 +18,7 @@ const MyReservation = ({userReservations, deleteEvent,updateEvent, bookings})=>{
             )
             :(
               <div className="alert alert-info col-md-4" style={{marginTop: '20px', padding:'0'}}>
-                <h4 style={{marginTop: '20px', marginLeft:'20px'}}><strong>Info!</strong> You don't have any bookings.</h4>
+                <h4 style={{marginTop: '20px', marginLeft:'20px'}}>You don't have any bookings currently</h4>
               </div>
             )
           }
