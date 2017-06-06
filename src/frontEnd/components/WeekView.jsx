@@ -137,7 +137,9 @@ class WeekView extends Component {
   }
 
   checkEventAvailability(){
-    const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
+    const {formateEventsForCalendar} = this;
+    const bookings =  formateEventsForCalendar();
+    const availability = checkEventAvailability(bookings,this.state.startTime.toString(),this.state.endTime.toString());
     this.setState({
       open:availability,
       alert:availability
@@ -287,6 +289,7 @@ class WeekView extends Component {
           max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           onSelectSlot={(slotInfo)=>{
+            console.log(slotInfo);
             this.setState({
               startTime:slotInfo.start,
               endTime:slotInfo.end
