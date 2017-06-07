@@ -12,7 +12,7 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps') || email === 'gazaskygeeks@gmail.com';
+  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps') || email === 'gazaskygeeks@gmail.com' || email.includes('@gmail.com') ;
 };
 
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
