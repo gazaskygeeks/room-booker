@@ -50,6 +50,7 @@ class WeekView extends Component {
 
   componentWillUnmount(){
     clearInterval(this.state.loop);
+    this.props.clearEvents();
   }
 
   formateEventsForCalendar(){
@@ -311,7 +312,8 @@ WeekView.propTypes = {
   bookings:PropTypes.array,
   onClick: PropTypes.func,
   getEvent: PropTypes.func,
-  formateEvents: PropTypes.func
+  formateEvents: PropTypes.func,
+  clearEvents: PropTypes.func
 };
 
 export default WeekView;
