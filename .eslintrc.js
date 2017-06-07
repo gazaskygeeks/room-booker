@@ -1,13 +1,11 @@
 module.exports = {
 
     "env": {
-
         "browser": true,
         "commonjs": true,
         "node": true,
         "jest": true,
         "es6": true
-
   },
     "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parserOptions": {

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import WeekView from '../WeekView.jsx';
-import {createEvent,ChangeCurrentView,getDayEvents} from '../../actions.js';
+import {createEvent,ChangeCurrentView,getDayEvents,formateEvents} from '../../actions.js';
 
 const mapStateToProps = (state) => {
   return ({
@@ -15,7 +15,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createEvent: createEvent,
     onClick: (currentView) =>{dispatch( ChangeCurrentView(currentView));},
-    getEvent: getDayEvents
+    getEvent: getDayEvents,
+    formateEvents: formateEvents
 
   };
 };
