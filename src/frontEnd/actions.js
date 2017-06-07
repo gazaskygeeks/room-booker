@@ -154,7 +154,7 @@ const formateEvents = (events) => {
     return({
       id:obj.id,
       title: obj.summary,
-      email: 'Title: '+obj.summary+', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName,
+      email: (obj.hasOwnProperty('attendees')) ? 'Title: '+obj.summary+', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName : null,
       start: new Date(obj.start.dateTime),
       end: new Date(obj.end.dateTime)
     });

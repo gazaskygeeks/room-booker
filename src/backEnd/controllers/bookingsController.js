@@ -85,27 +85,25 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId) => {
       if(err) {
-        console.log('1',err);
         return res.status(500).end();
       }
       if (calendarId) {
-        console.log('body'+req.body);
         const eventId = req.body.eventId;
         const resource = event(req.body.event, req.user.email);
         updateCalendarEvent(req.googleAuth,calendarId,eventId,resource,(err) => {
           if (err) {
-            console.log('2',err);
             return res.status(300).json({
               'err': 'error updating event'
             });
           }
           updateDBEvent(resource,eventId,(err,updateStatus) => {
             if(err)
-            selectRoomEvents(calendarId,(err,events) => {
-              if(err)
 
-                return res.json(events);
-            });
+              selectRoomEvents(calendarId,(err,events) => {
+                if(err)
+                
+                  return res.json(events);
+              });
           });
         });
       }}

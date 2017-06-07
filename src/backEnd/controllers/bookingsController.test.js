@@ -16,7 +16,7 @@ const calenderId = '1m5k20i4kuknts1fr7v7qql8v0@group.calendar.google.com';
 
 
 const request = require('supertest');
-const agent = request.agent(app);
+//const agent = request.agent(app);
 const nock = require('nock');
 
 const data = {

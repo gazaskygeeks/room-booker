@@ -7,7 +7,7 @@
     "start": "node ./src/backEnd/index.js",
     "test": "jest",
     "test:integration": "jest src/database/database.test.js",
-    "test:watch": "jest --watch ",
+    "test:watch": "jest --watch",
     "watch:client": "webpack --watch",
     "watch:server": "NODE_ENV=development nodemon -x 'npm start'",
     "build": "webpack",
