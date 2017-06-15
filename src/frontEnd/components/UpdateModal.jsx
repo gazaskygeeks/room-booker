@@ -86,8 +86,8 @@ class UpdateModal extends Component {
     var newEvent = {
       summary: this.state.title,
       description: this.state.desc,
-      startDateTime: this.state.startTime,
-      endDateTime: this.state.endTime
+      startDateTime: new Date(this.state.startTime),
+      endDateTime: new Date(this.state.endTime)
     };
     const {open, close, event, updateEvent} = this.props;
     const {checkEventAvailability, alertInfo} = this;
