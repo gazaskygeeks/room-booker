@@ -3,6 +3,7 @@ import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel, Alert} from 'react-bootstrap';
 import moment from 'moment';
+import DateTimeField from 'react-datetime';
 import {checkEventAvailability} from '../utils/utils.js';
 
 BigCalendar.setLocalizer(
@@ -50,6 +51,7 @@ class WeekView extends Component {
 
   componentWillUnmount(){
     clearInterval(this.state.loop);
+    this.props.clearEvents();
   }
 
   formateEventsForCalendar(){
@@ -71,13 +73,13 @@ class WeekView extends Component {
   }
   onStartTimeChange(ev){
     this.setState({
-      startTime:ev.target.value
+      startTime:ev
     });
   }
 
   onEndTimeChange(ev){
     this.setState({
-      endTime:ev.target.value
+      endTime:ev
     });
   }
 
@@ -248,7 +250,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" onChange={this.onStartTimeChange} value={this.state.startTime}/>
+                  <DateTimeField onChange={this.onStartTimeChange} defaultValue={new Date(this.state.startTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -256,7 +258,7 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" onChange={this.onEndTimeChange} value={this.state.endTime}/>
+                  <DateTimeField onChange={this.onStartTimeChange} defaultValue={new Date(this.state.startTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -311,7 +313,8 @@ WeekView.propTypes = {
   bookings:PropTypes.array,
   onClick: PropTypes.func,
   getEvent: PropTypes.func,
-  formateEvents: PropTypes.func
+  formateEvents: PropTypes.func,
+  clearEvents: PropTypes.func
 };
 
 export default WeekView;
