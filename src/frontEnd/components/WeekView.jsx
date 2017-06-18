@@ -258,7 +258,7 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <DateTimeField onChange={this.onStartTimeChange} defaultValue={new Date(this.state.startTime)} daysOfWeekDisabled={[0,1,2]}/>
+                  <DateTimeField onChange={this.onEndTimeChange} defaultValue={new Date(this.state.endTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -266,6 +266,12 @@ class WeekView extends Component {
                   <Button onClick={(slotInfo)=>{
                     this.checkEventAvailability(slotInfo);
                     this.props.createEvent(event,this.props.room.room_id);
+                    this.setState({
+                      title: '',
+                      desc: '',
+                      startTime: '',
+                      endTime: ''
+                    });
                     this.closeModal();
                   }}>
                     Submit
@@ -291,7 +297,6 @@ class WeekView extends Component {
           max={new Date(0,0,0,19,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           onSelectSlot={(slotInfo)=>{
-            console.log(slotInfo);
             this.setState({
               startTime:slotInfo.start,
               endTime:slotInfo.end
