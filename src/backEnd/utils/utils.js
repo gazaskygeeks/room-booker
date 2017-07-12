@@ -18,7 +18,7 @@ const validEmail = (email) => {
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
   if(eventStartAt.getTime() > (new Date().getTime())){
     return roomEvents.filter(elem =>
-    (eventStartAt.getTime() <= elem.end_date.getTime() && eventEndAt.getTime() >= elem.start_date.getTime())
+    (eventStartAt.getTime() < elem.end_date.getTime() && eventEndAt.getTime() > elem.start_date.getTime())
   );
   }
   else {
