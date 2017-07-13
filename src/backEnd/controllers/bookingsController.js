@@ -63,11 +63,13 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId)=>{
       if(err) {
+        console.log(err);
         return res.status(500).end();
       }
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
+            console.log(err);
             console.log('get event',err);
             return res.status(500).json({
               'err': 'error getting events',
@@ -101,7 +103,7 @@ module.exports = {
 
               selectRoomEvents(calendarId,(err,events) => {
                 if(err)
-                
+
                   return res.json(events);
               });
           });
