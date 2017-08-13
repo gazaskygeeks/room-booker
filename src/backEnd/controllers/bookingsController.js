@@ -69,6 +69,7 @@ module.exports = {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
             console.log('get event',err);
+
             return res.status(500).json({
               'err': 'error getting events',
               'details': err
@@ -101,7 +102,7 @@ module.exports = {
 
               selectRoomEvents(calendarId,(err,events) => {
                 if(err)
-                
+
                   return res.json(events);
               });
           });
