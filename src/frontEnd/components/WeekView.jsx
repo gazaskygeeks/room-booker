@@ -294,7 +294,7 @@ class WeekView extends Component {
           scrollToTime={new Date(2016)}
           defaultDate={new Date()}
           min={new Date(0,0,0,8,0,0,0)}
-          max={new Date(0,0,0,19,0,0,0)}
+          max={new Date(0,0,0,21,0,0,0)}
           onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           onSelectSlot={(slotInfo)=>{
             this.setState({

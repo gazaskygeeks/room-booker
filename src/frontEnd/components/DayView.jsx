@@ -117,7 +117,7 @@ class DayView extends Component {
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={new Date()}
           min={new Date(0, 0, 0, 8, 0, 0, 0)}
-          max={new Date(0, 0, 0, 19, 0, 0, 0)}
+          max={new Date(0, 0, 0, 21, 0, 0, 0)}
           onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           />
       </div>
