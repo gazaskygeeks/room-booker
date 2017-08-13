@@ -23,7 +23,10 @@ HOME.propTypes = {
   userReservations: PropTypes.array,
   getUserBookings: PropTypes.func,
   getEvent:PropTypes.func,
-  deleteEvent:PropTypes.func
+  deleteEvent:PropTypes.func,
+  clearEvents: PropTypes.func,
+  updateEvent: PropTypes.func,
+  bookings: PropTypes.array
 };
 
 export default HOME;

@@ -36,6 +36,7 @@ module.exports = {
           else{
             createEvent(req.googleAuth,resource,calendarId, (err, event) => {
               if (err) {
+                console.log('create event',err);
                 return res.status(300).json({
                   'err': 'error creating event'
                 });
@@ -67,11 +68,11 @@ module.exports = {
       if (calendarId) {
         listEvents(req.googleAuth, calendarId,(err, events) => {
           if (err) {
-
-            console.log(err);
+            console.log('get event',err);
 
             return res.status(500).json({
-              'err': 'error getting events'
+              'err': 'error getting events',
+              'details': err
             });
           }
           res.json(events.items);
@@ -85,27 +86,25 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId) => {
       if(err) {
-        console.log('1',err);
         return res.status(500).end();
       }
       if (calendarId) {
-        console.log('body'+req.body);
         const eventId = req.body.eventId;
         const resource = event(req.body.event, req.user.email);
         updateCalendarEvent(req.googleAuth,calendarId,eventId,resource,(err) => {
           if (err) {
-            console.log('2',err);
             return res.status(300).json({
               'err': 'error updating event'
             });
           }
           updateDBEvent(resource,eventId,(err,updateStatus) => {
             if(err)
-            selectRoomEvents(calendarId,(err,events) => {
-              if(err)
-            
-                return res.json(events);
-            });
+
+              selectRoomEvents(calendarId,(err,events) => {
+                if(err)
+
+                  return res.json(events);
+              });
           });
         });
       }}

@@ -33,8 +33,6 @@ class Reservations extends Component {
                 Room name: {event.room_name}</p>
               <p className="card-text">
                 Description: {event.description}</p>
-              <p className="card-text">
-                Room: {event.room_name}</p>
               <a className="btn btn-danger" onClick={() => {
                 deleteEvent(event.event_id, event.calendar_id, event.room_id);
               }}>Cancel</a>
@@ -56,6 +54,9 @@ class Reservations extends Component {
 Reservations.propTypes = {
   deleteEvent: PropTypes.func,
   event: PropTypes.object,
-  showModal: PropTypes.func
+  showModal: PropTypes.func,
+  updateEvent: PropTypes.func,
+  bookings: PropTypes.array
+
 };
 export default Reservations;

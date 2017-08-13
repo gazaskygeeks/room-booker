@@ -9,6 +9,7 @@ import {
   Col,
   Alert
 } from 'react-bootstrap';
+import DateTimeField from 'react-datetime';
 import {checkEventAvailability} from '../utils/utils.js';
 
 class UpdateModal extends Component {
@@ -50,13 +51,18 @@ class UpdateModal extends Component {
   }
 
   checkEventAvailability() {
-    const availability = checkEventAvailability(this.props.bookings, this.state.startTime.toString(), this.state.endTime.toString());
-    if (availability) {
+    if(this.props.event.start_date != this.state.startTime){
+      if(this.props.event.end_end != this.state.endTime){
+        const availability = checkEventAvailability(this.props.bookings, this.state.startTime.toString(), this.state.endTime.toString());
+        if (availability) {
+          this.setState({alert: 'success'});
+        } else {
+          this.setState({alert: 'failure'});
+        }
+      }
+    }else{
       this.setState({alert: 'success'});
-    } else {
-      this.setState({alert: 'failure'});
     }
-
   }
 
   onTitleChange(ev) {
@@ -65,22 +71,22 @@ class UpdateModal extends Component {
 
   onDescChange(ev) {
     this.setState({desc: ev.target.value});
-
-  }
-  onStartTimeChange(ev) {
-    this.setState({startTime: ev.target.value});
   }
 
-  onEndTimeChange(ev) {
-    this.setState({endTime: ev.target.value});
+  onStartTimeChange(newDate) {
+    this.setState({startTime: newDate});
+  }
+
+  onEndTimeChange(newDate) {
+    this.setState({endTime: newDate});
   }
 
   render() {
     var newEvent = {
       summary: this.state.title,
       description: this.state.desc,
-      startDateTime: this.state.startTime,
-      endDateTime: this.state.endTime
+      startDateTime: new Date(this.state.startTime),
+      endDateTime: new Date(this.state.endTime)
     };
     const {open, close, event, updateEvent} = this.props;
     const {checkEventAvailability, alertInfo} = this;
@@ -114,7 +120,7 @@ class UpdateModal extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.startTime} onChange={this.onStartTimeChange} placeholder="description" required/>
+                  <DateTimeField onChange={this.onStartTimeChange} defaultValue={new Date(this.state.startTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -122,7 +128,7 @@ class UpdateModal extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.endTime} onChange={this.onEndTimeChange} placeholder="description" required/>
+                  <DateTimeField onChange={this.onEndTimeChange} defaultValue={new Date(this.state.endTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -157,7 +163,11 @@ UpdateModal.propTypes = {
   title: PropTypes.string,
   desc: PropTypes.string,
   start: PropTypes.string,
-  end: PropTypes.string
+  end: PropTypes.string,
+  updateEvent: PropTypes.func,
+  bookings: PropTypes.array,
+  event: PropTypes.object
+
 };
 
 export default UpdateModal;

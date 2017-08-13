@@ -3,6 +3,7 @@ import {PropTypes} from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import {Modal,Button,Form,FormControl,FormGroup,Col,ControlLabel, Alert} from 'react-bootstrap';
 import moment from 'moment';
+import DateTimeField from 'react-datetime';
 import {checkEventAvailability} from '../utils/utils.js';
 
 BigCalendar.setLocalizer(
@@ -20,6 +21,7 @@ class WeekView extends Component {
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
     this.onEndTimeChange = this.onEndTimeChange.bind(this);
     this.checkEventAvailability = this.checkEventAvailability.bind(this);
+    this.formateEventsForCalendar = this.formateEventsForCalendar.bind(this);
     this.state={
       open:false,
       eventModal:false,
@@ -49,6 +51,12 @@ class WeekView extends Component {
 
   componentWillUnmount(){
     clearInterval(this.state.loop);
+    this.props.clearEvents();
+  }
+
+  formateEventsForCalendar(){
+    const {formateEvents, bookings} = this.props;
+    return formateEvents(bookings);
   }
 
   onTitleChange(ev){
@@ -65,13 +73,13 @@ class WeekView extends Component {
   }
   onStartTimeChange(ev){
     this.setState({
-      startTime:ev.target.value
+      startTime:ev
     });
   }
 
   onEndTimeChange(ev){
     this.setState({
-      endTime:ev.target.value
+      endTime:ev
     });
   }
 
@@ -117,27 +125,31 @@ class WeekView extends Component {
 
 
   eventModalDetails(details,event){
+    const thisEvent = details.find((ev)=>{
+      return ev.id === event.id;
+    });
     this.setState({
       eventModal:true,
       eventTitle:event.title,
       startTime:event.start.getHours()+':'+event.start.getMinutes()+' - '+event.start.getDate()+'/'+event.start.getMonth()+'/'+event.start.getYear(),
       endTime:event.end.getHours()+':'+event.end.getMinutes()+' - '+event.end.getDate()+'/'+event.end.getMonth()+'/'+event.end.getYear(),
-      eventOwner:details.first_name+' '+details.last_name,
-      eventDesc:details.email,
+      eventOwner:thisEvent.attendees[0].displayName,
+      eventDesc:thisEvent.attendees[0].email,
     });
   }
 
   checkEventAvailability(){
-      const availability = checkEventAvailability(this.props.bookings,this.state.startTime.toString(),this.state.endTime.toString());
-      this.setState({
-        open:availability,
-        alert:availability
-      });
+    const {formateEventsForCalendar} = this;
+    const bookings =  formateEventsForCalendar();
+    const availability = checkEventAvailability(bookings,this.state.startTime.toString(),this.state.endTime.toString());
+    this.setState({
+      open:availability,
+      alert:availability
+    });
   }
 
   render() {
-
-    const {userInfo, bookings} = this.props;
+    const {bookings} = this.props;
     var event = {
       summary : this.state.title,
       description : this.state.desc,
@@ -238,7 +250,7 @@ class WeekView extends Component {
                   Start Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" onChange={this.onStartTimeChange} value={this.state.startTime}/>
+                  <DateTimeField onChange={this.onStartTimeChange} defaultValue={new Date(this.state.startTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup controlId="formHorizontalPassword">
@@ -246,7 +258,7 @@ class WeekView extends Component {
                   End Time
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" onChange={this.onEndTimeChange} value={this.state.endTime}/>
+                  <DateTimeField onChange={this.onEndTimeChange} defaultValue={new Date(this.state.endTime)} daysOfWeekDisabled={[0,1,2]}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -254,6 +266,12 @@ class WeekView extends Component {
                   <Button onClick={(slotInfo)=>{
                     this.checkEventAvailability(slotInfo);
                     this.props.createEvent(event,this.props.room.room_id);
+                    this.setState({
+                      title: '',
+                      desc: '',
+                      startTime: '',
+                      endTime: ''
+                    });
                     this.closeModal();
                   }}>
                     Submit
@@ -270,14 +288,14 @@ class WeekView extends Component {
           titleAccessor='email'
           timeslots={4}
           step={15}
-          events={this.props.bookings}
+          events={this.formateEventsForCalendar()}
           views={['week', 'day']}
           defaultView='week'
           scrollToTime={new Date(2016)}
           defaultDate={new Date()}
           min={new Date(0,0,0,8,0,0,0)}
           max={new Date(0,0,0,19,0,0,0)}
-          onSelectEvent={(event)=>{this.eventModalDetails(userInfo,event);}}
+          onSelectEvent={(event)=>{this.eventModalDetails(bookings,event);}}
           onSelectSlot={(slotInfo)=>{
             this.setState({
               startTime:slotInfo.start,
@@ -299,7 +317,9 @@ WeekView.propTypes = {
   room:PropTypes.object,
   bookings:PropTypes.array,
   onClick: PropTypes.func,
-  getEvent: PropTypes.func
+  getEvent: PropTypes.func,
+  formateEvents: PropTypes.func,
+  clearEvents: PropTypes.func
 };
 
 export default WeekView;

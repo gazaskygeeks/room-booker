@@ -12,13 +12,13 @@ const checkAuth = (accessToken) => {
     });
 };
 const validEmail = (email) => {
-  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps') || email === 'gazaskygeeks@gmail.com';
+  return email.includes('@gazaskygeeks.com') || email.includes('@mercycorps') || email === 'gazaskygeeks@gmail.com' || email.includes('@gmail.com') ;
 };
 
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
   if(eventStartAt.getTime() > (new Date().getTime())){
     return roomEvents.filter(elem =>
-    (eventStartAt.getTime() <= elem.end_date.getTime() && eventEndAt.getTime() >= elem.start_date.getTime())
+    (eventStartAt.getTime() < elem.end_date.getTime() && eventEndAt.getTime() > elem.start_date.getTime())
   );
   }
   else {
