@@ -21,6 +21,7 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId)=>{
       if(err) {
+        console.log('3',err);
         return res.status(500).end();
       }
       if (calendarId) {
@@ -43,6 +44,7 @@ module.exports = {
               }
               selectRoomName(roomId,(err,roomName)=>{
                 if(err){
+                  console.log('selectRoom',err);
                   res.status(404).json({
                     'err': 'no room with this id'
                   });
@@ -63,6 +65,7 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId)=>{
       if(err) {
+        console.log('calid',err);
         return res.status(500).end();
       }
       if (calendarId) {
@@ -86,6 +89,7 @@ module.exports = {
     const roomId = req.params.id;
     selectCalendarID(roomId,(err,calendarId) => {
       if(err) {
+        console.log('up',err);
         return res.status(500).end();
       }
       if (calendarId) {
@@ -93,13 +97,14 @@ module.exports = {
         const resource = event(req.body.event, req.user.email);
         updateCalendarEvent(req.googleAuth,calendarId,eventId,resource,(err) => {
           if (err) {
+            console.log('updatecal',err);
             return res.status(300).json({
               'err': 'error updating event'
             });
           }
           updateDBEvent(resource,eventId,(err,updateStatus) => {
             if(err)
-
+            console.log('5',err);
               selectRoomEvents(calendarId,(err,events) => {
                 if(err)
 
