@@ -24,7 +24,8 @@ const listEvents = (auth,calendarId,cb)=> {
     calendarId: calendarId,
     maxResults: 100,
     singleEvents: true,
-    orderBy: 'startTime'
+    orderBy: 'startTime',
+    timeMax: (new Date()).toISOString()
   }, cb);
 };
 
