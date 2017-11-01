@@ -25,7 +25,7 @@ const listEvents = (auth,calendarId,cb)=> {
     maxResults: 100,
     singleEvents: true,
     orderBy: 'startTime',
-    timeMax: (new Date()).toISOString()
+    timeMin: (new Date()).toISOString()
   }, cb);
 };
 
