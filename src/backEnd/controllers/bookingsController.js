@@ -31,7 +31,7 @@ module.exports = {
           const eventAvailability = checkEventAvailability(roomEvent,resource.start.dateTime,resource.end.dateTime);
           if(eventAvailability.length > 0){
             return res.status(500).json({
-              'err': 'conflict with'+ eventAvailability.summary
+              'err': eventAvailability
             });
           }
           else{
