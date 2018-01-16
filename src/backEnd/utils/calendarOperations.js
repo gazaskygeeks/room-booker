@@ -22,7 +22,7 @@ const listEvents = (auth,calendarId,cb)=> {
   calendar.events.list({
     auth: auth,
     calendarId: calendarId,
-    maxResults: 250,
+    maxResults: 2500,
     singleEvents: true,
     orderBy: 'startTime',
     timeMin: (new Date()).toISOString()
