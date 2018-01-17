@@ -16,10 +16,14 @@ const validEmail = (email) => {
 };
 
 const checkEventAvailability = (roomEvents,eventStartAt,eventEndAt) => {
-  console.log(eventStartAt.getTime());
+  console.log('start time', eventStartAt.getTime(), 'end time' endEndAt.getTime());
   if(eventStartAt.getTime() > (new Date().getTime())){
     return roomEvents.filter(elem =>
-    (eventStartAt.getTime() < elem.end_date.getTime() && eventEndAt.getTime() > elem.start_date.getTime())
+    (eventStartAt.getTime() < elem.end_date.getTime() && eventEndAt.getTime() > elem.start_date.getTime()).map((elem) => {
+        elem.end_time = elem.end_date.getTime();
+        elem.start_time = elem.start_date.getTime();
+        return elem;
+    });
   );
   }
   else {
