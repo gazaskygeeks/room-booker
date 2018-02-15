@@ -21,7 +21,7 @@ const updateCalendarEvent =(auth,calendarId,eventId,resource,cb)=> {
 const listEvents = (auth,calendarId,cb)=> {
   const date = new Date();
   let endDate = new Date();
-  endDate.setMonth(endDate.getMonth()+6);
+  endDate.setMonth(endDate.getMonth()+1);
   var startDate = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
   calendar.events.list({
     auth: auth,
