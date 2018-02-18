@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const {DISABLE_LOCAL_EVENT_CHECK} = require('../../../config.js');
 
 const checkAuth = (accessToken) => {
     return fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + accessToken)
@@ -18,6 +19,7 @@ const validEmail = (email) => {
 const checkEventAvailability = (roomEvents, eventStartAt, eventEndAt) => {
     console.log('start time', eventStartAt.getTime(), 'end time', eventEndAt.getTime());
     if (eventStartAt.getTime() > (new Date().getTime())) {
+        if (DISABLE_LOCAL_EVENT_CHECK) return []; 
         return roomEvents.filter(elem =>
             (eventStartAt.getTime() < elem.end_date.getTime() && eventEndAt.getTime() > elem.start_date.getTime())).map((elem) => {
             elem.end_time = elem.end_date.getTime();

@@ -42,5 +42,6 @@ module.exports = {
     PRIVATE_KEY:process.env.PRIVATE_KEY,
     CLIENT_EMAIL:process.env.CLIENT_EMAIL
   },
-  PORT: process.env.PORT || 8080
+  PORT: process.env.PORT || 8080,
+  DISABLE_LOCAL_EVENT_CHECK: process.env.DISABLE_LOCAL_EVENT_CHECK || false
 };
