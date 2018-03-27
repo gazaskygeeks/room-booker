@@ -151,10 +151,14 @@ const getUserBookings = ()=>{
 
 const formateEvents = (events) => {
   var reformatEvents = events.map((obj)=>{
+    let title = 'Title: '+obj.summary;
+    if (obj.hasOwnProperty('attendees')) {
+        title += ', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName; 
+    }
     return({
       id:obj.id,
       title: obj.summary,
-      email: (obj.hasOwnProperty('attendees')) ? 'Title: '+obj.summary+', '+'Organizer: '+obj.attendees[0].email || obj.attendees[0].displayName : null,
+      email: title,
       start: new Date(obj.start.dateTime),
       end: new Date(obj.end.dateTime)
     });
