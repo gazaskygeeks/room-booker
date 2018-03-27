@@ -130,11 +130,11 @@ class WeekView extends Component {
     });
     this.setState({
       eventModal:true,
-      eventTitle:event.title,
+      eventTitle:event.title || event.summary,
       startTime:event.start.getHours()+':'+event.start.getMinutes()+' - '+event.start.getDate()+'/'+event.start.getMonth()+'/'+event.start.getYear(),
       endTime:event.end.getHours()+':'+event.end.getMinutes()+' - '+event.end.getDate()+'/'+event.end.getMonth()+'/'+event.end.getYear(),
-      eventOwner:thisEvent.attendees[0].displayName,
-      eventDesc:thisEvent.attendees[0].email,
+      eventOwner:thisEvent.attendees ? thisEvent.attendees[0].displayName : '',
+      eventDesc:thisEvent.attendees ? thisEvent.attendees[0].email : '',
     });
   }
 
